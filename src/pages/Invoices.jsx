@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
+import icReceiptIcon from '../assets/icons/ic-receipt-24px 1.svg'
 
 // Figma assets from the selection
 const imgEllipse7 = "http://localhost:3845/assets/fe3dd55ee90b77a6c75dedcae50485a119a92a55.png";
@@ -35,6 +36,12 @@ const Invoices = () => {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
+  }
+
+  const handleCreateInvoice = () => {
+    console.log('Create Invoice clicked')
+    // Add your create invoice logic here
+    // For example: navigate to create invoice form, open modal, etc.
   }
 
   const topSidebarItems = [
@@ -299,13 +306,18 @@ const Invoices = () => {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-                {/* Create Invoice Button */}
-                <button className="bg-[#c8ee44] hover:bg-[#b8de34] text-[#1b212d] font-['Kumbh_Sans'] font-semibold text-[14px] px-5 py-3.5 rounded-[10px] flex items-center gap-2.5 justify-center transition-colors duration-200">
-                  <div className="w-5 h-5">
-                    <img alt="Create Invoice" className="block max-w-none size-full" src={imgIcReceipt24Px1} />
-                  </div>
-                  Create Invoice
-                </button>
+                                 {/* Create Invoice Button */}
+                 <button 
+                   onClick={handleCreateInvoice}
+                   className="bg-[#c8ee44] hover:bg-[#b8de34] active:bg-[#a8ce24] text-[#1b212d] font-['Kumbh_Sans'] font-semibold text-[14px] px-5 py-3.5 rounded-[10px] flex items-center gap-2.5 justify-center transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#c8ee44] focus:ring-opacity-50 cursor-pointer"
+                   aria-label="Create new invoice"
+                   title="Create new invoice"
+                 >
+                   <div className="w-5 h-5">
+                     <img alt="Create Invoice" className="block max-w-none size-full" src={icReceiptIcon} />
+                   </div>
+                   Create Invoice
+                 </button>
 
                 {/* Filters Button */}
                 <button className={`border border-neutral-100 hover:bg-gray-50 font-['Kumbh_Sans'] font-medium text-[14px] px-5 py-3.5 rounded-[10px] flex items-center gap-2.5 justify-center transition-colors duration-200 ${isDarkMode ? 'border-[#2a2550] text-white hover:bg-[#2a2550]' : 'text-[#1b212d]'}`}>
@@ -318,26 +330,26 @@ const Invoices = () => {
             </div>
           </div>
 
-          {/* Table Headers - Hidden on mobile and tablet */}
-          <div className="px-4 md:px-6 lg:px-10 mb-4">
-            <div className="w-full max-w-[1110px] mx-auto">
-              <div className="hidden lg:flex font-['Kumbh_Sans'] font-semibold text-[#929eae] text-[12px] gap-[30px]">
-                <div className="w-[237px]">NAME/CLIENT</div>
-                <div className="w-[147px]">DATE</div>
-                <div className="w-[147px]">ORDERS/TYPE</div>
-                <div className="w-[149px]">AMOUNT</div>
-                <div className="w-[173px]">STATUS</div>
-                <div className="flex-1">ACTION</div>
-              </div>
-            </div>
-          </div>
+                     {/* Table Headers - Hidden on mobile and tablet */}
+           <div className="px-4 md:px-6 lg:px-10 mb-4">
+             <div className="w-full max-w-[1110px] mx-auto">
+               <div className="hidden lg:flex font-['Kumbh_Sans'] font-semibold text-[#929eae] text-[12px] uppercase tracking-wide bg-gray-50 py-3 px-4 rounded-lg">
+                 <div className="w-[250px] pl-4">NAME/CLIENT</div>
+                 <div className="w-[150px] text-center">DATE</div>
+                 <div className="w-[150px] text-center">ORDERS/TYPE</div>
+                 <div className="w-[150px] text-center">AMOUNT</div>
+                 <div className="w-[180px] text-center">STATUS</div>
+                 <div className="w-[100px] text-center">ACTION</div>
+               </div>
+             </div>
+           </div>
 
           {/* Invoices List */}
           <div className="px-4 md:px-6 lg:px-10">
             <div className="w-full max-w-[1110px] mx-auto">
               <div className="flex flex-col gap-5">
-                {filteredInvoices.map((invoice, index) => (
-                  <div key={index} className="border-b border-neutral-100 pb-5 last:border-b-0">
+                                 {filteredInvoices.map((invoice, index) => (
+                   <div key={index} className="border-b border-neutral-100 pb-5 last:border-b-0 hover:bg-gray-50 transition-colors duration-200">
                     {/* Mobile/Tablet Layout */}
                     <div className="lg:hidden">
                       <div className="flex flex-col gap-4">
@@ -388,61 +400,61 @@ const Invoices = () => {
                       </div>
                     </div>
 
-                    {/* Desktop Layout */}
-                    <div className="hidden lg:flex lg:items-center lg:justify-between gap-4">
-                      {/* Client Info */}
-                      <div className="flex items-center gap-[15px] w-[237px]">
-                        <div className="w-[38px] h-[38px]">
-                          <img alt={invoice.client} className="block max-w-none size-full rounded-full" src={invoice.avatar} />
-                        </div>
-                        <div className="flex flex-col">
-                          <span className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                            {invoice.client}
-                          </span>
-                          <span className="font-['Kumbh_Sans'] font-normal text-[13px] text-[#929eae]">
-                            Inv: {invoice.id}
-                          </span>
-                        </div>
-                      </div>
+                                         {/* Desktop Layout */}
+                     <div className="hidden lg:flex lg:items-center w-full py-4">
+                       {/* Client Info */}
+                       <div className="flex items-center gap-[15px] w-[250px] pl-4">
+                         <div className="w-[38px] h-[38px]">
+                           <img alt={invoice.client} className="block max-w-none size-full rounded-full" src={invoice.avatar} />
+                         </div>
+                         <div className="flex flex-col">
+                           <span className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                             {invoice.client}
+                           </span>
+                           <span className="font-['Kumbh_Sans'] font-normal text-[13px] text-[#929eae]">
+                             Inv: {invoice.id}
+                           </span>
+                         </div>
+                       </div>
 
-                      {/* Date */}
-                      <div className="w-[147px]">
-                        <div className="font-['Kumbh_Sans'] font-medium text-[14px] text-[#1b212d]">
-                          {invoice.date}
-                        </div>
-                        <div className="font-['Kumbh_Sans'] font-normal text-[13px] text-[#929eae]">
-                          {invoice.time}
-                        </div>
-                      </div>
+                       {/* Date */}
+                       <div className="w-[150px] text-center">
+                         <div className="font-['Kumbh_Sans'] font-medium text-[14px] text-[#1b212d]">
+                           {invoice.date}
+                         </div>
+                         <div className="font-['Kumbh_Sans'] font-normal text-[13px] text-[#929eae]">
+                           {invoice.time}
+                         </div>
+                       </div>
 
-                      {/* Orders/Type */}
-                      <div className="w-[147px]">
-                        <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#929eae]">
-                          {invoice.orders}
-                        </div>
-                      </div>
+                       {/* Orders/Type */}
+                       <div className="w-[150px] text-center">
+                         <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#929eae]">
+                           {invoice.orders}
+                         </div>
+                       </div>
 
-                      {/* Amount */}
-                      <div className="w-[149px]">
-                        <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#1b212d]">
-                          {invoice.amount}
-                        </div>
-                      </div>
+                       {/* Amount */}
+                       <div className="w-[150px] text-center">
+                         <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#1b212d]">
+                           {invoice.amount}
+                         </div>
+                       </div>
 
-                      {/* Status */}
-                      <div className="w-[173px]">
-                        <div className={`inline-flex px-[15px] py-2 rounded font-['Kumbh_Sans'] font-medium text-[12px] ${invoice.statusColor}`}>
-                          {invoice.status}
-                        </div>
-                      </div>
+                       {/* Status */}
+                       <div className="w-[180px] text-center">
+                         <div className={`inline-flex px-[15px] py-2 rounded font-['Kumbh_Sans'] font-medium text-[12px] ${invoice.statusColor}`}>
+                           {invoice.status}
+                         </div>
+                       </div>
 
-                      {/* Action */}
-                      <div className="flex-1 flex justify-end">
-                        <button className="w-[25px] h-[25px]">
-                          <img alt="More" className="block max-w-none size-full" src={imgMore} />
-                        </button>
-                      </div>
-                    </div>
+                       {/* Action */}
+                       <div className="w-[100px] text-center">
+                         <button className="w-[25px] h-[25px] mx-auto">
+                           <img alt="More" className="block max-w-none size-full" src={imgMore} />
+                         </button>
+                       </div>
+                     </div>
                   </div>
                 ))}
               </div>
