@@ -7,7 +7,7 @@ const DarkModeToggle = () => {
     <button
       onClick={toggleDarkMode}
       className={`
-        fixed top-6 right-6 z-50 p-3 rounded-full transition-all duration-300 ease-in-out
+        p-3 rounded-full transition-all duration-300 ease-in-out
         ${isDarkMode 
           ? 'bg-gray-800 hover:bg-gray-700 text-yellow-400' 
           : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
