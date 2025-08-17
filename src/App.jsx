@@ -4,6 +4,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Settings from './pages/Settings'
 import Invoices from './pages/Invoices'
+import Transactions from './pages/Transactions'
 // import Dashboard from './pages/Dashboard'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/invoices" element={<Invoices />} />
+          <Route path="/transactions" element={<Transactions />} />
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
