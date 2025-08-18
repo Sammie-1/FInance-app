@@ -38,7 +38,7 @@ const Transactions = () => {
     { icon: img, label: 'Dashboard', active: false, path: '/dashboard' },
     { icon: img11, label: 'Transactions', active: true },
     { icon: img, label: 'Invoices', active: false, path: '/invoices' },
-    { icon: img, label: 'My Wallets', active: false },
+    { icon: img, label: 'My Wallets', active: false, path: '/my-wallets' },
     { icon: img, label: 'Settings', active: false, path: '/settings' }
   ]
 

@@ -46,10 +46,10 @@ const Invoices = () => {
 
   const topSidebarItems = [
     { icon: img, label: 'Dashboard', active: false, path: '/dashboard' },
-    { icon: img1, label: 'Transactions', active: false },
+    { icon: img1, label: 'Transactions', active: false, path: '/transactions' },
     { icon: img3, label: 'Invoices', active: true },
-    { icon: img, label: 'My Wallets', active: false },
-    { icon: img, label: 'Settings', active: false }
+    { icon: img, label: 'My Wallets', active: false, path: '/my-wallets' },
+    { icon: img, label: 'Settings', active: false, path: '/settings' }
   ]
 
   const bottomSidebarItems = [
@@ -167,10 +167,10 @@ const Invoices = () => {
           </svg>
         </button>
 
-        {/* Sidebar */}
+        {/* Sidebar - Dynamic Theme */}
         <div className={`fixed md:relative z-40 w-[250px] h-screen transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-        } ${isDarkMode ? 'bg-[#252347]' : 'bg-[#fafafa]'} flex flex-col transition-colors duration-300`}>
+        } ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-[#fafafa]'} flex flex-col transition-colors duration-300`}>
           {/* Logo */}
           <div className="flex items-center gap-3 px-[25px] pt-[30px] pb-10">
             <div className="w-[30px] h-[30px]">
@@ -196,7 +196,7 @@ const Invoices = () => {
                     item.active 
                       ? 'bg-[#c8ee44]' 
                       : isDarkMode 
-                        ? 'hover:bg-gray-700' 
+                        ? 'hover:bg-[#282541]' 
                         : 'hover:bg-gray-100'
                   }`}
                 >
@@ -206,9 +206,7 @@ const Invoices = () => {
                   <span className={`font-['Kumbh_Sans'] text-[14px] ${
                     item.active 
                       ? 'font-semibold text-[#929eae]' 
-                      : isDarkMode 
-                        ? 'font-medium text-gray-400' 
-                        : 'font-medium text-[#929eae]'
+                      : 'font-medium text-[#929eae]'
                   }`}>
                     {item.label}
                   </span>
@@ -223,7 +221,7 @@ const Invoices = () => {
                   key={index}
                   className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[200px] ${
                     isDarkMode 
-                      ? 'hover:bg-gray-700 text-gray-400' 
+                      ? 'hover:bg-[#282541] text-[#929eae]' 
                       : 'hover:bg-gray-100 text-[#929eae]'
                   }`}
                 >
@@ -270,7 +268,7 @@ const Invoices = () => {
                 <DarkModeToggle />
                 
                 {/* User Profile */}
-                <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-full sm:w-[180px] lg:w-[215px] transition-colors duration-300`}>
+                <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-full sm:w-[180px] lg:w-[215px] transition-colors duration-300`}>
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9">
                       <img alt="Profile" className="block max-w-none size-full rounded-full" src={imgEllipse1} />
@@ -290,8 +288,12 @@ const Invoices = () => {
           {/* Search and Actions Bar */}
           <div className="px-4 md:px-6 lg:px-10 mb-6">
             <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between w-full max-w-[1110px] mx-auto">
-              {/* Search Bar */}
-              <div className={`flex-1 max-w-full lg:max-w-[400px] bg-[#f8f8f8] rounded-[15px] border border-neutral-100 flex items-center gap-[15px] px-[15px] py-3 ${isDarkMode ? 'bg-[#2a2550] border-[#2a2550]' : ''}`}>
+              {/* Search Bar - Dynamic Theme */}
+              <div className={`flex-1 max-w-full lg:max-w-[400px] rounded-[15px] border flex items-center gap-[15px] px-[15px] py-3 transition-colors duration-300 ${
+                isDarkMode 
+                  ? 'bg-[#282541] border-[#201e34]' 
+                  : 'bg-[#f8f8f8] border-neutral-100'
+              }`}>
                 <div className="w-6 h-6">
                   <img alt="Search" className="block max-w-none size-full" src={img4} />
                 </div>
@@ -300,7 +302,11 @@ const Invoices = () => {
                   placeholder="Search invoices"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`flex-1 bg-transparent font-['Kumbh_Sans'] font-normal text-[14px] ${isDarkMode ? 'text-white placeholder-gray-400' : 'text-[#929eae] placeholder-[#929eae]'} outline-none`}
+                  className={`flex-1 bg-transparent font-['Kumbh_Sans'] font-normal text-[14px] ${
+                    isDarkMode 
+                      ? 'text-[#78778b] placeholder-[#78778b]' 
+                      : 'text-[#929eae] placeholder-[#929eae]'
+                  } outline-none`}
                 />
               </div>
 
@@ -320,7 +326,11 @@ const Invoices = () => {
                  </button>
 
                 {/* Filters Button */}
-                <button className={`border border-neutral-100 hover:bg-gray-50 font-['Kumbh_Sans'] font-medium text-[14px] px-5 py-3.5 rounded-[10px] flex items-center gap-2.5 justify-center transition-colors duration-200 ${isDarkMode ? 'border-[#2a2550] text-white hover:bg-[#2a2550]' : 'text-[#1b212d]'}`}>
+                <button className={`border font-['Kumbh_Sans'] font-medium text-[14px] px-5 py-3.5 rounded-[10px] flex items-center gap-2.5 justify-center transition-colors duration-200 ${
+                  isDarkMode 
+                    ? 'border-[#201e34] text-white hover:bg-[#282541]' 
+                    : 'border-neutral-100 text-[#1b212d] hover:bg-gray-50'
+                }`}>
                   <div className="w-5 h-5">
                     <img alt="Filters" className="block max-w-none size-full" src={imgBxFilter1} />
                   </div>
@@ -333,7 +343,9 @@ const Invoices = () => {
                      {/* Table Headers - Hidden on mobile and tablet */}
            <div className="px-4 md:px-6 lg:px-10 mb-4">
              <div className="w-full max-w-[1110px] mx-auto">
-               <div className="hidden lg:flex font-['Kumbh_Sans'] font-semibold text-[#929eae] text-[12px] uppercase tracking-wide bg-gray-50 py-3 px-4 rounded-lg">
+               <div className={`hidden lg:flex font-['Kumbh_Sans'] font-semibold text-[#78778b] text-[12px] uppercase tracking-wide py-3 px-4 rounded-lg transition-colors duration-300 ${
+                 isDarkMode ? 'bg-[#201e34]' : 'bg-gray-50'
+               }`}>
                  <div className="w-[250px] pl-4">NAME/CLIENT</div>
                  <div className="w-[150px] text-center">DATE</div>
                  <div className="w-[150px] text-center">ORDERS/TYPE</div>
@@ -349,7 +361,9 @@ const Invoices = () => {
             <div className="w-full max-w-[1110px] mx-auto">
               <div className="flex flex-col gap-5">
                                  {filteredInvoices.map((invoice, index) => (
-                   <div key={index} className="border-b border-neutral-100 pb-5 last:border-b-0 hover:bg-gray-50 transition-colors duration-200">
+                   <div key={index} className={`border-b pb-5 last:border-b-0 transition-colors duration-200 ${
+                     isDarkMode ? 'border-[#201e34] hover:bg-[#282541]' : 'border-neutral-100 hover:bg-gray-50'
+                   }`}>
                     {/* Mobile/Tablet Layout */}
                     <div className="lg:hidden">
                       <div className="flex flex-col gap-4">
@@ -359,44 +373,44 @@ const Invoices = () => {
                             <div className="w-[38px] h-[38px]">
                               <img alt={invoice.client} className="block max-w-none size-full rounded-full" src={invoice.avatar} />
                             </div>
-                            <div className="flex flex-col">
-                              <span className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                                {invoice.client}
-                              </span>
-                              <span className="font-['Kumbh_Sans'] font-normal text-[13px] text-[#929eae]">
-                                Inv: {invoice.id}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div className={`inline-flex px-[15px] py-2 rounded font-['Kumbh_Sans'] font-medium text-[12px] ${invoice.statusColor}`}>
-                              {invoice.status}
-                            </div>
-                            <button className="w-[25px] h-[25px]">
-                              <img alt="More" className="block max-w-none size-full" src={imgMore} />
-                            </button>
+                                                      <div className="flex flex-col">
+                            <span className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                              {invoice.client}
+                            </span>
+                            <span className="font-['Kumbh_Sans'] font-normal text-[13px] text-[#929eae]">
+                              Inv: {invoice.id}
+                            </span>
                           </div>
                         </div>
+                        <div className="flex items-center gap-2">
+                          <div className={`inline-flex px-[15px] py-2 rounded font-['Kumbh_Sans'] font-medium text-[12px] ${invoice.statusColor}`}>
+                            {invoice.status}
+                          </div>
+                          <button className="w-[25px] h-[25px]">
+                            <img alt="More" className="block max-w-none size-full" src={imgMore} />
+                          </button>
+                        </div>
+                      </div>
 
-                        {/* Details Row */}
-                        <div className="grid grid-cols-2 gap-4 pl-[53px]">
-                          <div>
-                            <div className="font-['Kumbh_Sans'] font-medium text-[14px] text-[#1b212d]">
-                              {invoice.date}
-                            </div>
-                            <div className="font-['Kumbh_Sans'] font-normal text-[13px] text-[#929eae]">
-                              {invoice.time}
-                            </div>
+                      {/* Details Row */}
+                      <div className="grid grid-cols-2 gap-4 pl-[53px]">
+                        <div>
+                          <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                            {invoice.date}
                           </div>
-                          <div>
-                            <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#929eae]">
-                              {invoice.orders}
-                            </div>
-                            <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#1b212d]">
-                              {invoice.amount}
-                            </div>
+                          <div className="font-['Kumbh_Sans'] font-normal text-[13px] text-[#929eae]">
+                            {invoice.time}
                           </div>
                         </div>
+                        <div>
+                          <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#929eae]">
+                            {invoice.orders}
+                          </div>
+                          <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                            {invoice.amount}
+                          </div>
+                        </div>
+                      </div>
                       </div>
                     </div>
 
@@ -419,7 +433,7 @@ const Invoices = () => {
 
                        {/* Date */}
                        <div className="w-[150px] text-center">
-                         <div className="font-['Kumbh_Sans'] font-medium text-[14px] text-[#1b212d]">
+                         <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                            {invoice.date}
                          </div>
                          <div className="font-['Kumbh_Sans'] font-normal text-[13px] text-[#929eae]">
@@ -436,7 +450,7 @@ const Invoices = () => {
 
                        {/* Amount */}
                        <div className="w-[150px] text-center">
-                         <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#1b212d]">
+                         <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                            {invoice.amount}
                          </div>
                        </div>

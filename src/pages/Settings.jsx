@@ -61,9 +61,9 @@ const Settings = () => {
 
   const topSidebarItems = [
     { icon: dashboardIcon, label: 'Dashboard', active: false, path: '/dashboard' },
-    { icon: transactionsIcon, label: 'Transactions', active: false },
-    { icon: invoicesIcon, label: 'Invoices', active: false },
-    { icon: wallets1Icon, label: 'My Wallets', active: false, hasSecondIcon: true, secondIcon: wallets2Icon },
+    { icon: transactionsIcon, label: 'Transactions', active: false, path: '/transactions' },
+    { icon: invoicesIcon, label: 'Invoices', active: false, path: '/invoices' },
+    { icon: wallets1Icon, label: 'My Wallets', active: false, path: '/my-wallets', hasSecondIcon: true, secondIcon: wallets2Icon },
     { icon: settingsIcon, label: 'Settings', active: true }
   ]
 
