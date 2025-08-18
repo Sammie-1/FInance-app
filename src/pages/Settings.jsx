@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
+import { getNavigationWithActiveState } from '../config/navigation'
 
 // Local Figma assets
 import profileImage from '../assets/profile.png'
@@ -23,6 +24,7 @@ import eyeIcon from '../assets/icons/eye.svg'
 const Settings = () => {
   const { isDarkMode } = useDarkMode()
   const navigate = useNavigate()
+  const location = useLocation()
   const [isEditing, setIsEditing] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [formData, setFormData] = useState({
@@ -59,18 +61,8 @@ const Settings = () => {
     setIsSidebarOpen(!isSidebarOpen)
   }
 
-  const topSidebarItems = [
-    { icon: dashboardIcon, label: 'Dashboard', active: false, path: '/dashboard' },
-    { icon: transactionsIcon, label: 'Transactions', active: false, path: '/transactions' },
-    { icon: invoicesIcon, label: 'Invoices', active: false, path: '/invoices' },
-    { icon: wallets1Icon, label: 'My Wallets', active: false, path: '/my-wallets', hasSecondIcon: true, secondIcon: wallets2Icon },
-    { icon: settingsIcon, label: 'Settings', active: true }
-  ]
-
-  const bottomSidebarItems = [
-    { icon: dashboardIcon, label: 'Help', active: false },
-    { icon: dashboardIcon, label: 'Logout', active: false }
-  ]
+  // Get navigation items with proper active state
+  const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState(location.pathname)
 
   return (
     <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-colors duration-300`}>

@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
+import { getNavigationWithActiveState } from '../config/navigation'
 
 // Figma assets from the selection
 const imgEllipse1 = "http://localhost:3845/assets/c78dae655605c90da12d809fdb9be067a20aecd0.png";
@@ -27,6 +28,7 @@ const img11 = "http://localhost:3845/assets/e7027850564beb07c690b603334ed5418a7c
 const Transactions = () => {
   const { isDarkMode } = useDarkMode()
   const navigate = useNavigate()
+  const location = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -34,18 +36,8 @@ const Transactions = () => {
     setIsSidebarOpen(!isSidebarOpen)
   }
 
-  const topSidebarItems = [
-    { icon: img, label: 'Dashboard', active: false, path: '/dashboard' },
-    { icon: img11, label: 'Transactions', active: true },
-    { icon: img, label: 'Invoices', active: false, path: '/invoices' },
-    { icon: img, label: 'My Wallets', active: false, path: '/my-wallets' },
-    { icon: img, label: 'Settings', active: false, path: '/settings' }
-  ]
-
-  const bottomSidebarItems = [
-    { icon: img, label: 'Help', active: false },
-    { icon: img, label: 'Logout', active: false }
-  ]
+  // Get navigation items with proper active state
+  const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState(location.pathname)
 
   const transactions = [
     {

@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
+import { getNavigationWithActiveState } from '../config/navigation'
 
 // Figma assets from the selection
 const imgEllipse1 = "http://localhost:3845/assets/c78dae655605c90da12d809fdb9be067a20aecd0.png";
@@ -16,14 +17,14 @@ const img1 = "http://localhost:3845/assets/ec33677e0778073cb1c54cc509cd1523b3587
 const imgVector = "http://localhost:3845/assets/dbcddb0a9749c022f5b5b6b4d55b15ddb10880f7.svg";
 const img2 = "http://localhost:3845/assets/92008d11711393949765aa06fb274c0fb13b9367.svg";
 const imgVector1 = "http://localhost:3845/assets/307c6d09c72a1b801939945bb1771a37f1a7ff7a.svg";
-const imgUp = "http://localhost:3845/assets/15d8ddd9b880b572787bdc54b98e175dd88a1a6a.svg";
-const imgDown = "http://localhost:3845/assets/aad935ddc6460ec6a1a636af5159e7caf8da1afb.svg";
+const imgUp = "http://localhost:3845/assets/6a184d4aa13a7ef1600a43a3f61580545647272c.svg";
+const imgDown = "http://localhost:3845/assets/085af04180bd22e118ee4d14474585b6b5ffd8b3.svg";
 const imgLine16 = "http://localhost:3845/assets/a3290d1764afd720015f1ebc100a097be27ba214.svg";
 const img3 = "http://localhost:3845/assets/25a74f47851e782b4595be981a7e935fcce1e508.svg";
 const img4 = "http://localhost:3845/assets/465c6392976767b3e63731e564457450d19ef7e7.svg";
 const img5 = "http://localhost:3845/assets/2efe4a983a6f8cbff2894a0700744c471f4fbdd1.svg";
-const imgNotificationBing51 = "http://localhost:3845/assets/3031bad5cd06ca8f4e4b1d9de10443a56930ff98.svg";
-const imgDropdown = "http://localhost:3845/assets/4a0a667fe4fe17e5d7d2d849212adc2e8b941567.svg";
+const imgNotificationBing51 = "http://localhost:3845/assets/5881a2a5cf37c2b0347b76ba1509c7b110717a06.svg";
+const imgDropdown = "http://localhost:3845/assets/836669b9eb423b6909bde68e0fa3b875973bed00.svg";
 const imgVector2 = "http://localhost:3845/assets/6276f29b6d80bc9d94b8e0eadd534d0a2d6dd3ec.svg";
 const imgGroup = "http://localhost:3845/assets/751a2280ff47a80fae1a1d0e1b82a810b107ff29.svg";
 const imgGroup1 = "http://localhost:3845/assets/794f576d0d31f78bf639d87f635321f44b9b04a5.svg";
@@ -41,13 +42,14 @@ const imgGroup8 = "http://localhost:3845/assets/00f21dcf3609d5f27cadad80a91e9f8c
 const imgGroup9 = "http://localhost:3845/assets/1cdc921bdf692cca5babeba245b2ac706178f161.svg";
 const imgGroup10 = "http://localhost:3845/assets/af40418228af62c48a62bb2d247e1d70fb25e876.svg";
 const imgGroup11 = "http://localhost:3845/assets/a157b913722b4f7a5e38bd417550602d54286b75.svg";
-const imgPlus1 = "http://localhost:3845/assets/4db44d33fd45e974cc80f7fc6db9033a992dffb2.svg";
-const imgSearch11 = "http://localhost:3845/assets/eb66f5540d6de90484754616d96fdea88e08f053.svg";
+const imgPlus1 = "http://localhost:3845/assets/d5eb407e9c33478cda8ffd47732f322e3a83ba41.svg";
+const imgSearch11 = "http://localhost:3845/assets/9fdf7b46a11707506af2be2432e2db8198cbfdc6.svg";
 const imgGroup48 = "http://localhost:3845/assets/b4411f505e6e17d4aac9335856e964ba45d7c505.svg";
 
 const MyWallets = () => {
   const { isDarkMode } = useDarkMode()
   const navigate = useNavigate()
+  const location = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('all')
 
@@ -55,18 +57,8 @@ const MyWallets = () => {
     setIsSidebarOpen(!isSidebarOpen)
   }
 
-  const topSidebarItems = [
-    { icon: img, label: 'Dashboard', active: false, path: '/dashboard' },
-    { icon: img1, label: 'Transactions', active: false, path: '/transactions' },
-    { icon: img2, label: 'Invoices', active: false, path: '/invoices' },
-    { icon: img4, label: 'My Wallets', active: true },
-    { icon: img, label: 'Settings', active: false, path: '/settings' }
-  ]
-
-  const bottomSidebarItems = [
-    { icon: img, label: 'Help', active: false },
-    { icon: img, label: 'Logout', active: false }
-  ]
+  // Get navigation items with proper active state
+  const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState(location.pathname)
 
   const allPayments = [
     {
@@ -165,7 +157,7 @@ const MyWallets = () => {
                     item.path && navigate(item.path)
                     setIsSidebarOpen(false)
                   }}
-                  className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[200px] ${
+                  className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[220px] ${
                     item.active 
                       ? 'bg-[#c8ee44]' 
                       : isDarkMode 
@@ -176,7 +168,7 @@ const MyWallets = () => {
                   <div className="relative w-5 h-5">
                     <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
                   </div>
-                  <span className={`font-['Kumbh_Sans'] text-[14px] ${
+                  <span className={`font-['Kumbh_Sans'] text-[14px] whitespace-nowrap ${
                     item.active 
                       ? 'font-semibold text-[#929eae]' 
                       : 'font-medium text-[#929eae]'
@@ -192,7 +184,7 @@ const MyWallets = () => {
               {bottomSidebarItems.map((item, index) => (
                 <div
                   key={index}
-                  className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[200px] ${
+                  className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[220px] ${
                     isDarkMode 
                       ? 'hover:bg-[#282541] text-[#929eae]' 
                       : 'hover:bg-gray-100 text-[#929eae]'
@@ -201,7 +193,7 @@ const MyWallets = () => {
                   <div className="w-5 h-5">
                     <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
                   </div>
-                  <span className="font-['Kumbh_Sans'] font-medium text-[14px]">{item.label}</span>
+                  <span className="font-['Kumbh_Sans'] font-medium text-[14px] whitespace-nowrap">{item.label}</span>
                 </div>
               ))}
             </div>
@@ -221,7 +213,7 @@ const MyWallets = () => {
           {/* Header */}
           <div className="px-4 md:px-6 lg:px-10 py-[30px]">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 w-full max-w-[1110px] mx-auto">
-              <h1 className={`font-['Kumbh_Sans'] font-semibold text-[20px] sm:text-[22px] lg:text-[25px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+              <h1 className={`font-['Kumbh_Sans'] font-semibold text-[20px] sm:text-[22px] lg:text-[25px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'} whitespace-nowrap`}>
                 My Wallets
               </h1>
               
@@ -256,10 +248,10 @@ const MyWallets = () => {
           {/* Content Grid */}
           <div className="px-4 md:px-6 lg:px-10">
             <div className="w-full max-w-[1110px] mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 
                                  {/* Left Column - Credit Cards */}
-                 <div className="lg:col-span-2 space-y-6">
+                 <div className="lg:col-span-5 space-y-6">
                    {/* Credit Cards */}
                    <div className="space-y-4 max-w-[354px] mx-auto lg:mx-0">
                                          {/* Card 1 - Primary */}
@@ -410,45 +402,47 @@ const MyWallets = () => {
                 </div>
 
                 {/* Right Column - Payments */}
-                <div className="space-y-6">
+                <div className="lg:col-span-7 space-y-6">
                   {/* My Payments */}
                   <div className="space-y-4">
                     <div className={`font-['Kumbh_Sans'] font-semibold text-[20px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                       My Payments
                     </div>
                     
-                    {/* Tabs */}
-                    <div className="flex items-center gap-8">
-                      <button
-                        onClick={() => setActiveTab('all')}
-                        className={`font-['Kumbh_Sans'] font-semibold text-[14px] transition-colors duration-200 ${
-                          activeTab === 'all' 
-                            ? (isDarkMode ? 'text-white' : 'text-[#1b212d]')
-                            : 'text-[#929eae]'
-                        }`}
-                      >
-                        All Payments
-                      </button>
-                      <button
-                        onClick={() => setActiveTab('regular')}
-                        className={`font-['Kumbh_Sans'] font-medium text-[14px] transition-colors duration-200 ${
-                          activeTab === 'regular' 
-                            ? (isDarkMode ? 'text-white' : 'text-[#1b212d]')
-                            : 'text-[#929eae]'
-                        }`}
-                      >
-                        Regular Payments
-                      </button>
-                    </div>
-
-                    {/* Search */}
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-5 h-5">
-                        <img alt="Search" className="block max-w-none size-full" src={imgSearch11} />
+                    {/* Tabs and Search Row */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-8">
+                        <button
+                          onClick={() => setActiveTab('all')}
+                          className={`font-['Kumbh_Sans'] font-semibold text-[14px] transition-colors duration-200 ${
+                            activeTab === 'all' 
+                              ? (isDarkMode ? 'text-white' : 'text-[#1b212d]')
+                              : 'text-[#929eae]'
+                          }`}
+                        >
+                          All Payments
+                        </button>
+                        <button
+                          onClick={() => setActiveTab('regular')}
+                          className={`font-['Kumbh_Sans'] font-medium text-[14px] transition-colors duration-200 ${
+                            activeTab === 'regular' 
+                              ? (isDarkMode ? 'text-white' : 'text-[#1b212d]')
+                              : 'text-[#929eae]'
+                          }`}
+                        >
+                          Regular Payments
+                        </button>
                       </div>
-                      <span className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
-                        Search
-                      </span>
+
+                      {/* Search */}
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-5 h-5">
+                          <img alt="Search" className="block max-w-none size-full" src={imgSearch11} />
+                        </div>
+                        <span className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
+                          Search
+                        </span>
+                      </div>
                     </div>
 
                     {/* Divider */}

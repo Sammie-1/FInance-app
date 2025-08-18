@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
 import icReceiptIcon from '../assets/icons/ic-receipt-24px 1.svg'
+import { getNavigationWithActiveState } from '../config/navigation'
 
 // Figma assets from the selection
 const imgEllipse7 = "http://localhost:3845/assets/fe3dd55ee90b77a6c75dedcae50485a119a92a55.png";
@@ -31,6 +32,7 @@ const imgBxFilter1 = "http://localhost:3845/assets/fd30155c47f908103e158d25fb58d
 const Invoices = () => {
   const { isDarkMode } = useDarkMode()
   const navigate = useNavigate()
+  const location = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -44,18 +46,8 @@ const Invoices = () => {
     // For example: navigate to create invoice form, open modal, etc.
   }
 
-  const topSidebarItems = [
-    { icon: img, label: 'Dashboard', active: false, path: '/dashboard' },
-    { icon: img1, label: 'Transactions', active: false, path: '/transactions' },
-    { icon: img3, label: 'Invoices', active: true },
-    { icon: img, label: 'My Wallets', active: false, path: '/my-wallets' },
-    { icon: img, label: 'Settings', active: false, path: '/settings' }
-  ]
-
-  const bottomSidebarItems = [
-    { icon: img, label: 'Help', active: false },
-    { icon: img, label: 'Logout', active: false }
-  ]
+  // Get navigation items with proper active state
+  const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState(location.pathname)
 
   const invoices = [
     {
