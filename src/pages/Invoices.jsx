@@ -9,6 +9,7 @@ import dropdownIcon from '../assets/icons/dropdown.svg'
 import moreIcon from '../assets/icons/Vector.svg'
 import filterIcon from '../assets/icons/bx-filter 1.svg'
 import logoMain from '../assets/icons/logo-main.svg'
+import avatarIcon from '../assets/icons/avatar.svg'
 import { getNavigationWithActiveState } from '../config/navigation'
 
 // Figma assets from the selection
@@ -269,7 +270,7 @@ const Invoices = () => {
                 <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-full sm:w-[180px] lg:w-[215px] transition-colors duration-300`}>
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9">
-                      <img alt="Profile" className="block max-w-none size-full rounded-full" src="http://localhost:3845/assets/Ellipse 2.svg" />
+                      <img alt="Profile" className="block max-w-none size-full rounded-full" src={avatarIcon} />
                     </div>
                     <span className={`font-['Kumbh_Sans'] font-semibold text-[12px] sm:text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                       Mahfuzul Nabil
