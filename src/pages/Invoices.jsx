@@ -48,9 +48,7 @@ const Invoices = () => {
   }
 
   const handleCreateInvoice = () => {
-    console.log('Create Invoice clicked')
-    // Add your create invoice logic here
-    // For example: navigate to create invoice form, open modal, etc.
+    navigate('/create-invoice')
   }
 
   // Get navigation items with proper active state

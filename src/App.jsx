@@ -4,6 +4,8 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Settings from './pages/Settings'
 import Invoices from './pages/Invoices'
+import CreateInvoice from './pages/CreateInvoice'
+import NewInvoice from './pages/NewInvoice'
 import Transactions from './pages/Transactions'
 import MyWallets from './pages/MyWallets'
 import Dashboard from './pages/Dashboard'
@@ -17,6 +19,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/invoices" element={<Invoices />} />
+          <Route path="/create-invoice" element={<CreateInvoice />} />
+          <Route path="/new-invoice" element={<NewInvoice />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/my-wallets" element={<MyWallets />} />
           <Route path="/dashboard" element={<Dashboard />} />
