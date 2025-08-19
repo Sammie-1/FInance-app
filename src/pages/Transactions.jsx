@@ -2,28 +2,22 @@ import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
+import searchIcon from '../assets/icons/search.1 1.svg'
+import notificationIcon from '../assets/icons/notification-bing.5 1.svg'
+import dropdownIcon from '../assets/icons/dropdown.svg'
+import logoMain from '../assets/icons/logo-main.svg'
+// Import local transaction icons
+import appleIcon from '../assets/icons/citi.png' // Using citi.png for Apple (closest match)
+import netflixIcon from '../assets/icons/netflix.png'
+import figmaIcon from '../assets/icons/figma.png'
+import bitcoinIcon from '../assets/icons/bitcoin.png'
+import sajibIcon from '../assets/icons/sajib.png'
+import uiHutIcon from '../assets/icons/UIHUT.png'
+import instagramIcon from '../assets/icons/instagram.png'
+import cityBankIcon from '../assets/icons/citi.png'
+// Import profile avatar
+import profileAvatar from '../assets/icons/Ellipse 2.svg'
 import { getNavigationWithActiveState } from '../config/navigation'
-
-// Figma assets from the selection
-const imgEllipse1 = "http://localhost:3845/assets/c78dae655605c90da12d809fdb9be067a20aecd0.png";
-const img1 = "http://localhost:3845/assets/100f1389bdede720bc020168a317c7f547872647.png";
-const img3 = "http://localhost:3845/assets/8018ec7b46b16614a2a471647ae90f16158b558c.png";
-const img4 = "http://localhost:3845/assets/3e2f88aa91732d592fe028344459e1e68c236c99.png";
-const img5 = "http://localhost:3845/assets/e27df4a85ee2ab5d0cbbc14ae4c3c3983ee46401.png";
-const img6 = "http://localhost:3845/assets/df84abce3e23b1a077d5e65ff3191ac7ca6b0a4c.png";
-const img7 = "http://localhost:3845/assets/bebf21c0077e2d9cc773085171cd6874b8d1c52e.png";
-const img8 = "http://localhost:3845/assets/bddc89851ba09e4c556fdcf5d106f6429692f8eb.png";
-const img9 = "http://localhost:3845/assets/f99271c3b0cd52c8d5df5640cfc6262b2cdaf1b0.png";
-const img = "http://localhost:3845/assets/18a8d1835cb9b2c91eef632e090931e96adbc134.svg";
-const imgVector = "http://localhost:3845/assets/35ecd2b8de617bb6eba1bc6f2c5a25ddc59bc256.svg";
-const imgSearch12 = "http://localhost:3845/assets/89e6673e1aa65635c41ce0180579467b9a2f43f2.svg";
-const imgSearch11 = "http://localhost:3845/assets/71c395008f52335910f34ad464c773bed0211c67.svg";
-const imgNotificationBing51 = "http://localhost:3845/assets/3031bad5cd06ca8f4e4b1d9de10443a56930ff98.svg";
-const imgDropdown = "http://localhost:3845/assets/c8425b8991feb5a4076fb270b842e7bbbc905154.svg";
-const imgLine13 = "http://localhost:3845/assets/149076b2ac65a5598845ec06255372cadd375c1e.svg";
-const img2 = "http://localhost:3845/assets/2f87f440e86bdd00cbcbb077409789bf0d3bea35.svg";
-const img10 = "http://localhost:3845/assets/8d0ad514fc31934f73181d91ba8a288dd0fece9d.svg";
-const img11 = "http://localhost:3845/assets/e7027850564beb07c690b603334ed5418a7cf223.svg";
 
 const Transactions = () => {
   const { isDarkMode } = useDarkMode()
@@ -44,7 +38,7 @@ const Transactions = () => {
       id: 'MGL0124877',
       name: 'Iphone 13 Pro MAX',
       business: 'Apple. Inc',
-      avatar: img1,
+      avatar: appleIcon,
       type: 'Mobile',
       amount: '$420.84',
       isNegative: false,
@@ -55,7 +49,7 @@ const Transactions = () => {
       id: 'MGL0124585',
       name: 'Netflix Subscription',
       business: 'Netflix',
-      avatar: img3,
+      avatar: netflixIcon,
       type: 'Entertainment',
       amount: '$100.00',
       isNegative: false,
@@ -66,7 +60,7 @@ const Transactions = () => {
       id: 'MGL0124124',
       name: 'Figma Subscription',
       business: 'Figma. Inc',
-      avatar: img4,
+      avatar: figmaIcon,
       type: 'Software',
       amount: '$244.20',
       isNegative: false,
@@ -77,7 +71,7 @@ const Transactions = () => {
       id: 'MGL0128544',
       name: 'Bitcoin Transaction',
       business: 'Coinbase',
-      avatar: img5,
+      avatar: bitcoinIcon,
       type: 'Technology',
       amount: '$520.84',
       isNegative: true,
@@ -88,7 +82,7 @@ const Transactions = () => {
       id: 'MGL0122143',
       name: 'Sajib Rahman',
       business: 'Appsumo',
-      avatar: img6,
+      avatar: sajibIcon,
       type: 'Withdraw',
       amount: '$500.10',
       isNegative: false,
@@ -99,7 +93,7 @@ const Transactions = () => {
       id: 'MGL0124244',
       name: 'UIHUT Subscription',
       business: 'UIHUT',
-      avatar: img7,
+      avatar: uiHutIcon,
       type: 'Payment',
       amount: '$84.00',
       isNegative: true,
@@ -110,7 +104,7 @@ const Transactions = () => {
       id: 'MGL0124877',
       name: 'Instagram Ads',
       business: 'Meta',
-      avatar: img8,
+      avatar: instagramIcon,
       type: 'Entertainment',
       amount: '$100.00',
       isNegative: false,
@@ -121,7 +115,7 @@ const Transactions = () => {
       id: 'MGL0127749',
       name: 'Citi Bank Ltd.',
       business: 'City Bank',
-      avatar: img9,
+      avatar: cityBankIcon,
       type: 'Withdraw',
       amount: '$400.11',
       isNegative: false,
@@ -157,7 +151,7 @@ const Transactions = () => {
            {/* Logo */}
            <div className="flex items-center gap-3 px-[25px] pt-[30px] pb-10">
              <div className="w-[30px] h-[30px]">
-               <img alt="Maglo Logo" className="block max-w-none size-full" src={img10} />
+               <img alt="Maglo Logo" className="block max-w-none size-full" src={logoMain} />
              </div>
              <div className={`font-['Gordita'] font-bold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                Maglo.
@@ -175,46 +169,46 @@ const Transactions = () => {
                     item.path && navigate(item.path)
                     setIsSidebarOpen(false)
                   }}
-                                     className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[200px] ${
-                     item.active 
-                       ? 'bg-[#c8ee44]' 
-                       : isDarkMode 
-                         ? 'hover:bg-[#282541]' 
-                         : 'hover:bg-gray-100'
-                   }`}
-                 >
-                   <div className="relative w-5 h-5">
-                     <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
-                   </div>
-                   <span className={`font-['Kumbh_Sans'] text-[14px] ${
-                     item.active 
-                       ? 'font-semibold text-[#929eae]' 
-                       : 'font-medium text-[#929eae]'
-                   }`}>
-                     {item.label}
-                   </span>
-                 </div>
-               ))}
-             </div>
+                  className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[220px] ${
+                    item.active 
+                      ? 'bg-[#c8ee44]' 
+                      : isDarkMode 
+                        ? 'hover:bg-[#282541]' 
+                        : 'hover:bg-gray-100'
+                  }`}
+                >
+                  <div className="relative w-5 h-5">
+                    <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
+                  </div>
+                  <span className={`font-['Kumbh_Sans'] text-[14px] whitespace-nowrap ${
+                    item.active 
+                      ? 'font-semibold text-[#929eae]' 
+                      : 'font-medium text-[#929eae]'
+                  }`}>
+                    {item.label}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-             {/* Bottom Navigation Items - Fixed at bottom */}
-             <div className="flex flex-col gap-0.5 mt-auto pb-8">
-               {bottomSidebarItems.map((item, index) => (
-                 <div
-                   key={index}
-                   className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[200px] ${
-                     isDarkMode 
-                       ? 'hover:bg-[#282541] text-[#929eae]' 
-                       : 'hover:bg-gray-100 text-[#929eae]'
-                   }`}
-                 >
-                   <div className="w-5 h-5">
-                     <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
-                   </div>
-                   <span className="font-['Kumbh_Sans'] font-medium text-[14px]">{item.label}</span>
-                 </div>
-               ))}
-             </div>
+            {/* Bottom Navigation Items - Fixed at bottom */}
+            <div className="flex flex-col gap-0.5 mt-auto pb-8">
+              {bottomSidebarItems.map((item, index) => (
+                <div
+                  key={index}
+                  className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[220px] ${
+                    isDarkMode 
+                      ? 'hover:bg-[#282541] text-[#929eae]' 
+                      : 'hover:bg-gray-100 text-[#929eae]'
+                  }`}
+                >
+                  <div className="w-5 h-5">
+                    <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
+                  </div>
+                  <span className="font-['Kumbh_Sans'] font-medium text-[14px] whitespace-nowrap">{item.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -239,12 +233,12 @@ const Transactions = () => {
                <div className="flex items-center gap-4 sm:gap-6 lg:gap-[45px]">
                  {/* Search Icon */}
                  <div className="w-6 h-6">
-                   <img alt="Search" className="block max-w-none size-full" src={imgSearch11} />
+                   <img alt="Search" className="block max-w-none size-full" src={searchIcon} />
                  </div>
                  
                  {/* Notification Icon */}
                  <div className="w-6 h-6">
-                   <img alt="Notifications" className="block max-w-none size-full" src={imgNotificationBing51} />
+                   <img alt="Notifications" className="block max-w-none size-full" src={notificationIcon} />
                  </div>
                  
                  {/* Dark Mode Toggle */}
@@ -254,14 +248,14 @@ const Transactions = () => {
                  <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-full sm:w-[180px] lg:w-[215px] transition-colors duration-300`}>
                    <div className="flex items-center gap-3">
                      <div className="w-9 h-9">
-                       <img alt="Profile" className="block max-w-none size-full rounded-full" src={imgEllipse1} />
+                       <img alt="Profile" className="block max-w-none size-full rounded-full" src={profileAvatar} />
                      </div>
-                     <span className={`font-['Kumbh_Sans'] font-semibold text-[12px] sm:text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'} hidden sm:block`}>
+                     <span className={`font-['Kumbh_Sans'] font-semibold text-[12px] sm:text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                        Mahfuzul Nabil
                      </span>
                    </div>
                    <div className="w-[17px] h-[17px]">
-                     <img alt="Dropdown" className="block max-w-none size-full" src={imgDropdown} />
+                     <img alt="Dropdown" className="block max-w-none size-full" src={dropdownIcon} />
                    </div>
                  </div>
                </div>
@@ -272,9 +266,9 @@ const Transactions = () => {
            <div className="px-4 md:px-6 lg:px-10 mb-6">
              <div className="w-full max-w-[1110px] mx-auto">
                <div className={`${isDarkMode ? 'bg-[#282541] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} rounded-[15px] border flex items-center gap-[15px] px-[15px] py-3 transition-colors duration-300`}>
-                 <div className="w-6 h-6">
-                   <img alt="Search" className="block max-w-none size-full" src={imgSearch12} />
-                 </div>
+                                 <div className="w-6 h-6">
+                  <img alt="Search" className="block max-w-none size-full" src={searchIcon} />
+                </div>
                  <input
                    type="text"
                    placeholder="Search anything on Transactions"

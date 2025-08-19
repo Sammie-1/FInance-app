@@ -6,7 +6,7 @@ import Settings from './pages/Settings'
 import Invoices from './pages/Invoices'
 import Transactions from './pages/Transactions'
 import MyWallets from './pages/MyWallets'
-// import Dashboard from './pages/Dashboard'
+import Dashboard from './pages/Dashboard'
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Route path="/invoices" element={<Invoices />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/my-wallets" element={<MyWallets />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </Router>

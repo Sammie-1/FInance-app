@@ -3,6 +3,12 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
 import icReceiptIcon from '../assets/icons/ic-receipt-24px 1.svg'
+import searchIcon from '../assets/icons/search.1 1.svg'
+import notificationIcon from '../assets/icons/notification-bing.5 1.svg'
+import dropdownIcon from '../assets/icons/dropdown.svg'
+import moreIcon from '../assets/icons/Vector.svg'
+import filterIcon from '../assets/icons/bx-filter 1.svg'
+import logoMain from '../assets/icons/logo-main.svg'
 import { getNavigationWithActiveState } from '../config/navigation'
 
 // Figma assets from the selection
@@ -166,7 +172,7 @@ const Invoices = () => {
           {/* Logo */}
           <div className="flex items-center gap-3 px-[25px] pt-[30px] pb-10">
             <div className="w-[30px] h-[30px]">
-              <img alt="Maglo Logo" className="block max-w-none size-full" src={img2} />
+              <img alt="Maglo Logo" className="block max-w-none size-full" src={logoMain} />
             </div>
             <div className={`font-['Gordita'] font-bold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
               Maglo.
@@ -248,12 +254,12 @@ const Invoices = () => {
               <div className="flex items-center gap-4 sm:gap-6 lg:gap-[45px]">
                 {/* Search Icon */}
                 <div className="w-6 h-6">
-                  <img alt="Search" className="block max-w-none size-full" src={imgSearch11} />
+                  <img alt="Search" className="block max-w-none size-full" src={searchIcon} />
                 </div>
                 
                 {/* Notification Icon */}
                 <div className="w-6 h-6">
-                  <img alt="Notifications" className="block max-w-none size-full" src={imgNotificationBing51} />
+                  <img alt="Notifications" className="block max-w-none size-full" src={notificationIcon} />
                 </div>
                 
                 {/* Dark Mode Toggle */}
@@ -263,14 +269,14 @@ const Invoices = () => {
                 <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-full sm:w-[180px] lg:w-[215px] transition-colors duration-300`}>
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9">
-                      <img alt="Profile" className="block max-w-none size-full rounded-full" src={imgEllipse1} />
+                      <img alt="Profile" className="block max-w-none size-full rounded-full" src="http://localhost:3845/assets/Ellipse 2.svg" />
                     </div>
-                    <span className={`font-['Kumbh_Sans'] font-semibold text-[12px] sm:text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'} hidden sm:block`}>
+                    <span className={`font-['Kumbh_Sans'] font-semibold text-[12px] sm:text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                       Mahfuzul Nabil
                     </span>
                   </div>
                   <div className="w-[17px] h-[17px]">
-                    <img alt="Dropdown" className="block max-w-none size-full" src={imgDropdown} />
+                    <img alt="Dropdown" className="block max-w-none size-full" src={dropdownIcon} />
                   </div>
                 </div>
               </div>
@@ -286,9 +292,9 @@ const Invoices = () => {
                   ? 'bg-[#282541] border-[#201e34]' 
                   : 'bg-[#f8f8f8] border-neutral-100'
               }`}>
-                <div className="w-6 h-6">
-                  <img alt="Search" className="block max-w-none size-full" src={img4} />
-                </div>
+                                  <div className="w-6 h-6">
+                    <img alt="Search" className="block max-w-none size-full" src={searchIcon} />
+                  </div>
                 <input
                   type="text"
                   placeholder="Search invoices"
@@ -324,7 +330,7 @@ const Invoices = () => {
                     : 'border-neutral-100 text-[#1b212d] hover:bg-gray-50'
                 }`}>
                   <div className="w-5 h-5">
-                    <img alt="Filters" className="block max-w-none size-full" src={imgBxFilter1} />
+                    <img alt="Filters" className="block max-w-none size-full" src={filterIcon} />
                   </div>
                   Filters
                 </button>
@@ -379,7 +385,7 @@ const Invoices = () => {
                             {invoice.status}
                           </div>
                           <button className="w-[25px] h-[25px]">
-                            <img alt="More" className="block max-w-none size-full" src={imgMore} />
+                            <img alt="More" className="block max-w-none size-full" src={moreIcon} />
                           </button>
                         </div>
                       </div>
@@ -457,7 +463,7 @@ const Invoices = () => {
                        {/* Action */}
                        <div className="w-[100px] text-center">
                          <button className="w-[25px] h-[25px] mx-auto">
-                           <img alt="More" className="block max-w-none size-full" src={imgMore} />
+                           <img alt="More" className="block max-w-none size-full" src={moreIcon} />
                          </button>
                        </div>
                      </div>
