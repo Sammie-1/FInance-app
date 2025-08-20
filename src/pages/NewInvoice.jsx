@@ -8,21 +8,15 @@ import dropdownIcon from '../assets/icons/dropdown.svg'
 import logoMain from '../assets/icons/logo-main.svg'
 import avatarIcon from '../assets/icons/avatar.svg'
 import { getNavigationWithActiveState } from '../config/navigation'
-
-// Figma assets for Basic Info selection (use localhost sources directly)
-const imgCalendar1101 = "http://localhost:3845/assets/04342c65545c232c32628f56a8d62eee380188b6.svg"
-const imgEye = "http://localhost:3845/assets/103559761af2824247940afa0b40e280217ab496.svg"
-const imgDownload = "http://localhost:3845/assets/2f4b8fde62fad7989e75cd95958d00ecb162d68d.svg"
-
-// Figma assets for Client Details selection
-const clientAvatarImg = "http://localhost:3845/assets/168102c80ff61e9a1337c783758fbfccfe081548.png"
-const clientMoreIcon = "http://localhost:3845/assets/27aaa010d3e45221886c071dec13c903336afbaf.svg"
-const clientDividerImg = "http://localhost:3845/assets/c84c57a901caf421600b980734d68e88679e32cb.svg"
-const clientVerifyIcon = "http://localhost:3845/assets/335760e3a8ca33b1837b5d391cfe4984b4dbcd92.svg"
-
-// Figma assets for Company Info Card selection
-const imgEllipse8 = "http://localhost:3845/assets/97688a8798441f1cd74d42724843c8f540e7e0c5.png"
-const imgMaskGroup = "http://localhost:3845/assets/aaa9d5dd3f97b883fe1920cc1e318f452184cf9b.svg"
+import calendarIcon from '../assets/icons/calendar.svg'
+import eyeIcon from '../assets/icons/eye.svg'
+import downloadIcon from '../assets/icons/ic-receipt-24px 1.svg'
+import sajibPng from '../assets/icons/sajib.png'
+import moreIcon from '../assets/icons/Vector.svg'
+import dividerIcon from '../assets/icons/underline.svg'
+import verifyIcon from '../assets/icons/email.svg'
+import logoMainSmall from '../assets/icons/logo-main.svg'
+import maskGroup from '../assets/icons/Rectangle 456.svg'
 
 const NewInvoice = () => {
   const { isDarkMode } = useDarkMode()
@@ -33,7 +27,7 @@ const NewInvoice = () => {
     setIsSidebarOpen(!isSidebarOpen)
   }
 
-  // Get navigation items with proper active state
+  
   const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState('/new-invoice')
 
   return (
@@ -137,8 +131,8 @@ const NewInvoice = () => {
                 }`}>
                   <p className="block leading-[normal] whitespace-pre">New Invoices: MGL524874</p>
                 </div>
-                <div className="box-border content-stretch flex gap-[45px] items-center justify-start p-0 relative shrink-0">
-                  <div className="box-border content-stretch flex gap-[45px] items-start justify-start p-0 relative shrink-0">
+                <div className="box-border content-stretch flex gap-4 md:gap-[45px] items-center justify-start p-0 relative shrink-0">
+                  <div className="box-border content-stretch flex gap-4 md:gap-[45px] items-start justify-start p-0 relative shrink-0">
                     {/* Search Icon */}
                     <div className="relative shrink-0 size-6">
                       <img alt="Search" className="block max-w-none size-full" src={searchIcon} />
@@ -149,7 +143,7 @@ const NewInvoice = () => {
                     </div>
                   </div>
                   {/* User Profile */}
-                  <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} box-border content-stretch flex items-center justify-between pl-[7px] pr-[15px] py-1.5 relative rounded-[100px] shrink-0 w-[215px] transition-colors duration-300`}>
+                  <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} box-border content-stretch flex items-center justify-between pl-[7px] pr-[15px] py-1.5 relative rounded-[100px] shrink-0 w-[200px] md:w-[215px] transition-colors duration-300`}>
                     <div className="box-border content-stretch flex gap-3 items-center justify-start p-0 relative shrink-0">
                       <div className="relative shrink-0 size-9">
                         <img alt="Profile" className="block max-w-none size-full" height="36" src={avatarIcon} width="36" />
@@ -172,19 +166,19 @@ const NewInvoice = () => {
           {/* Client Details Section - From Figma */}
           <div className="px-4 md:px-6 lg:px-10 pb-6">
             <div className="w-full max-w-[1110px] mx-auto flex justify-end">
-              <div className="bg-[#ffffff] box-border content-stretch flex flex-col gap-[19px] items-start justify-start pb-[25px] pt-5 px-[25px] relative rounded-[10px] size-full border border-neutral-100 w-[400px]">
+              <div className="bg-[#ffffff] box-border content-stretch flex flex-col gap-[19px] items-start justify-start pb-[25px] pt-5 px-[25px] relative rounded-[10px] size-full border border-neutral-100 w-full sm:w-[400px]">
                 <div className="box-border content-stretch flex items-center justify-between p-0 relative shrink-0 w-[325px]">
                   <div className="font-['Kumbh_Sans:SemiBold',_sans-serif] font-semibold leading-[0] relative shrink-0 text-[#1b212d] text-[16px] text-nowrap">
                     <p className="block leading-[normal] whitespace-pre">Client Details</p>
                   </div>
                   <div className="relative shrink-0 size-[26px]">
-                    <img alt="More" className="block max-w-none size-full" src={clientMoreIcon} />
+                    <img alt="More" className="block max-w-none size-full" src={moreIcon} />
                   </div>
                 </div>
                 
                 <div className="box-border content-stretch flex gap-[15px] items-center justify-start p-0 relative shrink-0">
                   <div className="relative shrink-0 size-14">
-                    <img alt="Client Avatar" className="block max-w-none size-full" height="56" src={clientAvatarImg} width="56" />
+                    <img alt="Client Avatar" className="block max-w-none size-full" height="56" src={sajibPng} width="56" />
                   </div>
                   <div className="box-border content-stretch flex flex-col gap-2 items-start justify-start leading-[0] p-0 relative shrink-0 text-[16px] text-nowrap">
                     <div className="font-['Kumbh_Sans:SemiBold',_sans-serif] font-semibold relative shrink-0 text-[#1b212d]">
@@ -196,9 +190,9 @@ const NewInvoice = () => {
                   </div>
                 </div>
                 
-                <div className="h-0 relative shrink-0 w-80">
+                <div className="h-0 relative shrink-0 w-full sm:w-80">
                   <div className="absolute bottom-0 left-0 right-0 top-[-1px]">
-                    <img alt="Divider" className="block max-w-none size-full" src={clientDividerImg} />
+                    <img alt="Divider" className="block max-w-none size-full" src={dividerIcon} />
                   </div>
                 </div>
                 
@@ -208,7 +202,7 @@ const NewInvoice = () => {
                       <p className="block leading-[normal] whitespace-pre">UIHUT Agency LTD</p>
                     </div>
                     <div className="relative shrink-0 size-4">
-                      <img alt="Verified" className="block max-w-none size-full" src={clientVerifyIcon} />
+                      <img alt="Verified" className="block max-w-none size-full" src={verifyIcon} />
                     </div>
                   </div>
                   <div className="font-['Kumbh_Sans:Regular',_'Noto_Sans:Regular',_sans-serif] font-normal leading-[0] relative shrink-0 text-[#929eae] text-[16px] text-nowrap">
@@ -216,7 +210,7 @@ const NewInvoice = () => {
                   </div>
                 </div>
                 
-                <div className="bg-[#eefef2] box-border content-stretch flex gap-2.5 items-center justify-center pb-4 pt-[15px] px-5 relative rounded-[10px] shrink-0 w-[318px] cursor-pointer hover:bg-[#e0f7e6] transition-colors">
+                <div className="bg-[#eefef2] box-border content-stretch flex gap-2.5 items-center justify-center pb-4 pt-[15px] px-5 relative rounded-[10px] shrink-0 w-full sm:w-[318px] cursor-pointer hover:bg-[#e0f7e6] transition-colors">
                   <div className="font-['Kumbh_Sans:SemiBold',_sans-serif] font-semibold leading-[0] relative shrink-0 text-[#29a073] text-[14px] text-nowrap">
                     <p className="block leading-[normal] whitespace-pre">Add Customer</p>
                   </div>
@@ -228,7 +222,7 @@ const NewInvoice = () => {
           {/* Basic Info Section - From Figma */}
           <div className="px-4 md:px-6 lg:px-10 pb-6">
             <div className="w-full max-w-[1110px] mx-auto flex justify-end">
-              <div className="bg-[#ffffff] box-border content-stretch flex flex-col gap-5 items-start justify-center p-[25px] relative rounded-[10px] size-full border border-neutral-100 w-[400px]">
+              <div className="bg-[#ffffff] box-border content-stretch flex flex-col gap-5 items-start justify-center p-[25px] relative rounded-[10px] size-full border border-neutral-100 w-full sm:w-[400px]">
                 <div className="font-['Kumbh_Sans:SemiBold',_sans-serif] font-semibold leading-[0] relative shrink-0 text-[#1b212d] text-[18px] text-nowrap">
                   <p className="block leading-[normal] whitespace-pre">Basic Info</p>
                 </div>
@@ -239,14 +233,14 @@ const NewInvoice = () => {
                       <p className="block leading-[normal] whitespace-pre">Invoice Date</p>
                     </div>
                     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid place-items-start relative shrink-0">
-                      <div className="[grid-area:1_/_1] bg-[#ffffff] h-12 ml-0 mt-0 relative rounded-xl w-[325px]">
+                      <div className="[grid-area:1_/_1] bg-[#ffffff] h-12 ml-0 mt-0 relative rounded-xl w-full max-w-[325px]">
                         <div className="absolute border border-neutral-100 border-solid inset-0 pointer-events-none rounded-xl" />
                       </div>
                       <div className="[grid-area:1_/_1] font-['Kumbh_Sans:Medium',_sans-serif] font-medium leading-[0] ml-[21px] mt-[15px] relative text-[#1b212d] text-[14px] w-[166.6px]">
                         <p className="block leading-[normal]">14 Apr 2022</p>
                       </div>
                       <div className="[grid-area:1_/_1] ml-[281px] mt-3 relative size-6">
-                        <img alt="Calendar" className="block max-w-none size-full" src={imgCalendar1101} />
+                        <img alt="Calendar" className="block max-w-none size-full" src={calendarIcon} />
                       </div>
                     </div>
                   </div>
@@ -256,21 +250,21 @@ const NewInvoice = () => {
                       <p className="block leading-[normal] whitespace-pre">Due Date</p>
                     </div>
                     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid place-items-start relative shrink-0">
-                      <div className="[grid-area:1_/_1] bg-[#ffffff] h-12 ml-0 mt-0 relative rounded-xl w-[325px]">
+                      <div className="[grid-area:1_/_1] bg-[#ffffff] h-12 ml-0 mt-0 relative rounded-xl w-full max-w-[325px]">
                         <div className="absolute border border-neutral-100 border-solid inset-0 pointer-events-none rounded-xl" />
                       </div>
                       <div className="[grid-area:1_/_1] font-['Kumbh_Sans:Medium',_sans-serif] font-medium leading-[0] ml-[21px] mt-[15px] relative text-[#1b212d] text-[14px] w-[166.6px]">
                         <p className="block leading-[normal]">20 Apr 2022</p>
                       </div>
                       <div className="[grid-area:1_/_1] ml-[281px] mt-3 relative size-6">
-                        <img alt="Calendar" className="block max-w-none size-full" src={imgCalendar1101} />
+                        <img alt="Calendar" className="block max-w-none size-full" src={calendarIcon} />
                       </div>
                     </div>
                   </div>
                 </div>
                 {/* Buttons */}
                 <div className="box-border content-stretch flex flex-col gap-5 items-start justify-start p-0 relative shrink-0">
-                  <div className="bg-[#c8ee44] box-border content-stretch flex gap-2.5 items-center justify-center px-5 py-3.5 relative rounded-[10px] shrink-0 w-[325px] cursor-pointer">
+                  <div className="bg-[#c8ee44] box-border content-stretch flex gap-2.5 items-center justify-center px-5 py-3.5 relative rounded-[10px] shrink-0 w-full sm:w-[325px] cursor-pointer">
                     <div className="font-['Kumbh_Sans:SemiBold',_sans-serif] font-semibold leading-[0] relative shrink-0 text-[#1b212d] text-[16px] text-center text-nowrap">
                       <p className="block leading-[normal] whitespace-pre">Send Invoice</p>
                     </div>
@@ -278,7 +272,7 @@ const NewInvoice = () => {
                   <div className="box-border content-stretch flex gap-5 items-start justify-start p-0 relative shrink-0">
                     <div className="bg-[#f8f8f8] box-border content-stretch flex gap-2.5 h-12 items-center justify-center pl-[35px] pr-[34px] py-3.5 relative rounded-[10px] shrink-0 cursor-pointer">
                       <div className="relative shrink-0 size-5">
-                        <img alt="Eye" className="block max-w-none size-full" src={imgEye} />
+                        <img alt="Eye" className="block max-w-none size-full" src={eyeIcon} />
                       </div>
                       <div className="font-['Kumbh_Sans:SemiBold',_sans-serif] font-semibold leading-[0] relative shrink-0 text-[#29a073] text-[14px] text-center text-nowrap">
                         <p className="block leading-[normal] whitespace-pre">Preview</p>
@@ -286,7 +280,7 @@ const NewInvoice = () => {
                     </div>
                     <div className="bg-[#f8f8f8] box-border content-stretch flex gap-2.5 h-12 items-center justify-center pl-[27px] pr-7 py-3.5 relative rounded-[10px] shrink-0 cursor-pointer">
                       <div className="relative shrink-0 size-5">
-                        <img alt="Download" className="block max-w-none size-full" src={imgDownload} />
+                        <img alt="Download" className="block max-w-none size-full" src={downloadIcon} />
                       </div>
                       <div className="font-['Kumbh_Sans:SemiBold',_sans-serif] font-semibold leading-[0] relative shrink-0 text-[#29a073] text-[14px] text-center text-nowrap">
                         <p className="block leading-[normal] whitespace-pre">Download</p>
@@ -304,12 +298,12 @@ const NewInvoice = () => {
               <div className="relative w-[400px] h-[200px]">
                 <div className="absolute bg-[#1b212d] inset-0 rounded-[10px]" />
                 <div className="absolute inset-0">
-                  <img alt="Mask group" className="block max-w-none size-full" src={imgMaskGroup} />
+                  <img alt="Mask group" className="block max-w-none size-full" src={maskGroup} />
                 </div>
                 <div className="absolute box-border content-stretch flex gap-[230px] inset-[17.24%_2.96%_21.55%_2.96%] items-start justify-start p-0">
                   <div className="box-border content-stretch flex gap-[15px] items-center justify-start p-0 relative shrink-0">
                     <div className="relative shrink-0 size-[37px]">
-                      <img alt="Company Logo" className="block max-w-none size-full" height="37" src={imgEllipse8} width="37" />
+                      <img alt="Company Logo" className="block max-w-none size-full" height="37" src={logoMainSmall} width="37" />
                     </div>
                     <div className="box-border content-stretch flex flex-col gap-0.5 items-start justify-start leading-[0] p-0 relative shrink-0 text-[#ffffff] text-nowrap">
                       <div className="font-['Gordita:Bold',_sans-serif] not-italic relative shrink-0 text-[18px]">

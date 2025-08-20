@@ -12,29 +12,15 @@ import logoMain from '../assets/icons/logo-main.svg'
 import avatarIcon from '../assets/icons/avatar.svg'
 import { getNavigationWithActiveState } from '../config/navigation'
 
-// Figma assets from the selection
-const imgEllipse7 = "http://localhost:3845/assets/fe3dd55ee90b77a6c75dedcae50485a119a92a55.png";
-const imgEllipse1 = "http://localhost:3845/assets/c78dae655605c90da12d809fdb9be067a20aecd0.png";
-const img5 = "http://localhost:3845/assets/ecf3758290cbe4ca202994a5296d2b2d4151bda2.png";
-const img6 = "http://localhost:3845/assets/8f507498428cefa57183549263a256118b7cdc04.png";
-const img7 = "http://localhost:3845/assets/6e906019981f1afd62a7d4eda6f6c773557b7b11.png";
-const img8 = "http://localhost:3845/assets/9916738ca69b7a934d9114d34c14b93a94e63b76.png";
-const img9 = "http://localhost:3845/assets/1128d914f22bcb5c7f1fb39a8d3388413e7242a4.png";
-const img10 = "http://localhost:3845/assets/b9df34b9b5038c914374b86ce900325ecedd0778.png";
-const img11 = "http://localhost:3845/assets/af429319eb90ae02d7756377e9e24530bd4ddf69.png";
-const img = "http://localhost:3845/assets/18a8d1835cb9b2c91eef632e090931e96adbc134.svg";
-const img1 = "http://localhost:3845/assets/ec33677e0778073cb1c54cc509cd1523b3587e30.svg";
-const imgVector = "http://localhost:3845/assets/dbcddb0a9749c022f5b5b6b4d55b15ddb10880f7.svg";
-const imgMore = "http://localhost:3845/assets/528abc8326b2709b6929a45f7b5be23b6e990b07.svg";
-const imgLine12 = "http://localhost:3845/assets/ec31a9736252713d3fc57ca5eff3908103db1a44.svg";
-const imgSearch11 = "http://localhost:3845/assets/71c395008f52335910f34ad464c773bed0211c67.svg";
-const imgNotificationBing51 = "http://localhost:3845/assets/3031bad5cd06ca8f4e4b1d9de10443a56930ff98.svg";
-const imgDropdown = "http://localhost:3845/assets/4a0a667fe4fe17e5d7d2d849212adc2e8b941567.svg";
-const img2 = "http://localhost:3845/assets/25a74f47851e782b4595be981a7e935fcce1e508.svg";
-const img3 = "http://localhost:3845/assets/43083cd58daf3fc7981f7d08497f2cd8af366c9e.svg";
-const img4 = "http://localhost:3845/assets/90819c50a1e6873ada80aeb8d6ac19830d972512.svg";
-const imgIcReceipt24Px1 = "http://localhost:3845/assets/25e6581d0cb04dd7a5860feb13885ba32c776b2.svg";
-const imgBxFilter1 = "http://localhost:3845/assets/fd30155c47f908103e158d25fb58da2798db067c.svg";
+// Local images for avatars and UI
+import profilePng from '../assets/profile.png'
+import figmaPng from '../assets/icons/figma.png'
+import uihutPng from '../assets/icons/UIHUT.png'
+import citiPng from '../assets/icons/citi.png'
+import bitcoinPng from '../assets/icons/bitcoin.png'
+import netflixPng from '../assets/icons/netflix.png'
+import instagramPng from '../assets/icons/instagram.png'
+import sajibPng from '../assets/icons/sajib.png'
 
 const Invoices = () => {
   const { isDarkMode } = useDarkMode()
@@ -58,7 +44,7 @@ const Invoices = () => {
     {
       id: 'MGL524874',
       client: 'Gadget Gallery LTD',
-      avatar: imgEllipse7,
+      avatar: profilePng,
       date: '14 Apr 2022',
       time: 'at 8:00 PM',
       orders: '20',
@@ -69,7 +55,7 @@ const Invoices = () => {
     {
       id: 'MGL524250',
       client: 'Figma Subscription',
-      avatar: img5,
+      avatar: figmaPng,
       date: '12 Apr 2022',
       time: 'at 8:00 PM',
       orders: '01',
@@ -80,7 +66,7 @@ const Invoices = () => {
     {
       id: 'MGL524874',
       client: 'Jack Dawson Eric',
-      avatar: img6,
+      avatar: instagramPng,
       date: '12 Apr 2022',
       time: 'at 9:00 AM',
       orders: '02',
@@ -91,7 +77,7 @@ const Invoices = () => {
     {
       id: 'MGL524140',
       client: 'UIHUT Subscription',
-      avatar: img7,
+      avatar: uihutPng,
       date: '24 Mar 2022',
       time: 'at 8:00 PM',
       orders: '01',
@@ -102,7 +88,7 @@ const Invoices = () => {
     {
       id: 'MGL524245',
       client: 'Citi Bank Ltd.',
-      avatar: img8,
+      avatar: citiPng,
       date: '10 Mar 2022',
       time: 'at 8:00 PM',
       orders: 'Withdraw',
@@ -113,7 +99,7 @@ const Invoices = () => {
     {
       id: 'MGL524254',
       client: 'Bitcoin Transaction',
-      avatar: img9,
+      avatar: bitcoinPng,
       date: '08 Mar 2022',
       time: 'at 8:00 PM',
       orders: 'Technology',
@@ -124,7 +110,7 @@ const Invoices = () => {
     {
       id: 'MGL524487',
       client: 'Netflix Subscription',
-      avatar: img10,
+      avatar: netflixPng,
       date: '02 Mar 2022',
       time: 'at 7:00 PM',
       orders: '01',
@@ -135,7 +121,7 @@ const Invoices = () => {
     {
       id: 'MGL524598',
       client: 'Sajib Rahman',
-      avatar: img11,
+      avatar: sajibPng,
       date: '01 Mar 2022',
       time: 'at 8:00 PM',
       orders: 'Withdraw',

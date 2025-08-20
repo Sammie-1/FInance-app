@@ -1,7 +1,7 @@
 <svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Icon/Lock" clip-path="url(#clip0_6152_3445)">
-<path id="Vector" d="M16.4815 9.16667H3.51852C2.49577 9.16667 1.66667 9.98069 1.66667 10.9848V17.3485C1.66667 18.3526 2.49577 19.1667 3.51852 19.1667H16.4815C17.5042 19.1667 18.3333 18.3526 18.3333 17.3485V10.9848C18.3333 9.98069 17.5042 9.16667 16.4815 9.16667Z" stroke="var(--stroke-0, #A2A2A8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path id="Vector_2" d="M5 9.16667V5.46296C5 4.23511 5.52678 3.05754 6.46447 2.18932C7.40215 1.3211 8.67392 0.833333 10 0.833333C11.3261 0.833333 12.5979 1.3211 13.5355 2.18932C14.4732 3.05754 15 4.23511 15 5.46296V9.16667" stroke="var(--stroke-0, #A2A2A8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector" d="M16.4815 9.16667H3.51852C2.49577 9.16667 1.66667 9.98069 1.66667 10.9848V17.3485C1.66667 18.3526 2.49577 19.1667 3.51852 19.1667H16.4815C17.5042 19.1667 18.3333 18.3526 18.3333 17.3485V10.9848C18.3333 9.98069 17.5042 9.16667 16.4815 9.16667Z" stroke="#929EAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M5 9.16667V5.46296C5 4.23511 5.52678 3.05754 6.46447 2.18932C7.40215 1.3211 8.67392 0.833333 10 0.833333C11.3261 0.833333 12.5979 1.3211 13.5355 2.18932C14.4732 3.05754 15 4.23511 15 5.46296V9.16667" stroke="#929EAE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <defs>
 <clipPath id="clip0_6152_3445">

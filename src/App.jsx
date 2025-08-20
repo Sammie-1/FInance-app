@@ -24,7 +24,7 @@ function App() {
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/my-wallets" element={<MyWallets />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
         </Routes>
       </Router>
     </DarkModeProvider>

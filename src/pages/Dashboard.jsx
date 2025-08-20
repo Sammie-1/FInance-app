@@ -14,29 +14,19 @@ import kpiTotalSpendingIcon from '../assets/icons/wallet-2.6 1.svg'
 import kpiTotalSavedIcon from '../assets/icons/wallet-add.12 1.svg'
 // Import Ellipse background icon
 import ellipseBackgroundIcon from '../assets/icons/Ellipse 2.svg'
+// Header/action icons
+import searchIcon from '../assets/icons/search.1 1.svg'
+import notificationIcon from '../assets/icons/notification-bing.5 1.svg'
+import dropdownIcon from '../assets/icons/dropdown.svg'
+import avatarIcon from '../assets/icons/avatar.svg'
+import expandMoreIcon from '../assets/icons/ic-expand-more-24px 1.svg'
+import pointerIcon from '../assets/icons/Pointer.svg'
+import rectangleBg from '../assets/icons/Rectangle 456.svg'
+import netflixPng from '../assets/icons/netflix.png'
+import figmaPng from '../assets/icons/figma.png'
+import instagramPng from '../assets/icons/instagram.png'
 
-// Figma assets (Dev Mode) used elsewhere to keep consistency
-const imgEllipse1 = "http://localhost:3845/assets/c78dae655605c90da12d809fdb9be067a20aecd0.png"
-const imgNotificationBing51 = "http://localhost:3845/assets/5881a2a5cf37c2b0347b76ba1509c7b110717a06.svg"
-const imgDropdown = "http://localhost:3845/assets/836669b9eb423b6909bde68e0fa3b875973bed00.svg"
-const imgSearch11 = "http://localhost:3845/assets/82a4510e97cf794f31e8ddbb9f17d223d13e7927.svg"
-
-// Additional Figma assets for Dashboard components
-const imgIcon = "http://localhost:3845/assets/6bffe6399f0ebb560623c61d356f6d080626df00.svg"
-const imgIcon1 = "http://localhost:3845/assets/80185a6c24efff9deff15dfd79fdab928f4af172.svg"
-const imgIcon2 = "http://localhost:3845/assets/15f25a1ccc5d90d472cac437cfeaf4a7b4458140.svg"
-const imgIcExpandMore24Px1 = "http://localhost:3845/assets/dd64a06c00881d7d506da3109a857dd1591ee59.svg"
-const imgLine12 = "http://localhost:3845/assets/b0f5a94ce96739acde132f8af499dfe7428e0737.svg"
-const imgImage8 = "http://localhost:3845/assets/e8f2f2325479f5b117fa73a0eecb5f7c8278f3b4.png"
-const imgRectangle461 = "http://localhost:3845/assets/0a07ef549ecd7be85153e06c3f9ff61d0ebfd29e.png"
-const imgRectangle462 = "http://localhost:3845/assets/d9d7d4b3c515e34f264e5ae759fc1138ae751e8b.png"
-const img9 = "http://localhost:3845/assets/87492a0702f288622e7bf0658d4c314927f86ca7.svg"
-const img10 = "http://localhost:3845/assets/fa832922320ab547a86f9f68d338fe37401edb7f.svg"
-const img11 = "http://localhost:3845/assets/9ca0264f21ca393f2860972e660765f328a0974f.svg"
-const img12 = "http://localhost:3845/assets/ea1bfbfe16d343b6b3b49a5e5932bc9949ac0ce1.svg"
-const img13 = "http://localhost:3845/assets/b30e0fc7714e8297da36e61ff66eb63fb002c217.svg"
-const img14 = "http://localhost:3845/assets/78ea88939ecee8d4e2a6ee5570e018c6dfafd6dd.svg"
-const img15 = "http://localhost:3845/assets/aed11d0741677e69df2f9300ad9c383f089cfd47.svg"
+// Replaced all Figma localhost assets with local ones
 
 const Dashboard = () => {
   const { isDarkMode } = useDarkMode()
@@ -143,23 +133,23 @@ const Dashboard = () => {
               <div className="flex items-center gap-4 sm:gap-6 lg:gap-[45px]">
                 {/* Search (Dashboard only) */}
                 <div className="w-6 h-6">
-                  <img alt="Search" className="block max-w-none size-full" src={imgSearch11} />
+                  <img alt="Search" className="block max-w-none size-full" src={searchIcon} />
                 </div>
                 <div className="w-6 h-6">
-                  <img alt="Notifications" className="block max-w-none size-full" src={imgNotificationBing51} />
+                  <img alt="Notifications" className="block max-w-none size-full" src={notificationIcon} />
                 </div>
                 <DarkModeToggle />
                 <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-full sm:w-[180px] lg:w-[215px] transition-colors duration-300`}>
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9">
-                      <img alt="Profile" className="block max-w-none size-full rounded-full" src={imgEllipse1} />
+                      <img alt="Profile" className="block max-w-none size-full rounded-full" src={avatarIcon} />
                     </div>
                     <span className={`font-['Kumbh_Sans'] font-semibold text-[12px] sm:text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'} hidden sm:block`}>
                       Mahfuzul Nabil
                     </span>
                   </div>
                   <div className="w-[17px] h-[17px]">
-                    <img alt="Dropdown" className="block max-w-none size-full" src={imgDropdown} />
+                    <img alt="Dropdown" className="block max-w-none size-full" src={dropdownIcon} />
                   </div>
                 </div>
               </div>
@@ -224,7 +214,7 @@ const Dashboard = () => {
                     </div>
                     <div className={`${isDarkMode ? 'bg-[#282541]' : 'bg-[#f8f8f8]'} px-2.5 py-1.5 rounded-[5px] flex items-center gap-2`}>
                       <span className={`font-['Kumbh_Sans'] text-[12px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>Last 7 days</span>
-                      <img alt="Dropdown" className="w-[18px] h-[18px]" src={img15} />
+                      <img alt="Dropdown" className="w-[18px] h-[18px]" src={expandMoreIcon} />
                     </div>
                   </div>
                 </div>
@@ -236,12 +226,12 @@ const Dashboard = () => {
                    
                   {/* Chart Lines */}
                   <div className="absolute inset-0 p-6">
-                    <img alt="Chart Lines" className="w-full h-full object-contain" src={img9} />
+                    <img alt="Chart Lines" className="w-full h-full object-contain" src={rectangleBg} />
                   </div>
                    
                   {/* Chart Data */}
                   <div className="absolute inset-0 p-6">
-                    <img alt="Chart Data" className="w-full h-full object-contain" src={img10} />
+                    <img alt="Chart Data" className="w-full h-full object-contain" src={rectangleBg} />
                   </div>
                    
                   {/* Y-axis Labels */}
@@ -267,11 +257,11 @@ const Dashboard = () => {
                   {/* Chart Pointer */}
                   <div className="absolute right-1/4 top-1/4 flex items-center gap-2">
                     <div className="w-3 h-3">
-                      <img alt="Pointer" className="w-full h-full" src={img12} />
+                      <img alt="Pointer" className="w-full h-full" src={pointerIcon} />
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-9 h-9">
-                        <img alt="Dollar" className="w-full h-full" src={img11} />
+                        <img alt="Dollar" className="w-full h-full" src={kpiTotalBalanceIcon} />
                       </div>
                       <span className={`font-['Kumbh_Sans'] font-medium text-[12px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>$5,500</span>
                     </div>
@@ -317,7 +307,7 @@ const Dashboard = () => {
                       type: 'Mobile',
                       amount: '$420.84',
                       date: '14 Apr 2022',
-                      icon: imgImage8,
+                      icon: instagramPng,
                       iconBg: 'bg-[#e4f1ff]'
                     },
                     {
@@ -326,7 +316,7 @@ const Dashboard = () => {
                       type: 'Entertainment',
                       amount: '$100.00',
                       date: '05 Apr 2022',
-                      icon: imgRectangle461,
+                      icon: netflixPng,
                       iconBg: 'bg-center bg-cover'
                     },
                     {
@@ -335,7 +325,7 @@ const Dashboard = () => {
                       type: 'Software',
                       amount: '$244.20',
                       date: '02 Apr 2022',
-                      icon: imgRectangle462,
+                      icon: figmaPng,
                       iconBg: 'bg-center bg-cover'
                     }
                   ].map((transaction, index) => (
