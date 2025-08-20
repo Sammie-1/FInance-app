@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
 import { getNavigationWithActiveState } from '../config/navigation'
@@ -31,7 +31,6 @@ import instagramPng from '../assets/icons/instagram.png'
 const Dashboard = () => {
   const { isDarkMode } = useDarkMode()
   const navigate = useNavigate()
-  const location = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState('/dashboard')
