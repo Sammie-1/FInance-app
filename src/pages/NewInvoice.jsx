@@ -515,5 +515,5 @@ const NewInvoice = () => {
   )
 }
 
-export default NewInvoiceexport default NewInvoice
+export default NewInvoice
 
