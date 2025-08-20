@@ -40,11 +40,7 @@ const NewInvoice = () => {
   const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState('/new-invoice')
 
   return (
-    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-colors duration-300 relative`}>
-      {/* Dark Mode Toggle - Top Right with senior UX positioning */}
-      <div className="fixed top-6 right-6 md:top-8 md:right-8 lg:top-10 lg:right-10 z-50">
-        <DarkModeToggle />
-      </div>
+    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-colors duration-300`}>
       <div className="flex">
         {/* Mobile Menu Button */}
         <button
@@ -519,5 +515,5 @@ const NewInvoice = () => {
   )
 }
 
-export default NewInvoice
+export default NewInvoiceexport default NewInvoice
 

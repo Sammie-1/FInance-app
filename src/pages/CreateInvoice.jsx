@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
-import DarkModeToggle from '../components/DarkModeToggle'
 
 const formatDateForDisplay = (value) => {
   if (!value) return ''
@@ -61,23 +60,17 @@ const CreateInvoice = () => {
   }
 
   return (
-    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-colors duration-300 relative`}> 
-      {/* Dark Mode Toggle - Top Right with senior UX positioning */}
-      <div className="fixed top-6 right-6 md:top-8 md:right-8 lg:top-10 lg:right-10 z-50">
-        <DarkModeToggle />
-      </div>
-      {/* Centered Container with Responsive Design */}
-      <div className="min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
-          <form
-            onSubmit={handleSubmit}
-            className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} w-full border rounded-[12px] p-6 sm:p-8 lg:p-10 shadow-lg transition-all duration-300`}
-          >
-            <h2 className={`font-['Kumbh_Sans'] text-[20px] sm:text-[24px] lg:text-[26px] font-semibold mb-6 lg:mb-8 text-center ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-              Create Invoice
-            </h2>
+    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-colors duration-300`}> 
+      <div className="flex justify-center items-start sm:items-center p-6">
+        <form
+          onSubmit={handleSubmit}
+          className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} w-full max-w-[640px] border rounded-[12px] p-6 sm:p-8 shadow-sm`}
+        >
+          <h2 className={`font-['Kumbh_Sans'] text-[20px] sm:text-[22px] font-semibold mb-6 ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+            Create Invoice
+          </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             <div className="flex flex-col gap-2">
               <label className={`font-['Kumbh_Sans'] text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#78778b]'}`}>Invoice ID (optional)</label>
               <input
@@ -163,24 +156,23 @@ const CreateInvoice = () => {
             </div>
           </div>
 
-          <div className="mt-6 lg:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="mt-6 flex gap-3">
             <button
               type="submit"
               disabled={!isValid}
-              className={`flex-1 sm:flex-none px-5 py-3.5 rounded-[10px] font-['Kumbh_Sans'] font-semibold text-[14px] lg:text-[16px] transition-all duration-200 ${isValid ? 'bg-[#29a073] text-white hover:bg-[#238a5e] active:bg-[#1d7549] shadow-md hover:shadow-lg' : (isDarkMode ? 'bg-[#3a3a3a] text-[#78778b] cursor-not-allowed' : 'bg-gray-300 text-gray-600 cursor-not-allowed')}`}
+              className={`px-5 py-3.5 rounded-[10px] font-['Kumbh_Sans'] font-semibold text-[14px] ${isValid ? 'bg-[#c8ee44] text-[#1b212d] hover:bg-[#b8de34] active:bg-[#a8ce24]' : 'bg-gray-300 text-gray-600 cursor-not-allowed'}`}
             >
               Continue
             </button>
             <button
               type="button"
               onClick={() => navigate('/invoices')}
-              className={`flex-1 sm:flex-none ${isDarkMode ? 'border-[#201e34] text-white hover:bg-[#282541]' : 'border-neutral-100 text-[#1b212d] hover:bg-gray-50'} border px-5 py-3.5 rounded-[10px] font-['Kumbh_Sans'] font-medium text-[14px] lg:text-[16px] transition-all duration-200`}
+              className={`${isDarkMode ? 'border-[#201e34] text-white hover:bg-[#282541]' : 'border-neutral-100 text-[#1b212d] hover:bg-gray-50'} border px-5 py-3.5 rounded-[10px] font-['Kumbh_Sans'] font-medium text-[14px]`}
             >
               Cancel
             </button>
           </div>
-          </form>
-        </div>
+        </form>
       </div>
     </div>
   )
