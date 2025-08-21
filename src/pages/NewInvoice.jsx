@@ -52,6 +52,11 @@ const NewInvoice = () => {
           </svg>
         </button>
 
+        {/* Dark Mode Toggle */}
+        <div className="fixed top-6 right-6 md:top-8 md:right-8 lg:top-10 lg:right-10 z-50">
+          <DarkModeToggle />
+        </div>
+
         {/* Sidebar - Updated to match Figma design */}
         <div className={`fixed md:relative z-40 w-[250px] h-screen transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'

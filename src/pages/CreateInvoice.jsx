@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
+import DarkModeToggle from '../components/DarkModeToggle'
 
 const formatDateForDisplay = (value) => {
   if (!value) return ''
@@ -60,11 +61,16 @@ const CreateInvoice = () => {
   }
 
   return (
-    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-colors duration-300`}> 
-      <div className="flex justify-center items-start sm:items-center p-6">
+    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-colors duration-300`}>
+      {/* Dark Mode Toggle */}
+      <div className="fixed top-6 right-6 md:top-8 md:right-8 lg:top-10 lg:right-10 z-50">
+        <DarkModeToggle />
+      </div>
+      
+      <div className="min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
         <form
           onSubmit={handleSubmit}
-          className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} w-full max-w-[640px] border rounded-[12px] p-6 sm:p-8 shadow-sm`}
+          className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl border rounded-[12px] p-6 sm:p-8 shadow-sm`}
         >
           <h2 className={`font-['Kumbh_Sans'] text-[20px] sm:text-[22px] font-semibold mb-6 ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
             Create Invoice
