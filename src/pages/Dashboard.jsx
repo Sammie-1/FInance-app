@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
@@ -11,11 +11,12 @@ import {
   kpiIcons,
   uiIcons
 } from '../assets/figma-assets'
+// import ellipseBackgroundIcon from '../assets/icons/Ellipse 2.svg'
 
 // KPI Card Components with Dark Theme Support
 const TotalBalanceCard = ({ isDarkMode }) => {
   return (
-    <div className={`${isDarkMode ? 'bg-[#363a3f]' : 'bg-[#363a3f]'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] transition-colors duration-300 w-full h-[84px]`}>
+    <div className={`${isDarkMode ? 'bg-[#363a3f]' : 'bg-[#363a3f]'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] transition-colors duration-300 w-full h-[90px]`}>
       <div className="relative shrink-0 size-[42px]">
         <img alt="Total Balance Icon" className="block max-w-none size-full" src={kpiIcons.totalBalance} />
       </div>
@@ -33,7 +34,7 @@ const TotalBalanceCard = ({ isDarkMode }) => {
 
 const TotalSpendingCard = ({ isDarkMode }) => {
   return (
-    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[84px]`}>
+    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[90px]`}>
       <div className="relative shrink-0 size-[42px]">
         <img alt="Total Spending Icon" className="block max-w-none size-full" src={kpiIcons.totalSpending} />
       </div>
@@ -51,7 +52,7 @@ const TotalSpendingCard = ({ isDarkMode }) => {
 
 const TotalSavedCard = ({ isDarkMode }) => {
   return (
-    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[84px]`}>
+    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[90px]`}>
       <div className="relative shrink-0 size-[42px]">
         <img alt="Total Saved Icon" className="block max-w-none size-full" src={kpiIcons.totalSaved} />
       </div>
@@ -72,6 +73,14 @@ const Dashboard = () => {
   const navigate = useNavigate()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
+  // Ensure the page background covers the entire viewport in both themes
+  useEffect(() => {
+    document.body.style.backgroundColor = isDarkMode ? '#1c1a2e' : '#ffffff'
+    return () => {
+      document.body.style.backgroundColor = ''
+    }
+  }, [isDarkMode])
+
   const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState('/dashboard')
 
   const toggleSidebar = () => {
@@ -79,7 +88,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen transition-colors duration-300`}>
+    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen w-full transition-colors duration-300`}>
         {/* Mobile Menu Button */}
         <button
           onClick={toggleSidebar}
@@ -164,7 +173,7 @@ const Dashboard = () => {
         </div>
 
       {/* Top Bar */}
-      <div className="absolute flex items-center justify-between left-[290px] top-[30px] w-[calc(100%-320px)] pr-4">
+      <div className="absolute flex items-center justify-between left-[290px] top-[30px] w-[1110px]">
         <div className={`font-['Kumbh_Sans'] font-semibold text-[25px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                 Dashboard
         </div>
@@ -195,25 +204,30 @@ const Dashboard = () => {
 
             {/* Main Content */}
       <div className="absolute left-[290px] top-[108px] right-4">
-        {/* KPI Cards */}
-        <div className="flex flex-col sm:flex-row gap-[25px] mb-[30px] w-full max-w-[716px]">
-          <div className="flex-1 min-w-0">
-            <TotalBalanceCard isDarkMode={isDarkMode} />
-          </div>
-          <div className="flex-1 min-w-0">
-            <TotalSpendingCard isDarkMode={isDarkMode} />
-          </div>
-          <div className="flex-1 min-w-0">
-            <TotalSavedCard isDarkMode={isDarkMode} />
-          </div>
-        </div>
+        {/* KPI Cards constrained to left column width */}
+        <div className="flex gap-[30px] mb-[30px]">
+          <div className="basis-2/3 min-w-0">
+            <div className="flex flex-col sm:flex-row gap-[25px] w-full">
+              <div className="flex-1 min-w-0">
+                <TotalBalanceCard isDarkMode={isDarkMode} />
+                         </div>
+              <div className="flex-1 min-w-0">
+                <TotalSpendingCard isDarkMode={isDarkMode} />
+                          </div>
+              <div className="flex-1 min-w-0">
+                <TotalSavedCard isDarkMode={isDarkMode} />
+                          </div>
+                        </div>
+                      </div>
+          <div className="basis-1/3" />
+              </div>
 
         {/* Chart and Transaction Section */}
         <div className="flex gap-[30px]">
           {/* Left Column - Chart and Recent Transactions */}
-          <div className="flex-1 space-y-[30px]">
+          <div className="basis-2/3 space-y-[30px] min-w-0">
               {/* Working Capital Chart */}
-            <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} border rounded-[10px] p-6 h-[291px] transition-colors duration-300`}>
+            <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} border rounded-[10px] p-6 h-[305px] transition-colors duration-300 w-full`}>
               <div className="flex items-center justify-between mb-6">
                   <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                     Working Capital
@@ -237,7 +251,7 @@ const Dashboard = () => {
               </div>
 
               {/* Chart Visualization */}
-              <div className={`${isDarkMode ? 'bg-[#282541]' : 'bg-[#f2f6fc]'} rounded-xl h-[200px] relative overflow-hidden`}>
+              <div className={`${isDarkMode ? 'bg-[#282541]' : 'bg-[#f2f6fc]'} rounded-xl h-[214px] relative overflow-hidden`}>
                 {/* Chart Container - Mimicking Flutter structure */}
                 <div className="absolute inset-0 p-6">
                   {/* Chart Data Lines Container - 588px width equivalent */}
@@ -404,7 +418,7 @@ const Dashboard = () => {
           </div>
 
           {/* Right Column - Wallet and Scheduled Transfers */}
-          <div className="w-[354px] space-y-[30px]">
+          <div className="flex-[1] space-y-[30px] min-w-0 pr-4 md:pr-6 lg:pr-10">
             {/* Wallet Cards */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -414,11 +428,12 @@ const Dashboard = () => {
               </div>
               
               {/* Main Card */}
-              <div className="relative h-[210px] rounded-[15px] bg-[#1b212d] p-6 text-white">
+              <div className="relative h-[210px] rounded-[15px] bg-[#1b212d] px-6 pt-[55px] pb-6 text-white overflow-hidden">
+                <div className="absolute -right-6 -top-6 w-[120px] h-[120px] rounded-full bg-white/10" />
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <div className="font-['Gordita'] font-bold text-[16px]">Maglo.</div>
-                    <div className="font-['Gordita'] font-medium text-[12px] text-[#626260]">Universal Bank</div>
+                    <div className="font-['Gordita'] font-medium text-[12px] text-[#868685]">Universal Bank</div>
                   </div>
                 </div>
                 <div className="absolute bottom-6 left-6">
@@ -432,7 +447,7 @@ const Dashboard = () => {
                       </div>
                        
               {/* Secondary Card */}
-              <div className="relative h-[172px] rounded-[15px] bg-gradient-to-b from-[#ffffff66] to-[#ffffff1a] backdrop-blur-[5px] p-5 border border-[rgba(255,255,255,0.4)]">
+              <div className="relative h-[172px] rounded-[15px] bg-gradient-to-b from-[#ffffff66] to-[#ffffff1a] backdrop-blur-[5px] p-5 border border-[rgba(255,255,255,0.4)] overflow-hidden">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <div className="font-['Gordita'] font-bold text-[16px] text-white">Maglo.</div>
