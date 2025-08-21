@@ -15,7 +15,8 @@ import sajibPng from '../assets/icons/sajib.png'
 import moreIcon from '../assets/icons/Vector.svg'
 import dividerIcon from '../assets/icons/underline.svg'
 import verifyIcon from '../assets/icons/email.svg'
-import logoMainSmall from '../assets/icons/logo-main.svg'
+
+import logoMainSmallWhite from '../assets/icons/logo-white.svg'
 import maskGroup from '../assets/icons/Rectangle 456.svg'
 
 const NewInvoice = () => {
@@ -181,28 +182,27 @@ const NewInvoice = () => {
               {/* Left Content - Invoice Details */}
               <div className="flex-1">
                 {/* Company Header Card - From Figma */}
-                <div className="relative w-full h-[100px] mb-6">
-                  <div className="absolute bg-[#1b212d] inset-0 rounded-[10px]" />
-                  <div className="absolute inset-0">
-                    <img alt="Mask group" className="block max-w-none size-full object-cover rounded-[10px]" src={maskGroup} />
-                  </div>
-                  <div className="absolute flex items-center justify-between inset-[20px_24px] p-0">
+                <div className="relative w-full h-[100px] mb-6 rounded-[10px] overflow-hidden">
+                  {/* Background image */}
+                  <img
+                    alt="Company header background"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src={maskGroup}
+                  />
+                  {/* Overlay for readability */}
+                  <div className={`absolute inset-0 ${isDarkMode ? 'bg-[#282541]' : 'bg-[#1b212d]'}`} />
+                  {/* Content */}
+                  <div className="absolute top-5 bottom-5 left-6 right-6 flex items-center justify-between">
                     <div className="flex gap-[15px] items-center">
                       <div className="w-[40px] h-[40px]">
-                        <img alt="Company Logo" className="block max-w-none size-full" src={logoMainSmall} />
+                        <img alt="Company Logo" className="block max-w-none size-full" src= {logoMainSmallWhite} />
                       </div>
-                      <div className="flex flex-col gap-1 text-[#ffffff]">
-                        <div className="font-['Gordita'] font-bold text-[20px]">
-                          Maglo
-                        </div>
-                        <div className="font-['Kumbh_Sans'] font-normal text-[14px]">
-                          sales@maglo.com
-                        </div>
-
+                      <div className="flex flex-col gap-1 text-white">
+                        <div className="font-['Gordita'] font-bold text-[20px]">Maglo.</div>
+                        <div className="font-['Kumbh_Sans'] font-normal text-[14px]">sales@maglo.com</div>
                       </div>
-
                     </div>
-                    <div className="flex flex-col font-['Kumbh_Sans'] font-medium gap-1 items-end text-[#ffffff] text-[14px] text-right">
+                    <div className="flex flex-col font-['Kumbh_Sans'] font-medium gap-1 items-end text-white text-[14px] text-right">
                       <div>1333 Grey Fox Farm Road</div>
                       <div>Houston, TX 77060</div>
                       <div>Bloomfield Hills, Michigan(MI), 48301</div>
