@@ -326,7 +326,7 @@ const Invoices = () => {
                      {/* Table Headers - Hidden on mobile and tablet */}
            <div className="px-4 md:px-6 lg:px-10 mb-4">
              <div className="w-full max-w-[1110px] mx-auto">
-               <div className={`hidden lg:flex font-['Kumbh_Sans'] font-semibold text-[#78778b] text-[12px] uppercase tracking-wide py-3 px-4 rounded-lg transition-colors duration-300 ${
+               <div className={`hidden lg:flex font-['Kumbh_Sans'] font-semibold text-[#78778b] text-[12px] uppercase tracking-wide py-4 px-4 rounded-lg transition-colors duration-300 ${
                  isDarkMode ? 'bg-[#201e34]' : 'bg-gray-50'
                }`}>
                  <div className="w-[250px] pl-4">NAME/CLIENT</div>
@@ -415,7 +415,7 @@ const Invoices = () => {
                        </div>
 
                        {/* Date */}
-                       <div className="w-[150px] text-center">
+                       <div className="w-[150px] text-center px-4">
                          <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                            {invoice.date}
                          </div>
@@ -425,28 +425,28 @@ const Invoices = () => {
                        </div>
 
                        {/* Orders/Type */}
-                       <div className="w-[150px] text-center">
+                       <div className="w-[150px] text-center px-4">
                          <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#929eae]">
                            {invoice.orders}
                          </div>
                        </div>
 
                        {/* Amount */}
-                       <div className="w-[150px] text-center">
+                       <div className="w-[150px] text-center px-4">
                          <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                            {invoice.amount}
                          </div>
                        </div>
 
                        {/* Status */}
-                       <div className="w-[180px] text-center">
+                       <div className="w-[180px] text-center px-4">
                          <div className={`inline-flex px-[15px] py-2 rounded font-['Kumbh_Sans'] font-medium text-[12px] ${invoice.statusColor}`}>
                            {invoice.status}
                          </div>
                        </div>
 
                        {/* Action */}
-                       <div className="w-[100px] text-center">
+                       <div className="w-[100px] text-center px-4">
                          <button className="w-[25px] h-[25px] mx-auto">
                            <img alt="More" className="block max-w-none size-full" src={moreIcon} />
                          </button>

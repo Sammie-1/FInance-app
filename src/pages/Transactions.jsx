@@ -283,7 +283,7 @@ const Transactions = () => {
                                            {/* Table Headers - Hidden on mobile and tablet */}
             <div className="px-4 md:px-6 lg:px-10 mb-4">
               <div className="w-full max-w-[1110px] mx-auto">
-                <div className={`hidden lg:flex font-['Kumbh_Sans'] font-semibold text-[#78778b] text-[12px] uppercase tracking-wide py-3 px-4 rounded-lg transition-colors duration-300 ${isDarkMode ? 'bg-[#201e34]' : 'bg-gray-50'}`}>
+                <div className={`hidden lg:flex font-['Kumbh_Sans'] font-semibold text-[#78778b] text-[12px] uppercase tracking-wide py-4 px-4 rounded-lg transition-colors duration-300 ${isDarkMode ? 'bg-[#201e34]' : 'bg-gray-50'}`}>
                   <div className="w-[237px] pl-4">NAME/BUSINESS</div>
                   <div className="w-[123px] text-center">TYPE</div>
                   <div className="w-[148px] text-center">AMOUNT</div>
@@ -368,21 +368,21 @@ const Transactions = () => {
                        </div>
 
                        {/* Type */}
-                       <div className="w-[123px] text-center">
+                       <div className="w-[123px] text-center px-4">
                          <div className="font-['Kumbh_Sans'] font-medium text-[14px] text-[#78778b]">
                            {transaction.type}
                          </div>
                        </div>
 
                        {/* Amount */}
-                       <div className="w-[148px] text-center">
+                       <div className="w-[148px] text-center px-4">
                          <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                            {transaction.isNegative ? `- ${transaction.amount}` : transaction.amount}
                          </div>
                        </div>
 
                        {/* Date */}
-                       <div className="w-[148px] text-center">
+                       <div className="w-[148px] text-center px-4">
                          <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                            {transaction.date}
                          </div>
@@ -392,14 +392,14 @@ const Transactions = () => {
                        </div>
 
                        {/* Invoice ID */}
-                       <div className="w-[158px] text-center">
+                       <div className="w-[158px] text-center px-4">
                          <div className="font-['Kumbh_Sans'] font-medium text-[14px] text-[#78778b]">
                            {transaction.id}
                          </div>
                        </div>
 
                        {/* Action */}
-                       <div className="w-[100px] text-center">
+                       <div className="w-[100px] text-center px-4">
                          <button className="bg-[#c8ee44] hover:bg-[#b8de34] text-[#1b212d] font-['Kumbh_Sans'] font-semibold text-[14px] px-5 py-2.5 rounded transition-colors duration-200">
                            View
                          </button>
