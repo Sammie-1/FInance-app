@@ -9,17 +9,18 @@ const DarkModeToggle = () => {
       className={`
         p-3 rounded-full transition-all duration-300 ease-in-out
         ${isDarkMode 
-          ? 'bg-gray-800 hover:bg-gray-700 text-yellow-400' 
-          : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+          ? 'bg-[#282541] hover:bg-[#1c1a2e] text-yellow-400 border border-[#3a3654]' 
+          : 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-200'
         }
-        shadow-lg hover:shadow-xl transform hover:scale-110
+        shadow-lg hover:shadow-xl transform hover:scale-105
+        backdrop-blur-sm
       `}
       aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {isDarkMode ? (
         // Sun icon for when in dark mode
         <svg 
-          className="w-6 h-6 transition-transform duration-300 rotate-0" 
+          className="w-5 h-5 transition-transform duration-300" 
           fill="currentColor" 
           viewBox="0 0 20 20"
         >
@@ -32,7 +33,7 @@ const DarkModeToggle = () => {
       ) : (
         // Moon icon for when in light mode
         <svg 
-          className="w-6 h-6 transition-transform duration-300 rotate-0" 
+          className="w-5 h-5 transition-transform duration-300" 
           fill="currentColor" 
           viewBox="0 0 20 20"
         >

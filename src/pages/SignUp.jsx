@@ -35,7 +35,10 @@ const SignUp = () => {
 
   return (
     <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} relative w-full min-h-screen overflow-hidden transition-colors duration-300`} data-name="Sign Up" data-node-id="134:2419">
-      <DarkModeToggle />
+      {/* Dark Mode Toggle - Positioned at top-right corner */}
+      <div className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50">
+        <DarkModeToggle />
+      </div>
       {/* Main Content Container */}
       <div className="flex min-h-screen">
         {/* Left Side - Form */}

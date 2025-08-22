@@ -90,10 +90,7 @@ const Dashboard = () => {
           </svg>
         </button>
 
-      {/* Dark Mode Toggle */}
-      <div className="fixed top-6 right-6 z-50">
-        <DarkModeToggle />
-      </div>
+      {/* Dark Mode Toggle moved into top bar for alignment with other pages */}
 
       {/* Overlay for mobile */}
       {isSidebarOpen && (
@@ -177,6 +174,7 @@ const Dashboard = () => {
               <img alt="Notifications" className="block max-w-none size-full" src={uiIcons.notification} />
             </div>
                 </div>
+          <DarkModeToggle />
           <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-[215px] transition-colors duration-300`}>
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9">
@@ -187,11 +185,11 @@ const Dashboard = () => {
                     </span>
                   </div>
                   <div className="w-[17px] h-[17px]">
-              <img alt="Dropdown" className="block max-w-none size-full" src={uiIcons.dropdown} />
+                <img alt="Dropdown" className="block max-w-none size-full" src={uiIcons.dropdown} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
             {/* Main Content */}
       <div className="absolute left-[290px] top-[108px] right-4">
