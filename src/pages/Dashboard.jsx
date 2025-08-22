@@ -15,7 +15,7 @@ import {
 // KPI Card Components with Dark Theme Support
 const TotalBalanceCard = ({ isDarkMode }) => {
   return (
-    <div className={`${isDarkMode ? 'bg-[#363a3f]' : 'bg-[#363a3f]'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] transition-colors duration-300 w-full h-[84px]`}>
+    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#363a3f]'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[84px]`}>
       <div className="relative shrink-0 size-[42px]">
         <img alt="Total Balance Icon" className="block max-w-none size-full" src={kpiIcons.totalBalance} />
       </div>
@@ -23,7 +23,7 @@ const TotalBalanceCard = ({ isDarkMode }) => {
         <div className="font-['Kumbh_Sans'] font-normal text-[#929eae] text-[14px]">
           <p className="leading-[normal] whitespace-nowrap">Total balance</p>
         </div>
-        <div className="font-['Kumbh_Sans'] font-bold text-[#ffffff] text-[24px]">
+        <div className={`font-['Kumbh_Sans'] font-bold ${isDarkMode ? 'text-white' : 'text-white'} text-[24px]`}>
           <p className="leading-[normal] whitespace-nowrap">$5240.21</p>
         </div>
       </div>
@@ -80,10 +80,14 @@ const Dashboard = () => {
 
   return (
     <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen transition-colors duration-300`}>
+      {/* Dark mode overlay for complete coverage */}
+      {isDarkMode && (
+        <div className="fixed inset-0 bg-[#1c1a2e] pointer-events-none z-0"></div>
+      )}
         {/* Mobile Menu Button */}
         <button
           onClick={toggleSidebar}
-          className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-[#29a073] text-white"
+          className={`md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg ${isDarkMode ? 'bg-[#29a073] hover:bg-[#24a06a]' : 'bg-[#29a073] hover:bg-[#24a06a]'} text-white transition-colors duration-200`}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -192,7 +196,7 @@ const Dashboard = () => {
             </div>
 
             {/* Main Content */}
-      <div className="absolute left-[290px] top-[108px] right-4">
+      <div className={`absolute left-[290px] top-[108px] right-4 ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg`}>
         {/* KPI Cards */}
         <div className="flex flex-col sm:flex-row gap-[25px] mb-[30px] w-full max-w-[716px]">
           <div className="flex-1 min-w-0">
@@ -366,9 +370,9 @@ const Dashboard = () => {
                   { name: 'Netflix Subscription', business: 'Netflix', type: 'Entertainment', amount: '$100.00', date: '05 Apr 2022', icon: transactionIcons.netflix },
                   { name: 'Figma Subscription', business: 'Figma. Inc', type: 'Software', amount: '$244.20', date: '02 Apr 2022', icon: transactionIcons.figma }
                   ].map((transaction, index) => (
-                  <div key={index} className="flex items-center justify-between py-3 border-b border-neutral-100 last:border-b-0">
+                  <div key={index} className={`flex items-center justify-between py-3 border-b ${isDarkMode ? 'border-[#282541]' : 'border-neutral-100'} last:border-b-0`}>
                           <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-[5px] bg-[#e4f1ff] flex items-center justify-center">
+                      <div className={`w-10 h-10 rounded-[5px] ${isDarkMode ? 'bg-[#282541]' : 'bg-[#e4f1ff]'} flex items-center justify-center`}>
                         <img alt={transaction.business} className="w-8 h-8 object-cover rounded" src={transaction.icon} />
                             </div>
                             <div>
@@ -402,7 +406,7 @@ const Dashboard = () => {
           </div>
 
           {/* Right Column - Wallet and Scheduled Transfers */}
-          <div className="w-[354px] space-y-[30px]">
+          <div className={`w-[354px] space-y-[30px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg`}>
             {/* Wallet Cards */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -412,33 +416,33 @@ const Dashboard = () => {
               </div>
               
               {/* Main Card */}
-              <div className="relative h-[210px] rounded-[15px] bg-[#1b212d] p-6 text-white">
+              <div className={`relative h-[210px] rounded-[15px] ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-[#1b212d]'} p-6 text-white`}>
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <div className="font-['Gordita'] font-bold text-[16px]">Maglo.</div>
-                    <div className="font-['Gordita'] font-medium text-[12px] text-[#626260]">Universal Bank</div>
+                    <div className={`font-['Gordita'] font-medium text-[12px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#626260]'}`}>Universal Bank</div>
                   </div>
                 </div>
                 <div className="absolute bottom-6 left-6">
                   <div className="font-['Gordita'] font-bold text-[17px] tracking-[1.7px] mb-2">
                     5495 7381 3759 2321
                   </div>
-                  <div className="font-['Gordita'] font-medium text-[14px] text-[#868685] tracking-[0.28px]">
+                  <div className={`font-['Gordita'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#868685]'} tracking-[0.28px]`}>
                     04/24
                   </div>
                         </div>
                       </div>
                        
               {/* Secondary Card */}
-              <div className="relative h-[172px] rounded-[15px] bg-gradient-to-b from-[#ffffff66] to-[#ffffff1a] backdrop-blur-[5px] p-5 border border-[rgba(255,255,255,0.4)]">
+              <div className={`relative h-[172px] rounded-[15px] ${isDarkMode ? 'bg-gradient-to-b from-[#282541] to-[#1e1c30] border-[#3a3654]' : 'bg-gradient-to-b from-[#ffffff66] to-[#ffffff1a] border-[rgba(255,255,255,0.4)]'} backdrop-blur-[5px] p-5 border`}>
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <div className="font-['Gordita'] font-bold text-[16px] text-white">Maglo.</div>
-                    <div className="font-['Gordita'] font-medium text-[12px] text-neutral-100">Commercial Bank</div>
+                    <div className={`font-['Gordita'] font-medium text-[12px] ${isDarkMode ? 'text-[#929eae]' : 'text-neutral-100'}`}>Commercial Bank</div>
                   </div>
                 </div>
                 <div className="absolute bottom-5 left-5">
-                  <div className="font-['Gordita'] font-bold text-[16px] tracking-[1.6px] mb-2 text-[#1b212d]">
+                  <div className={`font-['Gordita'] font-bold text-[16px] tracking-[1.6px] mb-2 ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                     85952548****
                           </div>
                   <div className="font-['Gordita'] font-medium text-[12px] text-[#929eae] tracking-[0.24px]">
@@ -467,7 +471,7 @@ const Dashboard = () => {
                   { name: 'Dr. Jubed Ahmed', date: 'April 16, 2022 at 11:00', amount: '- $435,00', avatar: userAvatars.drJubedAhmed },
                   { name: 'AR. Jakir Alp', date: 'April 14, 2022 at 11:00', amount: '- $228,00', avatar: userAvatars.arJakirAlp }
                 ].map((transfer, index) => (
-                  <div key={index} className="flex items-center justify-between py-3 border-b border-neutral-100 last:border-b-0">
+                  <div key={index} className={`flex items-center justify-between py-3 border-b ${isDarkMode ? 'border-[#282541]' : 'border-neutral-100'} last:border-b-0`}>
                     <div className="flex items-center gap-3">
                       <img alt={transfer.name} className="w-8 h-8 rounded-full" src={transfer.avatar} />
                       <div>
@@ -479,7 +483,7 @@ const Dashboard = () => {
                         </div>
                       </div>
                     </div>
-                    <div className={`font-['Kumbh_Sans'] font-semibold text-[16px] ${isDarkMode ? 'text-white' : 'text-[#000000]'}`}>
+                    <div className={`font-['Kumbh_Sans'] font-semibold text-[16px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                       {transfer.amount}
                       </div>
                     </div>
