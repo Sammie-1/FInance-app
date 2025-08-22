@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
@@ -11,11 +11,12 @@ import {
   kpiIcons,
   uiIcons
 } from '../assets/figma-assets'
+// import ellipseBackgroundIcon from '../assets/icons/Ellipse 2.svg'
 
 // KPI Card Components with Dark Theme Support
 const TotalBalanceCard = ({ isDarkMode }) => {
   return (
-    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#363a3f]'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[84px]`}>
+    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#363a3f]'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[90px]`}>
       <div className="relative shrink-0 size-[42px]">
         <img alt="Total Balance Icon" className="block max-w-none size-full" src={kpiIcons.totalBalance} />
       </div>
@@ -33,7 +34,7 @@ const TotalBalanceCard = ({ isDarkMode }) => {
 
 const TotalSpendingCard = ({ isDarkMode }) => {
   return (
-    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[84px]`}>
+    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[90px]`}>
       <div className="relative shrink-0 size-[42px]">
         <img alt="Total Spending Icon" className="block max-w-none size-full" src={kpiIcons.totalSpending} />
       </div>
@@ -51,7 +52,7 @@ const TotalSpendingCard = ({ isDarkMode }) => {
 
 const TotalSavedCard = ({ isDarkMode }) => {
   return (
-    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[84px]`}>
+    <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[90px]`}>
       <div className="relative shrink-0 size-[42px]">
         <img alt="Total Saved Icon" className="block max-w-none size-full" src={kpiIcons.totalSaved} />
       </div>
@@ -72,6 +73,14 @@ const Dashboard = () => {
   const navigate = useNavigate()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
+  // Ensure the page background covers the entire viewport in both themes
+  useEffect(() => {
+    document.body.style.backgroundColor = isDarkMode ? '#1c1a2e' : '#ffffff'
+    return () => {
+      document.body.style.backgroundColor = ''
+    }
+  }, [isDarkMode])
+
   const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState('/dashboard')
 
   const toggleSidebar = () => {
@@ -79,7 +88,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen transition-colors duration-300`}>
+    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen w-full transition-colors duration-300`}>
       {/* Dark mode overlay for complete coverage */}
       {isDarkMode && (
         <div className="fixed inset-0 bg-[#1c1a2e] pointer-events-none z-0"></div>
@@ -165,7 +174,7 @@ const Dashboard = () => {
         </div>
 
       {/* Top Bar */}
-      <div className="absolute flex items-center justify-between left-[290px] top-[30px] w-[calc(100%-320px)] pr-4">
+      <div className="absolute flex items-center justify-between left-[290px] top-[30px] w-[1110px]">
         <div className={`font-['Kumbh_Sans'] font-semibold text-[25px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                 Dashboard
         </div>
@@ -213,9 +222,9 @@ const Dashboard = () => {
         {/* Chart and Transaction Section */}
         <div className="flex gap-[30px]">
           {/* Left Column - Chart and Recent Transactions */}
-          <div className="flex-1 space-y-[30px]">
+          <div className="basis-2/3 space-y-[30px] min-w-0">
               {/* Working Capital Chart */}
-            <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} border rounded-[10px] p-6 h-[291px] transition-colors duration-300`}>
+            <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} border rounded-[10px] p-6 h-[305px] transition-colors duration-300 w-full`}>
               <div className="flex items-center justify-between mb-6">
                   <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                     Working Capital
@@ -239,7 +248,7 @@ const Dashboard = () => {
               </div>
 
               {/* Chart Visualization */}
-              <div className={`${isDarkMode ? 'bg-[#282541]' : 'bg-[#f2f6fc]'} rounded-xl h-[200px] relative overflow-hidden`}>
+              <div className={`${isDarkMode ? 'bg-[#282541]' : 'bg-[#f2f6fc]'} rounded-xl h-[214px] relative overflow-hidden`}>
                 {/* Chart Container - Mimicking Flutter structure */}
                 <div className="absolute inset-0 p-6">
                   {/* Chart Data Lines Container - 588px width equivalent */}
