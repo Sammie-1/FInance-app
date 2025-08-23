@@ -47,6 +47,58 @@ import {
 } from '../assets/figma-assets'
 // import ellipseBackgroundIcon from '../assets/icons/Ellipse 2.svg'
 
+// WalletCards Component
+const WalletCards = () => {
+  return (
+    <div className="relative mx-auto" style={{ maxWidth: 354 }}>
+      {/* Top (dark) card */}
+      <div className="relative z-30 rounded-2xl bg-gradient-to-br from-neutral-700 via-neutral-900 to-black border border-white/10 shadow-xl p-6 h-52 text-white">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-lg">Maglo.</span>
+            <span className="text-xs opacity-60">Universal Bank</span>
+          </div>
+          <div className="w-7 h-7 bg-white/20 rounded-full"></div>
+        </div>
+
+        <div className="w-10 h-8 bg-white/20 rounded mt-6"></div>
+
+        <div className="mt-4 text-lg tracking-widest font-semibold whitespace-nowrap overflow-hidden">
+          5495 7381 3759 2321
+        </div>
+      </div>
+
+      {/* Frosted mini overlay */}
+      <div className="absolute z-40 left-2 right-2 top-[172px] h-20 rounded-xl backdrop-blur-md bg-white/30 border border-white/30 shadow-md px-4 flex items-center justify-between">
+        <div className="flex items-baseline gap-2 text-white">
+          <span className="font-bold">Maglo.</span>
+          <span className="text-xs opacity-75">Commercial Bank</span>
+        </div>
+        <div className="h-7 w-11 bg-white/60 rounded"></div>
+      </div>
+
+      {/* Bottom (light) card */}
+      <div className="relative z-20 mt-[-40px] rounded-xl bg-gray-100 border border-gray-200 shadow-inner shadow-gray-300 p-5 h-40 text-gray-800">
+        <div className="flex justify-between items-center">
+          <div className="font-bold text-gray-600">••••••••</div>
+          <div className="w-7 h-7 bg-white/40 rounded-full"></div>
+        </div>
+
+        <div className="w-10 h-8 bg-gray-300 rounded mt-6"></div>
+
+        <div className="mt-3 text-lg tracking-widest font-semibold text-gray-800">
+          85952548****
+        </div>
+
+        <div className="mt-3 flex justify-between items-center">
+          <div className="text-xs text-gray-500 tracking-wider">09/25</div>
+          <div className="h-6 w-8 bg-blue-600 rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // KPI Card Components with Dark Theme Support
 const TotalBalanceCard = ({ isDarkMode }) => {
   return (
@@ -518,52 +570,17 @@ const Dashboard = () => {
 
           {/* Right Column - Wallet and Scheduled Transfers */}
           <div className={`w-[354px] space-y-[30px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg`}>
-            {/* Wallet Cards */}
-            {/* <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                  Wallet
-                </h3>
-              </div> */}
-              
-              {/* Main Card */}
-              {/* <div className={`relative h-[210px] rounded-[15px] bg-gradient-to-br from-[#4A4A49] to-[#20201F] p-6 text-white`}>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <div className="font-['Gordita'] font-bold text-[16px]">Maglo.</div>
-                    <div className={`font-['Gordita'] font-medium text-[12px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#626260]'}`}>Universal Bank</div>
-                  </div>
-                </div>
-                <div className="absolute bottom-6 left-6">
-                  <div className="font-['Gordita'] font-bold text-[17px] tracking-[1.7px] mb-2">
-                    5495 7381 3759 2321
-                  </div>
-                  <div className={`font-['Gordita'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#868685]'} tracking-[0.28px]`}>
-                    04/24
-                  </div>
-                        </div>
-                      </div>
-                        */}
-              {/* Secondary Card */}
-              {/* <div className={`relative h-[172px] rounded-[15px] bg-gradient-to-br from-[#4A4A49] to-[#20201F] p-5 text-white`}>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <div className="font-['Gordita'] font-bold text-[16px] text-white">Maglo.</div>
-                    <div className={`font-['Gordita'] font-medium text-[12px] ${isDarkMode ? 'text-[#929eae]' : 'text-neutral-100'}`}>Commercial Bank</div>
-                  </div>
-                </div>
-                <div className="absolute bottom-5 left-5">
-                  <div className={`font-['Gordita'] font-bold text-[16px] tracking-[1.6px] mb-2 ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                    85952548****
-                          </div>
-                  <div className="font-['Gordita'] font-medium text-[12px] text-[#929eae] tracking-[0.24px]">
-                    09/25
-                            </div>
-                            </div>
-                          </div>
-                        </div> */}
-
-                      
+                         {/* Wallet Cards */}
+             <div className="space-y-4">
+               <div className="flex items-center justify-between">
+                 <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                   Wallet
+                 </h3>
+               </div>
+               
+               {/* WalletCards Component */}
+               <WalletCards />
+             </div>                      
 
             {/* Scheduled Transfers */}
             <div>
