@@ -1,7 +1,40 @@
-import { useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useMemo, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
+
+// Custom CSS animations for enhanced UX
+const customStyles = `
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 1.2s ease-out;
+  }
+  
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-slide-in-left {
+    animation: slide-in-left 0.8s ease-out;
+  }
+`;
 
 const formatDateForDisplay = (value) => {
   if (!value) return ''
@@ -17,7 +50,20 @@ const formatDateForDisplay = (value) => {
 
 const CreateInvoice = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const { isDarkMode } = useDarkMode()
+  const [isNavigating, setIsNavigating] = useState(false)
+
+  // Inject custom CSS animations
+  useEffect(() => {
+    const styleElement = document.createElement('style')
+    styleElement.textContent = customStyles
+    document.head.appendChild(styleElement)
+    
+    return () => {
+      document.head.removeChild(styleElement)
+    }
+  }, [])
 
   const [form, setForm] = useState({
     invoiceId: '',
@@ -47,6 +93,8 @@ const CreateInvoice = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setIsNavigating(true)
+    
     const invoiceId = form.invoiceId?.trim() || `MGL${Math.floor(100000 + Math.random() * 900000)}`
     const invoiceData = {
       invoiceId,
@@ -57,11 +105,20 @@ const CreateInvoice = () => {
       invoiceDate: formatDateForDisplay(form.invoiceDate),
       dueDate: formatDateForDisplay(form.dueDate)
     }
-    navigate('/new-invoice', { state: invoiceData })
+    
+    // Add a small delay for smooth animation
+          setTimeout(() => {
+        navigate('/new-invoice', { state: invoiceData })
+        setIsNavigating(false)
+      }, 300)
   }
 
   return (
-    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-colors duration-300`}>
+    <div 
+      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-all duration-800 ease-in-out ${
+        isNavigating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+      }`}
+    >
       {/* Dark Mode Toggle */}
       <div className="fixed top-6 right-6 md:top-8 md:right-8 lg:top-10 lg:right-10 z-50">
         <DarkModeToggle />
@@ -70,7 +127,7 @@ const CreateInvoice = () => {
       <div className="min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
         <form
           onSubmit={handleSubmit}
-          className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl border rounded-[12px] p-6 sm:p-8 shadow-sm`}
+          className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl border rounded-[12px] p-6 sm:p-8 shadow-sm animate-fade-in-up`}
         >
           <h2 className={`font-['Kumbh_Sans'] text-[20px] sm:text-[22px] font-semibold mb-6 ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
             Create Invoice
@@ -166,14 +223,18 @@ const CreateInvoice = () => {
             <button
               type="submit"
               disabled={!isValid}
-              className={`px-5 py-3.5 rounded-[10px] font-['Kumbh_Sans'] font-semibold text-[14px] ${isValid ? 'bg-[#c8ee44] text-[#1b212d] hover:bg-[#b8de34] active:bg-[#a8ce24]' : 'bg-gray-300 text-gray-600 cursor-not-allowed'}`}
+                             className={`px-5 py-3.5 rounded-[10px] font-['Kumbh_Sans'] font-semibold text-[14px] transition-all duration-500 transform hover:scale-105 ${
+                isValid 
+                  ? 'bg-[#c8ee44] text-[#1b212d] hover:bg-[#b8de34] active:bg-[#a8ce24]' 
+                  : 'bg-gray-300 text-gray-600 cursor-not-allowed'
+              }`}
             >
               Continue
             </button>
             <button
               type="button"
               onClick={() => navigate('/invoices')}
-              className={`${isDarkMode ? 'border-[#201e34] text-white hover:bg-[#282541]' : 'border-neutral-100 text-[#1b212d] hover:bg-gray-50'} border px-5 py-3.5 rounded-[10px] font-['Kumbh_Sans'] font-medium text-[14px]`}
+                             className={`${isDarkMode ? 'border-[#201e34] text-white hover:bg-[#282541]' : 'border-neutral-100 text-[#1b212d] hover:bg-gray-50'} border px-5 py-3.5 rounded-[10px] font-['Kumbh_Sans'] font-medium text-[14px] transition-all duration-500 transform hover:scale-105`}
             >
               Cancel
             </button>

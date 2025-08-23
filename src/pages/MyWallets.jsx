@@ -1,7 +1,40 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
+
+// Custom CSS animations for enhanced UX
+const customStyles = `
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 1.2s ease-out;
+  }
+  
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-slide-in-left {
+    animation: slide-in-left 0.8s ease-out;
+  }
+`;
 import { getNavigationWithActiveState } from '../config/navigation'
 // Local assets
 import logoMain from '../assets/icons/logo-main.svg'
@@ -34,9 +67,34 @@ const MyWallets = () => {
   const location = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('all')
+  const [isNavigating, setIsNavigating] = useState(false)
+
+  // Inject custom CSS animations
+  useEffect(() => {
+    const styleElement = document.createElement('style')
+    styleElement.textContent = customStyles
+    document.head.appendChild(styleElement)
+    
+    return () => {
+      document.head.removeChild(styleElement)
+    }
+  }, [])
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
+  }
+
+  const handleNavigation = (path) => {
+    if (path) {
+      setIsNavigating(true)
+      
+      // Add a small delay for smooth animation
+      setTimeout(() => {
+        navigate(path)
+        setIsSidebarOpen(false)
+        setIsNavigating(false)
+      }, 300)
+    }
   }
 
   // Get navigation items with proper active state
@@ -102,7 +160,11 @@ const MyWallets = () => {
   }
 
   return (
-    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-colors duration-300`}>
+    <div 
+      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-all duration-800 ease-in-out ${
+        isNavigating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+      }`}
+    >
       <div className="flex">
         {/* Mobile Menu Button */}
         <button
@@ -135,28 +197,42 @@ const MyWallets = () => {
               {topSidebarItems.map((item, index) => (
                 <div
                   key={index}
-                  onClick={() => {
-                    item.path && navigate(item.path)
-                    setIsSidebarOpen(false)
-                  }}
-                  className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[220px] ${
+                  onClick={() => handleNavigation(item.path)}
+                  className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[220px] ${
                     item.active 
-                      ? 'bg-[#c8ee44]' 
+                      ? 'bg-[#c8ee44] transform scale-[1.02] shadow-lg' 
                       : isDarkMode 
-                        ? 'hover:bg-[#282541]' 
-                        : 'hover:bg-gray-100'
+                        ? 'hover:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md' 
+                        : 'hover:bg-gray-100 hover:transform hover:scale-[1.02] hover:shadow-md'
                   }`}
                 >
-                  <div className="relative w-5 h-5">
+                  {/* Active indicator line */}
+                  {item.active && (
+                    <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-[#1b212d] rounded-r-full animate-pulse" />
+                  )}
+                  
+                  {/* Icon with enhanced animations */}
+                  <div className={`relative w-5 h-5 transition-all duration-500 ${
+                    item.active ? 'transform rotate-12 scale-110' : 'group-hover:rotate-6 group-hover:scale-110'
+                  }`}>
                     <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
                   </div>
-                  <span className={`font-['Kumbh_Sans'] text-[14px] whitespace-nowrap ${
+                  
+                  {/* Text with enhanced animations */}
+                  <span className={`font-['Kumbh_Sans'] text-[14px] whitespace-nowrap transition-all duration-500 ${
                     item.active 
-                      ? 'font-semibold text-[#929eae]' 
-                      : 'font-medium text-[#929eae]'
+                      ? 'font-semibold text-[#929eae] transform translate-x-1' 
+                      : 'font-medium text-[#929eae] group-hover:translate-x-1'
                   }`}>
                     {item.label}
                   </span>
+                  
+                  {/* Hover glow effect */}
+                  <div className={`absolute inset-0 rounded-lg transition-all duration-500 ${
+                    item.active 
+                      ? 'bg-gradient-to-r from-[#c8ee44]/20 to-transparent' 
+                      : 'group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent'
+                  }`} />
                 </div>
               ))}
             </div>
@@ -166,16 +242,23 @@ const MyWallets = () => {
               {bottomSidebarItems.map((item, index) => (
                 <div
                   key={index}
-                  className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[220px] ${
+                  onClick={() => handleNavigation(item.path)}
+                  className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[220px] ${
                     isDarkMode 
-                      ? 'hover:bg-[#282541] text-[#929eae]' 
-                      : 'hover:bg-gray-100 text-[#929eae]'
+                      ? 'hover:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]' 
+                      : 'hover:bg-gray-100 hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]'
                   }`}
                 >
-                  <div className="w-5 h-5">
+                  {/* Icon with enhanced animations */}
+                  <div className={`w-5 h-5 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110`}>
                     <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
                   </div>
-                  <span className="font-['Kumbh_Sans'] font-medium text-[14px] whitespace-nowrap">{item.label}</span>
+                  
+                  {/* Text with enhanced animations */}
+                  <span className="font-['Kumbh_Sans'] font-medium text-[14px] whitespace-nowrap transition-all duration-500 group-hover:translate-x-1">{item.label}</span>
+                  
+                  {/* Hover glow effect */}
+                  <div className={`absolute inset-0 rounded-lg transition-all duration-500 group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent`} />
                 </div>
               ))}
             </div>

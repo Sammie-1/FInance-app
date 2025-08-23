@@ -1,8 +1,42 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
 import { getNavigationWithActiveState } from '../config/navigation'
+
+// Custom CSS animations for enhanced UX
+const customStyles = `
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 1.2s ease-out;
+  }
+  
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-slide-in-left {
+    animation: slide-in-left 0.8s ease-out;
+  }
+`;
+
 
 // Import Figma generated assets from centralized asset management
 import {
@@ -71,7 +105,10 @@ const TotalSavedCard = ({ isDarkMode }) => {
 const Dashboard = () => {
   const { isDarkMode } = useDarkMode()
   const navigate = useNavigate()
+  const location = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState(location.pathname)
+  const [isNavigating, setIsNavigating] = useState(false)
 
   // Ensure the page background covers the entire viewport in both themes
   useEffect(() => {
@@ -81,17 +118,59 @@ const Dashboard = () => {
     }
   }, [isDarkMode])
 
+  // Inject custom CSS animations
+  useEffect(() => {
+    const styleElement = document.createElement('style')
+    styleElement.textContent = customStyles
+    document.head.appendChild(styleElement)
+    
+    return () => {
+      document.head.removeChild(styleElement)
+    }
+  }, [])
+
   const { topSidebarItems, bottomSidebarItems } = getNavigationWithActiveState('/dashboard')
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
   }
 
+  const handleNavigation = (path) => {
+    if (path && path !== activeTab) {
+      setIsNavigating(true)
+      setActiveTab(path)
+      
+      // Add a small delay for smooth animation
+      setTimeout(() => {
+        navigate(path)
+        setIsSidebarOpen(false)
+        setIsNavigating(false)
+      }, 300)
+    }
+  }
+
   return (
-    <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen w-full transition-colors duration-300`}>
+    <div 
+      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen w-full transition-all duration-800 ease-in-out ${
+        isNavigating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+      }`}
+    >
       {/* Dark mode overlay for complete coverage */}
       {isDarkMode && (
         <div className="fixed inset-0 bg-[#1c1a2e] pointer-events-none z-0"></div>
+      )}
+      
+      {/* Navigation Loading Overlay */}
+      {isNavigating && (
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="bg-white dark:bg-[#1e1c30] rounded-2xl p-8 shadow-2xl flex flex-col items-center gap-4">
+            <div className="relative">
+              <div className="w-12 h-12 border-4 border-[#29a073]/20 border-t-[#29a073] rounded-full animate-spin"></div>
+              <div className="absolute inset-0 w-12 h-12 border-4 border-transparent border-r-[#c8ee44] rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+            </div>
+            <span className="font-['Kumbh_Sans'] font-medium text-[#1b212d] dark:text-white">Navigating...</span>
+          </div>
+        </div>
       )}
         {/* Mobile Menu Button */}
         <button
@@ -127,31 +206,47 @@ const Dashboard = () => {
         {/* Navigation */}
           <div className="flex flex-col h-full px-[25px]">
             <div className="flex flex-col gap-0.5 pt-0">
-              {topSidebarItems.map((item, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    item.path && navigate(item.path)
-                    setIsSidebarOpen(false)
-                  }}
-                className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[200px] ${
-                    item.active
-                      ? 'bg-[#c8ee44]'
-                      : isDarkMode
-                        ? 'hover:bg-[#282541]'
-                        : 'hover:bg-gray-100'
-                  }`}
-                >
-                  <div className="relative w-5 h-5">
-                    <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
+                                                           {topSidebarItems.map((item, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleNavigation(item.path)}
+                    className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[200px] ${
+                      item.active
+                        ? 'bg-[#c8ee44] transform scale-[1.02] shadow-lg'
+                        : isDarkMode
+                          ? 'hover:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md'
+                          : 'hover:bg-gray-100 hover:transform hover:scale-[1.02] hover:shadow-md'
+                    }`}
+                  >
+                    {/* Active indicator line */}
+                    {item.active && (
+                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-[#1b212d] rounded-r-full animate-pulse" />
+                    )}
+                    
+                    {/* Icon with enhanced animations */}
+                    <div className={`relative w-5 h-5 transition-all duration-500 ${
+                      item.active ? 'transform rotate-12 scale-110' : 'group-hover:rotate-6 group-hover:scale-110'
+                    }`}>
+                      <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
+                    </div>
+                    
+                    {/* Text with enhanced animations */}
+                    <span className={`font-['Kumbh_Sans'] text-[14px] whitespace-nowrap transition-all duration-500 ${
+                      item.active 
+                        ? 'font-semibold text-[#1b212d] transform translate-x-1' 
+                        : 'font-medium text-[#929eae] group-hover:translate-x-1'
+                    }`}>
+                      {item.label}
+                    </span>
+                    
+                    {/* Hover glow effect */}
+                    <div className={`absolute inset-0 rounded-lg transition-all duration-500 ${
+                      item.active 
+                        ? 'bg-gradient-to-r from-[#c8ee44]/20 to-transparent' 
+                        : 'group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent'
+                    }`} />
                   </div>
-                  <span className={`font-['Kumbh_Sans'] text-[14px] whitespace-nowrap ${
-                  item.active ? 'font-semibold text-[#1b212d]' : 'font-medium text-[#929eae]'
-                  }`}>
-                    {item.label}
-                  </span>
-                </div>
-              ))}
+                ))}
             </div>
 
             {/* Bottom Navigation */}
@@ -159,14 +254,21 @@ const Dashboard = () => {
               {bottomSidebarItems.map((item, index) => (
                 <div
                   key={index}
-                className={`flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-colors w-[200px] ${
-                    isDarkMode ? 'hover:bg-[#282541] text-[#929eae]' : 'hover:bg-gray-100 text-[#929eae]'
+                  onClick={() => handleNavigation(item.path)}
+                className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[200px] ${
+                    isDarkMode ? 'hover:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]' : 'hover:bg-gray-100 hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]'
                   }`}
                 >
-                  <div className="w-5 h-5">
+                  {/* Icon with enhanced animations */}
+                  <div className={`w-5 h-5 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110`}>
                     <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
                   </div>
-                  <span className="font-['Kumbh_Sans'] font-medium text-[14px] whitespace-nowrap">{item.label}</span>
+                  
+                  {/* Text with enhanced animations */}
+                  <span className="font-['Kumbh_Sans'] font-medium text-[14px] whitespace-nowrap transition-all duration-500 group-hover:translate-x-1">{item.label}</span>
+                  
+                  {/* Hover glow effect */}
+                  <div className={`absolute inset-0 rounded-lg transition-all duration-500 group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent`} />
                 </div>
               ))}
             </div>
@@ -205,7 +307,7 @@ const Dashboard = () => {
             </div>
 
             {/* Main Content */}
-      <div className={`absolute left-[290px] top-[108px] right-4 ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg`}>
+      <div className={`absolute left-[290px] top-[108px] right-4 ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg animate-fade-in-up`}>
         {/* KPI Cards */}
         <div className="flex flex-col sm:flex-row gap-[25px] mb-[30px] w-full max-w-[716px]">
           <div className="flex-1 min-w-0">
@@ -417,15 +519,15 @@ const Dashboard = () => {
           {/* Right Column - Wallet and Scheduled Transfers */}
           <div className={`w-[354px] space-y-[30px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg`}>
             {/* Wallet Cards */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                   Wallet
                 </h3>
-              </div>
+              </div> */}
               
               {/* Main Card */}
-              <div className={`relative h-[210px] rounded-[15px] ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-[#1b212d]'} p-6 text-white`}>
+              {/* <div className={`relative h-[210px] rounded-[15px] bg-gradient-to-br from-[#4A4A49] to-[#20201F] p-6 text-white`}>
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <div className="font-['Gordita'] font-bold text-[16px]">Maglo.</div>
@@ -441,9 +543,9 @@ const Dashboard = () => {
                   </div>
                         </div>
                       </div>
-                       
+                        */}
               {/* Secondary Card */}
-              <div className={`relative h-[172px] rounded-[15px] ${isDarkMode ? 'bg-gradient-to-b from-[#282541] to-[#1e1c30] border-[#3a3654]' : 'bg-gradient-to-b from-[#ffffff66] to-[#ffffff1a] border-[rgba(255,255,255,0.4)]'} backdrop-blur-[5px] p-5 border`}>
+              {/* <div className={`relative h-[172px] rounded-[15px] bg-gradient-to-br from-[#4A4A49] to-[#20201F] p-5 text-white`}>
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <div className="font-['Gordita'] font-bold text-[16px] text-white">Maglo.</div>
@@ -459,7 +561,9 @@ const Dashboard = () => {
                             </div>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
+
+                      
 
             {/* Scheduled Transfers */}
             <div>
