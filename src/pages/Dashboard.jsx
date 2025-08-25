@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
 import { getNavigationWithActiveState } from '../config/navigation'
+ 
 
 // Custom CSS animations for enhanced UX
 const customStyles = `
@@ -38,7 +39,6 @@ const customStyles = `
 `;
 
 
-// Import Figma generated assets from centralized asset management
 import {
   transactionIcons,
   userAvatars,
@@ -47,54 +47,83 @@ import {
 } from '../assets/figma-assets'
 // import ellipseBackgroundIcon from '../assets/icons/Ellipse 2.svg'
 
+// Import card icons
+import mastercardIcon from '../assets/icons/mastercard.svg'
+import groupIcon from '../assets/icons/Group.svg'
+import visaIcon from '../assets/icons/visa.svg'
+import vectorIcon from '../assets/icons/Vector.svg'
+
 // WalletCards Component
 const WalletCards = () => {
   return (
     <div className="relative mx-auto" style={{ maxWidth: 354 }}>
       {/* Top (dark) card */}
-      <div className="relative z-30 rounded-2xl bg-gradient-to-br from-neutral-700 via-neutral-900 to-black border border-white/10 shadow-xl p-6 h-52 text-white">
-        <div className="flex justify-between items-center">
+      <div 
+        className="relative z-[1] rounded-2xl border border-white/10 shadow-xl text-white overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #4A4A49 0%, #20201F 100%)',
+          borderRadius: '15px',
+          width: '354px',
+          height: '210px'
+        }}
+      >
+        {/* Bank label (top-left) */}
+        <div className="absolute" style={{ top: '16px', left: '16px' }}>
           <div className="flex items-center gap-2">
-            <span className="font-bold text-lg">Maglo.</span>
-            <span className="text-xs opacity-60">Universal Bank</span>
+            <span className="font-bold text-lg leading-none">Maglo.</span>
+            <span className="text-xs opacity-60 leading-none"> | Universal Bank</span>
           </div>
-          <div className="w-7 h-7 bg-white/20 rounded-full"></div>
         </div>
 
-        <div className="w-10 h-8 bg-white/20 rounded mt-6"></div>
+        {/* Chip icon */}
+        <img
+          src={groupIcon}
+          alt="Card chip"
+          className="absolute"
+          style={{ top: '68px', left: '24px', width: '40px', height: '32px' }}
+        />
 
-        <div className="mt-4 text-lg tracking-widest font-semibold whitespace-nowrap overflow-hidden">
-          5495 7381 3759 2321
+        {/* Visa Icon */}
+        <img
+          src={visaIcon}
+          alt="Visa Icon"
+          className="absolute"
+          style={{ top: '68px', right: '20px', width: '60px', height: '32px' }}
+        />
+
+        {/* Card number */}
+        <div>
+          <div className="absolute font-semibold tracking-widest whitespace-nowrap overflow-hidden" style={{ left: '24px', top: '124px' }}>
+          <span className="text-lg">5495 7381 3759 2321</span>
+        </div>
+         {/* Network logo */}
+         <div className="absolute" style={{ right: '24px', bottom: '16px' }}>
+           <img src={mastercardIcon} alt="Mastercard" className="w-12 h-9" />
+      </div>
         </div>
       </div>
-
-      {/* Frosted mini overlay */}
-      <div className="absolute z-40 left-2 right-2 top-[172px] h-20 rounded-xl backdrop-blur-md bg-white/30 border border-white/30 shadow-md px-4 flex items-center justify-between">
-        <div className="flex items-baseline gap-2 text-white">
-          <span className="font-bold">Maglo.</span>
-          <span className="text-xs opacity-75">Commercial Bank</span>
+       {/* Transparent overlay card (second card) */}
+       <div className="absolute z-[2] overflow-hidden" style={{ top: '158px', left: '20px' }}>
+          <div className="w-80 h-44 relative">
+            <div className="w-80 h-44 left-0 top-0 absolute opacity-10 bg-gradient-to-b from-neutral-400 to-lime-900 rounded-2xl" />
+            <div className="w-80 h-44 left-0 top-0 absolute bg-gradient-to-b from-white/40 to-white/10 rounded-2xl border-[0.50px] border-white/40 backdrop-blur-[5px]" />
+            <img src={vectorIcon} alt="Badge" className="absolute" style={{ left: '272px', top: '126px', width: '32px', height: '32px' }} />
+            <div className="left-[20px] top-[15px] absolute justify-start text-white text-base font-bold font-['Gordita']">Maglo.</div>
+            <div className="left-[95px] top-[18px] absolute justify-start text-neutral-100 text-xs font-medium font-['Gordita']">Commercial Bank</div>
+            <div className="w-px h-5 left-[86px] top-[17px] absolute bg-neutral-100" />
+            <img src={groupIcon} alt="Chip" className="absolute" style={{ left: '20px', top: '51px', width: '40px', height: '32px' }} />
+            <div>
+              <img
+                src={visaIcon}
+                alt="Visa Icon"
+                className="absolute"
+                style={{ top: '55px', right: '20px', width: '60px', height: '32px' }}
+              />
+            </div>
+            <div className="left-[20px] top-[107px] absolute justify-start text-gray-800 text-base font-bold font-['Gordita'] tracking-wider">85952548****</div>
+            <div className="left-[20px] top-[135px] absolute justify-start text-gray-400 text-xs font-medium font-['Gordita'] tracking-tight">09/25</div>
         </div>
-        <div className="h-7 w-11 bg-white/60 rounded"></div>
-      </div>
-
-      {/* Bottom (light) card */}
-      <div className="relative z-20 mt-[-40px] rounded-xl bg-gray-100 border border-gray-200 shadow-inner shadow-gray-300 p-5 h-40 text-gray-800">
-        <div className="flex justify-between items-center">
-          <div className="font-bold text-gray-600">••••••••</div>
-          <div className="w-7 h-7 bg-white/40 rounded-full"></div>
         </div>
-
-        <div className="w-10 h-8 bg-gray-300 rounded mt-6"></div>
-
-        <div className="mt-3 text-lg tracking-widest font-semibold text-gray-800">
-          85952548****
-        </div>
-
-        <div className="mt-3 flex justify-between items-center">
-          <div className="text-xs text-gray-500 tracking-wider">09/25</div>
-          <div className="h-6 w-8 bg-blue-600 rounded"></div>
-        </div>
-      </div>
     </div>
   );
 };
@@ -401,175 +430,15 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              {/* Chart Visualization */}
+              {/* Placeholder for existing layout's chart area */}
               <div className={`${isDarkMode ? 'bg-[#282541]' : 'bg-[#f2f6fc]'} rounded-xl h-[214px] relative overflow-hidden`}>
-                {/* Chart Container - Mimicking Flutter structure */}
-                <div className="absolute inset-0 p-6">
-                  {/* Chart Data Lines Container - 588px width equivalent */}
-                  <div className="w-full h-full flex items-end justify-between relative">
-                    {/* 7 Chart Lines - Each representing a day with income/expense data */}
-                    {[
-                      { income: '60%', expense: '40%', date: 'Apr 14' },
-                      { income: '75%', expense: '35%', date: 'Apr 15' },
-                      { income: '45%', expense: '50%', date: 'Apr 16' },
-                      { income: '85%', expense: '30%', date: 'Apr 17', isHighlighted: true },
-                      { income: '55%', expense: '45%', date: 'Apr 18' },
-                      { income: '70%', expense: '35%', date: 'Apr 19' },
-                      { income: '50%', expense: '40%', date: 'Apr 20' }
-                    ].map((dataPoint, index) => (
-                      <div
-                        key={index}
-                        className="relative flex flex-col items-center justify-end h-full"
-                        style={{ 
-                          width: '24px', // Equivalent to Flutter's 164px rotated to vertical
-                          transform: dataPoint.isHighlighted ? 'scale(1.1)' : 'scale(1)',
-                          transition: 'all 0.3s ease'
-                        }}
-                      >
-                        {/* Income Line (Green) */}
-                        <div
-                          className="w-1 rounded-t-sm transition-all duration-500 ease-in-out"
-                          style={{
-                            height: dataPoint.income,
-                            backgroundColor: '#29a073',
-                            boxShadow: dataPoint.isHighlighted ? '0 0 8px #29a073' : 'none',
-                            marginBottom: '2px'
-                          }}
-                        />
-                        
-                        {/* Expense Line (Red) */}
-                        <div
-                          className="w-1 rounded-b-sm transition-all duration-500 ease-in-out"
-                          style={{
-                            height: dataPoint.expense,
-                            backgroundColor: '#e5363d',
-                            opacity: 0.8
-                          }}
-                        />
-                        
-                        {/* Data Point Indicators */}
-                        <div className="absolute -bottom-2 flex flex-col items-center gap-1">
-                          {/* Income Indicator */}
-                          <div
-                            className="w-1.5 h-1.5 rounded-full"
-                            style={{
-                              backgroundColor: '#29a073',
-                              boxShadow: dataPoint.isHighlighted ? '0 0 4px #29a073' : 'none'
-                            }}
-                          />
-                          {/* Expense Indicator */}
-                          <div
-                            className="w-1.5 h-1.5 rounded-full"
-                            style={{ backgroundColor: '#e5363d' }}
-                          />
-                  </div>
-                   
-                        {/* Value Tooltip for highlighted point */}
-                        {dataPoint.isHighlighted && (
-                          <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
-                            <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#282541]' : 'bg-white border-gray-200'} px-3 py-2 rounded-lg shadow-lg border`}>
-                              <div className="text-center">
-                                <div className="flex items-center gap-2 mb-1">
-                                  <div className="w-2 h-2 rounded-full bg-[#29a073]"></div>
-                                  <span className={`text-xs font-medium ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                                    $5,500
-                                  </span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <div className="w-2 h-2 rounded-full bg-[#e5363d]"></div>
-                                  <span className={`text-xs font-medium ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                                    $2,100
-                                  </span>
-                                </div>
-                              </div>
-                              {/* Tooltip Arrow */}
-                              <div className={`absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent ${isDarkMode ? 'border-t-[#1e1c30]' : 'border-t-white'}`}></div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  </div>
-                   
-                  {/* Y-axis Labels */}
-                <div className={`absolute left-2 top-6 bottom-12 flex flex-col justify-between text-[12px] font-['Kumbh_Sans'] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
-                    <span>10K</span>
-                    <span>7K</span>
-                    <span>5K</span>
-                    <span>3K</span>
-                    <span>0K</span>
-                  </div>
-                   
-                  {/* X-axis Labels */}
-                <div className={`absolute bottom-2 left-6 right-6 flex justify-between text-[12px] font-['Kumbh_Sans'] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
-                    <span>Apr 14</span>
-                    <span>Apr 15</span>
-                    <span>Apr 16</span>
-                  <span className={`font-semibold ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>Apr 17</span>
-                    <span>Apr 18</span>
-                    <span>Apr 19</span>
-                    <span>Apr 20</span>
-                  </div>
-                </div>
-              </div>
-
-            {/* Recent Transactions */}
-            <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} border rounded-[10px] p-6 transition-colors duration-300`}>
-                <div className="flex items-center justify-between mb-5">
-                  <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                    Recent Transaction
-                  </h3>
-                                <button className="flex items-center gap-1.5 text-[#29a073]">
-                    <span className="font-['Kumbh_Sans'] font-semibold text-[14px]">View All</span>
-                  <img alt="Arrow" className="w-[18px] h-[18px]" src={uiIcons.expandMore} />
-                  </button>
-                </div>
-                
-              {/* Transaction List */}
-                <div className="space-y-4">
-                  {[
-                  { name: 'Iphone 13 Pro MAX', business: 'Apple. Inc', type: 'Mobile', amount: '$420.84', date: '14 Apr 2022', icon: transactionIcons.iphone },
-                  { name: 'Netflix Subscription', business: 'Netflix', type: 'Entertainment', amount: '$100.00', date: '05 Apr 2022', icon: transactionIcons.netflix },
-                  { name: 'Figma Subscription', business: 'Figma. Inc', type: 'Software', amount: '$244.20', date: '02 Apr 2022', icon: transactionIcons.figma }
-                  ].map((transaction, index) => (
-                  <div key={index} className={`flex items-center justify-between py-3 border-b ${isDarkMode ? 'border-[#282541]' : 'border-neutral-100'} last:border-b-0`}>
-                          <div className="flex items-center gap-4">
-                      <div className={`w-10 h-10 rounded-[5px] ${isDarkMode ? 'bg-[#282541]' : 'bg-[#e4f1ff]'} flex items-center justify-center`}>
-                        <img alt={transaction.business} className="w-8 h-8 object-cover rounded" src={transaction.icon} />
-                            </div>
-                            <div>
-                              <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                                {transaction.name}
-                              </div>
-                        <div className="font-['Kumbh_Sans'] text-[12px] text-[#929eae]">
-                                {transaction.business}
-                              </div>
-                            </div>
-                          </div>
-                    <div className="text-center">
-                      <div className="font-['Kumbh_Sans'] font-medium text-[14px] text-[#929eae]">
-                        {transaction.type}
-                        </div>
-                        </div>
-                    <div className="text-center">
-                      <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                            {transaction.amount}
-                      </div>
-                        </div>
-                    <div className="text-center">
-                      <div className="font-['Kumbh_Sans'] font-medium text-[14px] text-[#929eae]">
-                            {transaction.date}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                {/* Keep existing visual container to preserve layout spacing */}
               </div>
             </div>
           </div>
-
+          
           {/* Right Column - Wallet and Scheduled Transfers */}
-          <div className={`w-[354px] space-y-[30px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg`}>
+          <div className={`w-[354px] space-y-[30px] -mt-[120px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg`}>
                          {/* Wallet Cards */}
              <div className="space-y-4">
                <div className="flex items-center justify-between">
@@ -583,8 +452,8 @@ const Dashboard = () => {
              </div>                      
 
             {/* Scheduled Transfers */}
-            <div>
-              <div className="flex items-center justify-between mb-6">
+            <div className="mt-24">
+              <div className="flex items-center justify-between mb-6 mt-[150px]">
                 <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                   Scheduled Transfers
                 </h3>
@@ -620,10 +489,11 @@ const Dashboard = () => {
                   ))}
               </div>
             </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    // </div>
   )
 }
 
