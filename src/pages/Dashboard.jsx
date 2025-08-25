@@ -39,12 +39,7 @@ const customStyles = `
 `;
 
 
-import {
-  transactionIcons,
-  userAvatars,
-  kpiIcons,
-  uiIcons
-} from '../assets/figma-assets'
+
 // import ellipseBackgroundIcon from '../assets/icons/Ellipse 2.svg'
 
 // Import card icons
@@ -52,6 +47,36 @@ import mastercardIcon from '../assets/icons/mastercard.svg'
 import groupIcon from '../assets/icons/Group.svg'
 import visaIcon from '../assets/icons/visa.svg'
 import vectorIcon from '../assets/icons/Vector.svg'
+
+// Import transaction and business icons
+import netflixIcon from '../assets/icons/netflix.png'
+import figmaIcon from '../assets/icons/figma.png'
+import appleIcon from '../assets/icons/UIHUT.png'
+import iphoneIcon from '../assets/e8f2f2325479f5b117fa73a0eecb5f7c8278f3b4.png'
+import viewAllIcon from '../assets/icons/view-all-icon.svg'
+import calendarIcon from '../assets/icons/calendar.svg'
+import dropdownIcon from '../assets/icons/dropdown.svg'
+import searchIcon from '../assets/icons/search.1 1.svg'
+import notificationIcon from '../assets/icons/notification.svg'
+import profileIcon from '../assets/icons/avatar.svg'
+import walletIcon from '../assets/icons/wallet-2.6 1.svg'
+import transactionsIcon from '../assets/icons/transactions.svg'
+import dashboardIcon from '../assets/icons/dashboard.svg'
+import settingsIcon from '../assets/icons/settings.svg'
+import helpIcon from '../assets/icons/Help.svg'
+import logoIcon from '../assets/icons/logo-main.svg'
+
+// Import KPI icons
+import totalBalanceIcon from '../assets/6bffe6399f0ebb560623c61d356f6d080626df00.svg'
+import totalSpendingIcon from '../assets/80185a6c24efff9deff15dfd79fdab928f4af172.svg'
+import totalSavedIcon from '../assets/15f25a1ccc5d90d472cac437cfeaf4a7b4458140.svg'
+
+// Import user avatars
+import salehAhmedAvatar from '../assets/ae42a90e9776d7779e15e4c9cf8efa677998d1cb.png'
+import delowarHossainAvatar from '../assets/9d4b98bc2a8cab0e6e6ed99680cd142e76eceab6.png'
+import moinulHasanAvatar from '../assets/e20e7c0b7a97f82f634e6dafa92d88d8451b165e.png'
+import drJubedAhmedAvatar from '../assets/2318919120a07052f0bddcb4d888b9297f49f35f.png'
+import arJakirAlpAvatar from '../assets/4dddccf21648a45dfa4b70cc53a5f5269e5f0b9e.png'
 
 // WalletCards Component
 const WalletCards = () => {
@@ -133,7 +158,7 @@ const TotalBalanceCard = ({ isDarkMode }) => {
   return (
     <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#363a3f]'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[90px]`}>
       <div className="relative shrink-0 size-[42px]">
-        <img alt="Total Balance Icon" className="block max-w-none size-full" src={kpiIcons.totalBalance} />
+        <img alt="Total Balance Icon" className="block max-w-none size-full" src={totalBalanceIcon} />
       </div>
       <div className="flex flex-col gap-2.5 items-start justify-center flex-1">
         <div className="font-['Kumbh_Sans'] font-normal text-[#929eae] text-[14px]">
@@ -151,7 +176,7 @@ const TotalSpendingCard = ({ isDarkMode }) => {
   return (
     <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[90px]`}>
       <div className="relative shrink-0 size-[42px]">
-        <img alt="Total Spending Icon" className="block max-w-none size-full" src={kpiIcons.totalSpending} />
+        <img alt="Total Spending Icon" className="block max-w-none size-full" src={totalSpendingIcon} />
       </div>
       <div className="flex flex-col gap-2.5 items-start justify-center flex-1">
         <div className="font-['Kumbh_Sans'] font-normal text-[#929eae] text-[14px]">
@@ -169,7 +194,7 @@ const TotalSavedCard = ({ isDarkMode }) => {
   return (
     <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-[#f8f8f8] border-neutral-100'} box-border flex gap-[15px] items-center justify-start px-5 py-6 rounded-[10px] border transition-colors duration-300 w-full h-[90px]`}>
       <div className="relative shrink-0 size-[42px]">
-        <img alt="Total Saved Icon" className="block max-w-none size-full" src={kpiIcons.totalSaved} />
+        <img alt="Total Saved Icon" className="block max-w-none size-full" src={totalSavedIcon} />
       </div>
       <div className="flex flex-col gap-2.5 items-start justify-center flex-1">
         <div className="font-['Kumbh_Sans'] font-normal text-[#929eae] text-[14px]">
@@ -277,7 +302,7 @@ const Dashboard = () => {
           {/* Logo */}
           <div className="flex items-center gap-3 px-[25px] pt-[30px] pb-10">
             <div className="w-[30px] h-[30px]">
-            <img alt="Maglo Logo" className="block max-w-none size-full" src={uiIcons.magloLogo} />
+            <img alt="Maglo Logo" className="block max-w-none size-full" src={logoIcon} />
             </div>
             <div className={`font-['Gordita'] font-bold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
               Maglo.
@@ -363,26 +388,26 @@ const Dashboard = () => {
         </div>
                 <div className="flex items-center gap-[45px]">
           <div className="flex items-center gap-[45px]">
-                <div className="w-6 h-6">
-              <img alt="Search" className="block max-w-none size-full" src={uiIcons.search} />
-                </div>
-                <div className="w-6 h-6">
-              <img alt="Notifications" className="block max-w-none size-full" src={uiIcons.notification} />
-            </div>
+                                 <div className="w-6 h-6">
+               <img alt="Search" className="block max-w-none size-full" src={searchIcon} />
+                 </div>
+                 <div className="w-6 h-6">
+               <img alt="Notifications" className="block max-w-none size-full" src={notificationIcon} />
+             </div>
                 </div>
           <DarkModeToggle />
           <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-[215px] transition-colors duration-300`}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9">
-                <img alt="Profile" className="block max-w-none size-full" src={userAvatars.profile} />
-                    </div>
-              <span className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                      Mahfuzul Nabil
-                    </span>
-                  </div>
-                  <div className="w-[17px] h-[17px]">
-                <img alt="Dropdown" className="block max-w-none size-full" src={uiIcons.dropdown} />
-                  </div>
+                                     <div className="flex items-center gap-3">
+                     <div className="w-9 h-9">
+                 <img alt="Profile" className="block max-w-none size-full" src={profileIcon} />
+                     </div>
+               <span className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                       Mahfuzul Nabil
+                     </span>
+                   </div>
+                   <div className="w-[17px] h-[17px]">
+                 <img alt="Dropdown" className="block max-w-none size-full" src={dropdownIcon} />
+                   </div>
                 </div>
               </div>
             </div>
@@ -407,34 +432,130 @@ const Dashboard = () => {
           {/* Left Column - Chart and Recent Transactions */}
           <div className="basis-2/3 space-y-[30px] min-w-0">
               {/* Working Capital Chart */}
-            <div className={`${isDarkMode ? 'bg-[#1e1c30] border-[#201e34]' : 'bg-white border-neutral-100'} border rounded-[10px] p-6 h-[305px] transition-colors duration-300 w-full`}>
-              <div className="flex items-center justify-between mb-6">
-                  <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                    Working Capital
-                  </h3>
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-[#29a073]"></div>
-                        <span className={`font-['Kumbh_Sans'] text-[12px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>Income</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-[#e5363d]"></div>
-                        <span className={`font-['Kumbh_Sans'] text-[12px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>Expenses</span>
-                      </div>
+              <div data-theme="Off" className="w-[716px] h-72 relative">
+                <div className="w-[716px] h-72 left-0 top-0 absolute bg-white rounded-[10px] border border-neutral-100" />
+                <div className="w-12 h-40 left-[355px] top-[77px] absolute bg-gradient-to-b from-slate-50/0 to-slate-100 rounded-xl" />
+                <div className="left-[71px] top-[77px] absolute inline-flex flex-col justify-center items-center gap-3.5">
+                    <div className="w-[588px] inline-flex justify-between items-start">
+                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
+                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
+                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
+                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
+                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
+                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
+                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
                     </div>
-                    <div className={`${isDarkMode ? 'bg-[#282541]' : 'bg-[#f8f8f8]'} px-2.5 py-1.5 rounded-[5px] flex items-center gap-2`}>
-                      <span className={`font-['Kumbh_Sans'] text-[12px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>Last 7 days</span>
-                    <img alt="Dropdown" className="w-[18px] h-[18px]" src={uiIcons.expandMore} />
-                  </div>
+                    <div className="w-[621px] inline-flex justify-between items-start">
+                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 14</div>
+                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 15</div>
+                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 16</div>
+                        <div className="justify-start text-gray-800 text-xs font-semibold font-['Kumbh_Sans']">Apr 17</div>
+                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 18</div>
+                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 19</div>
+                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 20</div>
+                    </div>
+                </div>
+                <div className="w-[617.24px] h-28 left-[71px] top-[103.89px] absolute outline outline-2 outline-offset-[-1px] outline-lime-300" />
+                <div className="w-[617.83px] h-28 left-[72.17px] top-[119.38px] absolute outline outline-2 outline-offset-[-1px] outline-teal-600" />
+                <div className="left-[351px] top-[77px] absolute inline-flex flex-col justify-center items-center gap-5">
+                    <div className="w-14 h-9 bg-slate-100" />
+                    <div className="justify-start text-gray-800 text-xs font-medium font-['Kumbh_Sans']">$5,500</div>
+                    <div className="w-3 h-3 bg-white rounded-full shadow-[0px_4px_8px_0px_rgba(104,104,104,0.25)]" />
+                    <div className="w-2 h-2 bg-indigo-800 rounded-full" />
+                </div>
+                <div className="left-[25px] top-[70px] absolute inline-flex flex-col justify-start items-start gap-6">
+                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">10K</div>
+                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">7K</div>
+                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">5K</div>
+                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">3K</div>
+                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">0K</div>
+                </div>
+                <div className="left-[25px] top-[15px] absolute inline-flex justify-start items-center gap-48">
+                    <div className="justify-start text-gray-800 text-lg font-semibold font-['Kumbh_Sans']">Working Capital</div>
+                    <div className="w-80 flex justify-between items-center">
+                        <div className="w-40 flex justify-between items-center">
+                            <div className="w-2 h-2 bg-teal-600 rounded-full" />
+                            <div className="justify-start text-gray-800 text-xs font-normal font-['Kumbh_Sans']">Income</div>
+                            <div className="w-2 h-2 bg-lime-300 rounded-full" />
+                            <div className="justify-start text-gray-800 text-xs font-normal font-['Kumbh_Sans']">Expenses</div>
+                        </div>
+                                                 <div className="w-28 pl-2.5 pr-2 py-1.5 bg-stone-50 rounded-[5px] flex justify-between items-center">
+                             <div className="justify-start text-gray-800 text-xs font-normal font-['Kumbh_Sans']">Last 7 days</div>
+                             <img src={dropdownIcon} alt="Dropdown" className="w-4 h-4" />
+                         </div>
+                    </div>
                 </div>
               </div>
 
-              {/* Placeholder for existing layout's chart area */}
-              <div className={`${isDarkMode ? 'bg-[#282541]' : 'bg-[#f2f6fc]'} rounded-xl h-[214px] relative overflow-hidden`}>
-                {/* Keep existing visual container to preserve layout spacing */}
+              {/* Recent Transactions */}
+              <div className={`w-full ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-white'} rounded-[10px] outline outline-1 outline-offset-[-1px] ${isDarkMode ? 'outline-[#201e34]' : 'outline-neutral-100'} p-6`}>
+                <div className="flex justify-between items-center mb-6">
+                  <div className="text-gray-800 text-lg font-semibold font-['Kumbh_Sans']">Recent Transaction</div>
+                                     <div className="flex items-center gap-1.5">
+                     <div className="text-teal-600 text-sm font-semibold font-['Kumbh_Sans']">View All</div>
+                     <img src={viewAllIcon} alt="View All" className="w-4 h-4" />
+                   </div>
+                </div>
+                
+                                 {/* Table Headers */}
+                 <div className="flex items-center mb-4 px-4">
+                   <div className="w-[45%] text-gray-400 text-xs font-semibold font-['Kumbh_Sans']">NAME/BUSINESS</div>
+                   <div className="w-[18%] text-gray-400 text-xs font-semibold font-['Kumbh_Sans'] text-center">TYPE</div>
+                   <div className="w-[18%] text-gray-400 text-xs font-semibold font-['Kumbh_Sans'] text-center">AMOUNT</div>
+                   <div className="w-[19%] text-gray-400 text-xs font-semibold font-['Kumbh_Sans'] text-center">DATE</div>
+                 </div>
+                 
+                 {/* Table Rows */}
+                 <div className="space-y-0">
+                   {/* Transaction 1 */}
+                   <div className="flex items-center py-4 px-4 border-b border-gray-100">
+                     <div className="w-[45%] flex items-center gap-3">
+                       <div className="w-10 h-10 bg-sky-100 rounded-[5px] flex items-center justify-center">
+                         <img className="w-10 h-10" src={iphoneIcon} alt="iPhone" />
+                       </div>
+                       <div>
+                         <div className="text-gray-800 text-sm font-medium font-['Kumbh_Sans']">Iphone 13 Pro MAX</div>
+                         <div className="text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apple. Inc</div>
+                       </div>
+                     </div>
+                     <div className="w-[18%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">Mobile</div>
+                     <div className="w-[18%] text-gray-800 text-sm font-semibold font-['Kumbh_Sans'] text-center">$420.84</div>
+                     <div className="w-[19%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">14 Apr 2022</div>
+                   </div>
+                   
+                   {/* Transaction 2 */}
+                   <div className="flex items-center py-4 px-4 border-b border-gray-100">
+                     <div className="w-[45%] flex items-center gap-3">
+                       <div className="w-10 h-10 rounded-[5px] flex items-center justify-center">
+                         <img className="w-10 h-10" src={netflixIcon} alt="Netflix" />
+                       </div>
+                       <div>
+                         <div className="text-gray-800 text-sm font-medium font-['Kumbh_Sans']">Netflix Subscription</div>
+                         <div className="text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Netflix</div>
+                       </div>
+                     </div>
+                     <div className="w-[18%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">Entertainment</div>
+                     <div className="w-[18%] text-gray-800 text-sm font-semibold font-['Kumbh_Sans'] text-center">$100.00</div>
+                     <div className="w-[19%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">05 Apr 2022</div>
+                   </div>
+                   
+                   {/* Transaction 3 */}
+                   <div className="flex items-center py-4 px-4">
+                     <div className="w-[45%] flex items-center gap-3">
+                       <div className="w-10 h-10 rounded-[5px] flex items-center justify-center">
+                         <img className="w-10 h-10" src={figmaIcon} alt="Figma" />
+                       </div>
+                       <div>
+                         <div className="text-gray-800 text-sm font-medium font-['Kumbh_Sans']">Figma Subscription</div>
+                         <div className="text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Figma. Inc</div>
+                       </div>
+                     </div>
+                     <div className="w-[18%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">Software</div>
+                     <div className="w-[18%] text-gray-800 text-sm font-semibold font-['Kumbh_Sans'] text-center">$244.20</div>
+                     <div className="w-[19%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">02 Apr 2022</div>
+                   </div>
+                 </div>
               </div>
-            </div>
           </div>
           
           {/* Right Column - Wallet and Scheduled Transfers */}
@@ -464,11 +585,11 @@ const Dashboard = () => {
 
               <div className="space-y-4">
                 {[
-                  { name: 'Saleh Ahmed', date: 'April 28, 2022 at 11:00', amount: '- $435,00', avatar: userAvatars.salehAhmed },
-                  { name: 'Delowar Hossain', date: 'April 25, 2022 at 11:00', amount: '- $132,00', avatar: userAvatars.delowarHossain },
-                  { name: 'Moinul Hasan Nayem', date: 'April 25, 2022 at 11:00', amount: '- $826,00', avatar: userAvatars.moinulHasan },
-                  { name: 'Dr. Jubed Ahmed', date: 'April 16, 2022 at 11:00', amount: '- $435,00', avatar: userAvatars.drJubedAhmed },
-                  { name: 'AR. Jakir Alp', date: 'April 14, 2022 at 11:00', amount: '- $228,00', avatar: userAvatars.arJakirAlp }
+                  { name: 'Saleh Ahmed', date: 'April 28, 2022 at 11:00', amount: '- $435,00', avatar: salehAhmedAvatar },
+                  { name: 'Delowar Hossain', date: 'April 25, 2022 at 11:00', amount: '- $132,00', avatar: delowarHossainAvatar },
+                  { name: 'Moinul Hasan Nayem', date: 'April 25, 2022 at 11:00', amount: '- $826,00', avatar: moinulHasanAvatar },
+                  { name: 'Dr. Jubed Ahmed', date: 'April 16, 2022 at 11:00', amount: '- $435,00', avatar: drJubedAhmedAvatar },
+                  { name: 'AR. Jakir Alp', date: 'April 14, 2022 at 11:00', amount: '- $228,00', avatar: arJakirAlpAvatar }
                 ].map((transfer, index) => (
                   <div key={index} className={`flex items-center justify-between py-3 border-b ${isDarkMode ? 'border-[#282541]' : 'border-neutral-100'} last:border-b-0`}>
                     <div className="flex items-center gap-3">
