@@ -290,7 +290,7 @@ const WorkingCapitalChart = ({ isDarkMode }) => {
 import mastercardIcon from '../assets/icons/mastercard.svg'
 import groupIcon from '../assets/icons/Group.svg'
 import visaIcon from '../assets/icons/visa.svg'
-import vectorIcon from '../assets/icons/Vector.svg'
+import historyIcon from '../assets/icons/history.svg'
 
 // Import transaction and business icons
 import netflixIcon from '../assets/icons/netflix.png'
@@ -376,7 +376,7 @@ const WalletCards = () => {
           <div className="w-80 h-44 relative">
             <div className="w-80 h-44 left-0 top-0 absolute opacity-10 bg-gradient-to-b from-neutral-400 to-lime-900 rounded-2xl" />
             <div className="w-80 h-44 left-0 top-0 absolute bg-gradient-to-b from-white/40 to-white/10 rounded-2xl border-[0.50px] border-white/40 backdrop-blur-[5px]" />
-            <img src={vectorIcon} alt="Badge" className="absolute" style={{ left: '272px', top: '126px', width: '32px', height: '32px' }} />
+            <img src={historyIcon} alt="Badge" className="absolute" style={{ left: '272px', top: '126px', width: '32px', height: '32px' }} />
             <div className="left-[20px] top-[15px] absolute justify-start text-white text-base font-bold font-['Gordita']">Maglo.</div>
             <div className="left-[95px] top-[18px] absolute justify-start text-neutral-100 text-xs font-medium font-['Gordita']">Commercial Bank</div>
             <div className="w-px h-5 left-[86px] top-[17px] absolute bg-neutral-100" />
@@ -543,15 +543,20 @@ const Dashboard = () => {
       <div className={`fixed z-40 w-[250px] h-screen transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
       } ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-neutral-50'} flex flex-col transition-colors duration-300`}>
-          {/* Logo */}
-          <div className="flex items-center gap-3 px-[25px] pt-[30px] pb-10">
-            <div className="w-[30px] h-[30px]">
-            <img alt="Maglo Logo" className="block max-w-none size-full" src={logoIcon} />
-            </div>
-            <div className={`font-['Gordita'] font-bold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-              Maglo.
-            </div>
-          </div>
+                     {/* Logo */}
+           <div className="flex items-center gap-3 px-[25px] pt-[30px] pb-10">
+             <div className="w-[30px] h-[30px]">
+             <img 
+               alt="Maglo Logo" 
+               className="block max-w-none size-full" 
+               src={logoIcon} 
+               style={{ filter: isDarkMode ? 'brightness(0) invert(1)' : 'none' }}
+             />
+             </div>
+             <div className={`font-['Gordita'] font-bold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+               Maglo.
+             </div>
+           </div>
 
         {/* Navigation */}
           <div className="flex flex-col h-full px-[25px]">
@@ -560,7 +565,7 @@ const Dashboard = () => {
                   <div
                     key={index}
                     onClick={() => handleNavigation(item.path)}
-                    className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[200px] ${
+                    className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[220px] ${
                       item.active
                         ? 'bg-[#c8ee44] transform scale-[1.02] shadow-lg'
                         : isDarkMode
@@ -605,7 +610,7 @@ const Dashboard = () => {
                 <div
                   key={index}
                   onClick={() => handleNavigation(item.path)}
-                className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[200px] ${
+                className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[220px] ${
                     isDarkMode ? 'hover:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]' : 'hover:bg-gray-100 hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]'
                   }`}
                 >
@@ -851,11 +856,12 @@ const Dashboard = () => {
           <div className={`w-[354px] space-y-[30px] -mt-[120px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg`}>
                          {/* Wallet Cards */}
              <div className="space-y-4">
-               <div className="flex items-center justify-between">
-                 <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                   Wallet
-                 </h3>
-               </div>
+                               <div className="flex items-center justify-between">
+                  <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                    Wallet
+                  </h3>
+                                     <img src={historyIcon} alt="history Icon" className="w-6 h-6 -ml-[20px] mr-4" />
+                </div>
                
                {/* WalletCards Component */}
                <WalletCards />
@@ -899,11 +905,10 @@ const Dashboard = () => {
                   ))}
               </div>
             </div>
-            </div>
           </div>
         </div>
       </div>
-    // </div>
+    </div>
   )
 }
 
