@@ -46,20 +46,91 @@ import plusIcon from '../assets/icons/plus 1.svg'
 import upIcon from '../assets/icons/Up.svg'
 import downIcon from '../assets/icons/Down.svg'
 import internationalIcon from '../assets/icons/International.svg'
-import wallets1Icon from '../assets/icons/wallets1.svg'
-import wallets2Icon from '../assets/icons/wallets2.svg'
-import citiPng from '../assets/icons/citi.png'
-import uihutPng from '../assets/icons/UIHUT.png'
-import bitcoinPng from '../assets/icons/bitcoin.png'
-import netflixPng from '../assets/icons/netflix.png'
-import rectangle479Png from '../assets/icons/Rectangle 479.png'
-import rectangle480Png from '../assets/icons/Rectangle 480.png'
 import payoneerPng from '../assets/icons/payoneer.png'
 import remitlyPng from '../assets/icons/remitly.png'
 import wisePng from '../assets/icons/wise.png'
 import paypalPng from '../assets/icons/paypal.png'
 import mastercardIcon from '../assets/icons/mastercard.svg'
-import visaIcon from '../assets/icons/Group.svg'
+import visaIcon from '../assets/icons/visa.svg'
+
+// Import card icons for WalletCards component
+import groupIcon from '../assets/icons/Group.svg'
+import vectorIcon from '../assets/icons/Vector.svg'
+
+// WalletCards Component - Imported from Dashboard
+const WalletCards = () => {
+  return (
+    <div className="relative mx-auto" style={{ maxWidth: 354 }}>
+      {/* Top (dark) card */}
+      <div 
+        className="relative z-[1] rounded-2xl border border-white/10 shadow-xl text-white overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #4A4A49 0%, #20201F 100%)',
+          borderRadius: '15px',
+          width: '354px',
+          height: '210px'
+        }}
+      >
+        {/* Bank label (top-left) */}
+        <div className="absolute" style={{ top: '16px', left: '16px' }}>
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-lg leading-none">Maglo.</span>
+            <span className="text-xs opacity-60 leading-none"> | Universal Bank</span>
+          </div>
+        </div>
+
+        {/* Chip icon */}
+        <img
+          src={groupIcon}
+          alt="Card chip"
+          className="absolute"
+          style={{ top: '68px', left: '24px', width: '40px', height: '32px' }}
+        />
+
+        {/* Visa Icon */}
+        <img
+          src={visaIcon}
+          alt="Visa Icon"
+          className="absolute"
+          style={{ top: '68px', right: '20px', width: '60px', height: '32px' }}
+        />
+
+        {/* Card number */}
+        <div>
+          <div className="absolute font-semibold tracking-widest whitespace-nowrap overflow-hidden" style={{ left: '24px', top: '124px' }}>
+          <span className="text-lg">5495 7381 3759 2321</span>
+        </div>
+         {/* Network logo */}
+         <div className="absolute" style={{ right: '24px', bottom: '16px' }}>
+           <img src={mastercardIcon} alt="Mastercard" className="w-12 h-9" />
+       </div>
+        </div>
+      </div>
+       {/* Transparent overlay card (second card) */}
+       <div className="absolute z-[2] overflow-hidden" style={{ top: '158px', left: '20px' }}>
+         <div className="w-80 h-44 relative">
+           <div className="w-80 h-44 left-0 top-0 absolute opacity-10 bg-gradient-to-b from-neutral-400 to-lime-900 rounded-2xl" />
+           <div className="w-80 h-44 left-0 top-0 absolute bg-gradient-to-b from-white/40 to-white/10 rounded-2xl border-[0.50px] border-white/40 backdrop-blur-[5px]" />
+           <img src={vectorIcon} alt="Badge" className="absolute" style={{ left: '272px', top: '126px', width: '32px', height: '32px' }} />
+           <div className="left-[20px] top-[15px] absolute justify-start text-white text-base font-bold font-['Gordita']">Maglo.</div>
+           <div className="left-[95px] top-[18px] absolute justify-start text-neutral-100 text-xs font-medium font-['Gordita']">Commercial Bank</div>
+           <div className="w-px h-5 left-[86px] top-[17px] absolute bg-neutral-100" />
+           <img src={groupIcon} alt="Chip" className="absolute" style={{ left: '20px', top: '51px', width: '40px', height: '32px' }} />
+           <div>
+             <img
+               src={visaIcon}
+               alt="Visa Icon"
+               className="absolute"
+               style={{ top: '55px', right: '20px', width: '60px', height: '32px' }}
+             />
+           </div>
+           <div className="left-[20px] top-[107px] absolute justify-start text-gray-800 text-base font-bold font-['Gordita'] tracking-wider">85952548****</div>
+           <div className="left-[20px] top-[135px] absolute justify-start text-gray-400 text-xs font-medium font-['Gordita'] tracking-tight">09/25</div>
+       </div>
+       </div>
+   </div>
+ );
+};
 
 const MyWallets = () => {
   const { isDarkMode } = useDarkMode()
@@ -139,7 +210,7 @@ const MyWallets = () => {
     {
       id: 1,
       name: 'Facebook Ads',
-      logo: rectangle479Png,
+      logo: payoneerPng, // Using available asset as placeholder
       date: '20 Apr 2022, 06:55 PM',
       amount: '$400.00',
       type: 'upcoming'
@@ -147,7 +218,7 @@ const MyWallets = () => {
     {
       id: 2,
       name: 'LinkedIn Ads',
-      logo: rectangle480Png,
+      logo: remitlyPng, // Using available asset as placeholder
       date: '18 Apr 2022, 08:58 PM',
       amount: '$200.50',
       type: 'upcoming'
@@ -315,160 +386,95 @@ const MyWallets = () => {
             <div className="w-full max-w-[1110px] mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 
-                                 {/* Left Column - Credit Cards */}
-                 <div className="lg:col-span-5 space-y-6">
-                   {/* Credit Cards */}
-                   <div className="space-y-4 max-w-[354px] mx-auto lg:mx-0">
-                                         {/* Card 1 - Primary */}
-                     <div className="relative h-[210px] w-full max-w-[354px] rounded-[15px] overflow-hidden shadow-xl">
-                       <div className="absolute inset-0 bg-gradient-to-br from-[#4A4A49] to-[#20201F]"></div>
-                       <div className="relative h-full p-6 flex flex-col justify-between">
-                         {/* Top Section */}
-                         <div className="flex items-start justify-between">
-                           <div className="flex items-center gap-3">
-                             <div className="font-['Gordita'] font-bold text-white text-[16px]">
-                               Maglo.
-                             </div>
-                             <div className="w-px h-5 bg-[#626260]"></div>
-                             <div className="font-['Gordita'] font-medium text-[#626260] text-[12px]">
-                               Universal Bank
-                             </div>
-                           </div>
-                           <div className="w-8 h-8">
-                             <img alt="Card Chip" className="block max-w-none size-full" src={wallets1Icon} />
-                           </div>
-                         </div>
-                         
-                         {/* Card Number */}
-                         <div className="font-['Gordita'] font-bold text-white text-[17px] tracking-[1.7px]">
-                           5495 7381 3759 2321
-                         </div>
-                         
-                         {/* Bottom Section */}
-                         <div className="flex items-center justify-between">
-                           <div className="font-['Gordita'] font-medium text-[#868685] text-[14px] tracking-[0.28px]">
-                             04/24
-                           </div>
-                           <div className="w-[47px] h-9">
-                             <img alt="International" className="block max-w-none size-full" src={internationalIcon} />
-                           </div>
-                         </div>
-                       </div>
-                     </div>
+                                 {/* Left Column - Credit Cards and Balance Modal Container */}
+                <div className="lg:col-span-5 space-y-6">
+                  {/* Main Container for Credit Cards and Balance Modal */}
+                  <div className="space-y-6 max-w-[354px] mx-auto lg:mx-0">
+                    
+                    {/* Credit Cards Section - Independent Entity */}
+                    <div className="space-y-4">
+                      {/* WalletCards Component */}
+                      <WalletCards />
+                    </div>
 
-                     {/* Card 2 - Secondary */}
-                     <div className="relative h-[172px] w-full max-w-[324px] rounded-[15px] overflow-hidden shadow-lg">
-                       <div className="absolute inset-0 bg-gradient-to-b from-[#ffffff66] to-[#ffffff1a] backdrop-blur-[5px]"></div>
-                       <div className="absolute inset-0 border-[0.5px] border-white rounded-[15px]"></div>
-                       <div className="relative h-full p-6 flex flex-col justify-between">
-                         {/* Top Section */}
-                         <div className="flex items-start justify-between">
-                           <div className="flex items-center gap-3">
-                             <div className="font-['Gordita'] font-bold text-white text-[16px]">
-                               Maglo.
-                             </div>
-                             <div className="w-px h-5 bg-neutral-100"></div>
-                             <div className="font-['Gordita'] font-medium text-neutral-100 text-[12px]">
-                               Commercial Bank
-                             </div>
-                           </div>
-                           <div className="flex items-center gap-2">
-                             <div className="w-[47px] h-[36px]">
-                               <img alt="Mastercard" className="block max-w-none size-full" src={mastercardIcon} />
-                             </div>
-                           </div>
-                         </div>
-                         
-                         {/* Card Number */}
-                         <div className="font-['Gordita'] font-bold text-[#1b212d] text-[16px] tracking-[1.6px]">
-                           85952548****
-                         </div>
-                         
-                         {/* Bottom Section */}
-                         <div className="font-['Gordita'] font-medium text-[#929eae] text-[12px] tracking-[0.24px]">
-                           09/25
-                         </div>
-                         {/* VISA badge */}
-                         <div className="absolute bottom-4 right-4 w-[32px] h-[20px]">
-                           <img alt="Visa" className="block max-w-none size-full" src={visaIcon} />
-                         </div>
-                       </div>
-                     </div>
+                    {/* Balance Modal Section - Independent Entity */}
+                    <div className="space-y-4">
+                      {/* Balance Card */}
+                      <div className={`${isDarkMode ? 'bg-[#201e34] border-[#282541]' : 'bg-neutral-50 border-neutral-100'} rounded-[10px] mt-[150px] border p-6 transition-colors duration-300 w-full max-w-[354px]`}>
+                        <div className="space-y-4">
+                          {/* Balance Section */}
+                          <div className="space-y-2">
+                            <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
+                              Your Balance
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-4">
+                                <div className={`font-['Kumbh_Sans'] font-semibold text-[20px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                                  $5240.<span className="text-[#929eae]">00</span>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-4">
+                                {/* Up Arrow */}
+                                <div className="flex items-center gap-1">
+                                  <div className="w-4 h-4">
+                                    <img alt="Up" className="block max-w-none size-full" src={upIcon} />
+                                  </div>
+                                  <div className="font-['Kumbh_Sans'] font-medium text-[#19d076] text-[14px]">
+                                    23.65%
+                                  </div>
+                                </div>
+                                {/* Down Arrow */}
+                                <div className="flex items-center gap-1">
+                                  <div className="w-4 h-4 rotate-180">
+                                    <img alt="Down" className="block max-w-none size-full" src={downIcon} />
+                                  </div>
+                                  <div className="font-['Kumbh_Sans'] font-medium text-[#e5363d] text-[14px]">
+                                    10.40%
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
-                                         {/* Balance Card */}
-                     <div className={`${isDarkMode ? 'bg-[#201e34] border-[#282541]' : 'bg-neutral-50 border-neutral-100'} rounded-[10px] border p-6 transition-colors duration-300 w-full max-w-[354px]`}>
-                       <div className="space-y-4">
-                         {/* Balance Section */}
-                         <div className="space-y-2">
-                           <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
-                             Your Balance
-                           </div>
-                           <div className="flex items-center justify-between">
-                             <div className="flex items-center gap-4">
-                               <div className={`font-['Kumbh_Sans'] font-semibold text-[20px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                                 $5240.<span className="text-[#929eae]">00</span>
-                               </div>
-                             </div>
-                             <div className="flex items-center gap-4">
-                               {/* Up Arrow */}
-                               <div className="flex items-center gap-1">
-                                 <div className="w-4 h-4">
-                                   <img alt="Up" className="block max-w-none size-full" src={upIcon} />
-                                 </div>
-                                 <div className="font-['Kumbh_Sans'] font-medium text-[#19d076] text-[14px]">
-                                   23.65%
-                                 </div>
-                               </div>
-                               {/* Down Arrow */}
-                               <div className="flex items-center gap-1">
-                                 <div className="w-4 h-4 rotate-180">
-                                   <img alt="Down" className="block max-w-none size-full" src={downIcon} />
-                                 </div>
-                                 <div className="font-['Kumbh_Sans'] font-medium text-[#e5363d] text-[14px]">
-                                   10.40%
-                                 </div>
-                               </div>
-                             </div>
-                           </div>
-                         </div>
+                          {/* Divider */}
+                          <div className="h-px bg-neutral-100"></div>
 
-                         {/* Divider */}
-                         <div className="h-px bg-neutral-100"></div>
-
-                         {/* Bottom Section */}
-                         <div className="flex items-center justify-between">
-                           <div className="space-y-2">
-                             <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
-                               Currency
-                             </div>
-                             <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                               USD / US Dollar
-                             </div>
-                           </div>
-                           <div className="space-y-2">
-                             <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
-                               Status
-                             </div>
-                             <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                               Active
-                             </div>
-                           </div>
-                         </div>
-                       </div>
-                     </div>
-
-                                         {/* Add New Card Button */}
-                     <button 
-                       onClick={handleAddNewCard}
-                       className={`w-full max-w-[354px] ${isDarkMode ? 'bg-[#282541] border-[#201e34] hover:bg-[#1e1c30]' : 'bg-[#f8f8f8] border-neutral-100 hover:bg-gray-50'} border rounded-[10px] px-5 py-3.5 flex items-center gap-2.5 justify-center transition-colors duration-200`}
-                     >
-                      <div className="w-5 h-5">
-                        <img alt="Plus" className="block max-w-none size-full" src={plusIcon} />
+                          {/* Bottom Section */}
+                          <div className="flex items-center justify-between">
+                            <div className="space-y-2">
+                              <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
+                                Currency
+                              </div>
+                              <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                                USD / US Dollar
+                              </div>
+                            </div>
+                            <div className="space-y-2">
+                              <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-[#929eae]' : 'text-[#929eae]'}`}>
+                                Status
+                              </div>
+                              <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                                Active
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <span className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#29a073]'}`}>
-                        Add New Card
-                      </span>
-                    </button>
+                      
+                      {/* Add New Card Button - Now positioned under the Balance Modal */}
+                      <button 
+                        onClick={handleAddNewCard}
+                        className={`w-full max-w-[354px] ${isDarkMode ? 'bg-[#282541] border-[#201e34] hover:bg-[#1e1c30]' : 'bg-[#f8f8f8] border-neutral-100 hover:bg-gray-50'} border rounded-[10px] px-5 py-3.5 flex items-center gap-2.5 justify-center transition-colors duration-200`}
+                      >
+                        <div className="w-5 h-5">
+                          <img alt="Plus" className="block max-w-none size-full" src={plusIcon} />
+                        </div>
+                        <span className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#29a073]'}`}>
+                          Add New Card
+                        </span>
+                      </button>
+                    </div>
+                    
                   </div>
                 </div>
 
