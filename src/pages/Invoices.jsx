@@ -39,7 +39,7 @@ import icReceiptIcon from '../assets/icons/ic-receipt-24px 1.svg'
 import searchIcon from '../assets/icons/search.1 1.svg'
 import notificationIcon from '../assets/icons/notification-bing.5 1.svg'
 import dropdownIcon from '../assets/icons/dropdown.svg'
-import moreIcon from '../assets/icons/Vector.svg'
+import moreIcon from '../assets/icons/history.svg'
 import filterIcon from '../assets/icons/bx-filter 1.svg'
 import logoMain from '../assets/icons/logo-main.svg'
 import avatarIcon from '../assets/icons/avatar.svg'
@@ -493,7 +493,7 @@ const Invoices = () => {
                        </div>
 
                        {/* Date */}
-                       <div className="w-[150px] text-center px-4">
+                       <div className="w-[150px] flex flex-col items-center justify-center text-center px-4">
                          <div className={`font-['Kumbh_Sans'] font-medium text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                            {invoice.date}
                          </div>
@@ -503,29 +503,29 @@ const Invoices = () => {
                        </div>
 
                        {/* Orders/Type */}
-                       <div className="w-[150px] text-center px-4">
+                       <div className="w-[150px] flex items-center justify-center text-center px-4">
                          <div className="font-['Kumbh_Sans'] font-semibold text-[14px] text-[#929eae]">
                            {invoice.orders}
                          </div>
                        </div>
 
                        {/* Amount */}
-                       <div className="w-[150px] text-center px-4">
+                       <div className="w-[150px] flex items-center justify-center text-center px-4">
                          <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                            {invoice.amount}
                          </div>
                        </div>
 
                        {/* Status */}
-                       <div className="w-[180px] text-center px-4">
+                       <div className="w-[180px] flex items-center justify-center text-center px-4">
                          <div className={`inline-flex px-[15px] py-2 rounded font-['Kumbh_Sans'] font-medium text-[12px] ${invoice.statusColor}`}>
                            {invoice.status}
                          </div>
                        </div>
 
                        {/* Action */}
-                       <div className="w-[100px] text-center px-4">
-                         <button className="w-[25px] h-[25px] mx-auto">
+                       <div className="w-[100px] flex items-center justify-center px-4">
+                         <button className="w-[25px] h-[25px] flex items-center justify-center">
                            <img alt="More" className="block max-w-none size-full" src={moreIcon} />
                          </button>
                        </div>
