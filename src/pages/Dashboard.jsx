@@ -501,14 +501,19 @@ const Dashboard = () => {
 
   return (
     <div 
-      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen w-full transition-all duration-800 ease-in-out ${
+      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen w-full ${
         isNavigating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
       }`}
+      style={{ 
+        backgroundColor: isDarkMode ? '#1c1a2e' : '#ffffff',
+        transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out'
+      }}
     >
-      {/* Dark mode overlay for complete coverage */}
-      {isDarkMode && (
-        <div className="fixed inset-0 bg-[#1c1a2e] pointer-events-none z-0"></div>
-      )}
+      {/* Immediate background coverage */}
+      <div 
+        className="fixed inset-0 pointer-events-none -z-10"
+        style={{ backgroundColor: isDarkMode ? '#1c1a2e' : '#ffffff' }}
+      ></div>
       
       {/* Navigation Loading Overlay */}
       {isNavigating && (

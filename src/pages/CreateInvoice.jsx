@@ -115,10 +115,19 @@ const CreateInvoice = () => {
 
   return (
     <div 
-      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen transition-all duration-800 ease-in-out ${
+      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} min-h-screen ${
         isNavigating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
       }`}
+      style={{ 
+        backgroundColor: isDarkMode ? '#1c1a2e' : '#ffffff',
+        transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out'
+      }}
     >
+      {/* Immediate background coverage */}
+      <div 
+        className="fixed inset-0 pointer-events-none -z-10"
+        style={{ backgroundColor: isDarkMode ? '#1c1a2e' : '#ffffff' }}
+      ></div>
       {/* Dark Mode Toggle */}
       <div className="fixed top-6 right-6 md:top-8 md:right-8 lg:top-10 lg:right-10 z-50">
         <DarkModeToggle />

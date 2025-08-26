@@ -6,6 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Finance App</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Prevent white flash on page load */
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        transition: background-color 0.1s ease-in-out;
+      }
+      
+      /* Dark mode detection for initial load */
+      @media (prefers-color-scheme: dark) {
+        html, body {
+          background-color: #1c1a2e;
+        }
+      }
+      
+      /* Ensure the root element takes full height */
+      #root {
+        min-height: 100vh;
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
