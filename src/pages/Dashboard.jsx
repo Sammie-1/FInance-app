@@ -3,6 +3,18 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
 import { getNavigationWithActiveState } from '../config/navigation'
+import { Card } from '@mui/material'
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+  ReferenceLine,
+} from "recharts"
  
 
 // Custom CSS animations for enhanced UX
@@ -41,6 +53,238 @@ const customStyles = `
 
 
 // import ellipseBackgroundIcon from '../assets/icons/Ellipse 2.svg'
+
+// Sample Data for Working Capital Chart
+const chartData = [
+  { date: "Apr 14", income: 5000, expenses: 5200 },
+  { date: "Apr 15", income: 7000, expenses: 4800 },
+  { date: "Apr 16", income: 5500, expenses: 7200 },
+  { date: "Apr 17", income: 5500, expenses: 7600 }, // Highlighted point
+  { date: "Apr 18", income: 3000, expenses: 5000 },
+  { date: "Apr 19", income: 4800, expenses: 4200 },
+  { date: "Apr 20", income: 4200, expenses: 4600 },
+];
+
+// WorkingCapitalChart Component with Dark Mode Support
+const WorkingCapitalChart = ({ isDarkMode }) => {
+  const [isHovering, setIsHovering] = useState(false);
+  const [hoveredData, setHoveredData] = useState(null);
+
+  // Custom tooltip for styled popup
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="p-3 rounded-lg border bg-white border-gray-200 text-gray-800 shadow-lg shadow-xl">
+          <div className="font-bold mb-2 text-gray-800">
+            {label}
+          </div>
+          {payload.map((entry, index) => (
+            <div key={`item-${index}`} className="text-sm" style={{ color: entry.color }}>
+              {entry.name}: ${entry.value.toLocaleString()}
+            </div>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Get the data point for Apr 17 (index 3)
+  const apr17Data = chartData[3];
+  const apr17Income = apr17Data.income;
+  const apr17Expenses = apr17Data.expenses;
+
+  // Calculate positions for Apr 17 dots
+  const chartWidth = 300;
+  const chartHeight = 300;
+  const margin = { top: 20, right: 30, left: 20, bottom: 40 };
+  const plotWidth = chartWidth - margin.left - margin.right;
+  const plotHeight = chartHeight - margin.top - margin.bottom;
+  
+  // Apr 17 is at index 3, so x position is 3/6 * plotWidth + margin.left
+  const apr17X = (3 / 6) * plotWidth + margin.left;
+  const incomeY = margin.top + (1 - apr17Income / 8000) * plotHeight;
+  const expensesY = margin.top + (1 - apr17Expenses / 8000) * plotHeight;
+
+  return (
+    <Card 
+      elevation={0}
+      sx={{
+        backgroundColor: isDarkMode ? '#1e1c30' : '#ffffff',
+        border: `1px solid ${isDarkMode ? '#201e34' : '#e5e7eb'}`,
+        borderRadius: '10px',
+        padding: '24px',
+        width: '100%',
+        height: '348px' // 300px chart + 48px padding
+      }}
+    >
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart 
+          data={chartData} 
+          margin={{ top: 20, right: 30, left: 20, bottom: 40 }}
+          onMouseMove={(data) => {
+            if (data && data.activeTooltipIndex !== undefined) {
+              setIsHovering(true);
+              setHoveredData(data);
+            }
+          }}
+          onMouseLeave={() => {
+            setIsHovering(false);
+            setHoveredData(null);
+          }}
+        >
+          <CartesianGrid 
+            strokeDasharray="3 3" 
+            vertical={false} 
+            stroke={isDarkMode ? '#201e34' : '#e5e7eb'} 
+          />
+          <XAxis 
+            dataKey="date" 
+            tick={{ 
+              fill: isDarkMode ? '#929eae' : '#6b7280',
+              fontSize: 12,
+              fontFamily: 'Kumbh Sans'
+            }}
+            axisLine={{ stroke: isDarkMode ? '#201e34' : '#e5e7eb' }}
+            position="bottom"
+          />
+          <YAxis 
+            tickFormatter={(value) => `${value / 1000}K`}
+            tick={{ 
+              fill: isDarkMode ? '#929eae' : '#6b7280',
+              fontSize: 12,
+              fontFamily: 'Kumbh Sans'
+            }}
+            axisLine={{ stroke: isDarkMode ? '#201e34' : '#e5e7eb' }}
+          />
+          
+                     {/* Interactive tooltip when hovering */}
+           <Tooltip 
+             content={<CustomTooltip />}
+             active={isHovering}
+           />
+
+          {/* Reference line at Apr 17 */}
+          <ReferenceLine
+            x="Apr 17"
+            stroke="#ccc"
+            strokeDasharray="3 3"
+          />
+
+          {/* Income line */}
+          <Line
+            type="monotone"
+            dataKey="income"
+            stroke="#00b894"
+            strokeWidth={3}
+            name="Income"
+            dot={false}
+            activeDot={{
+              r: 6,
+              fill: "#00b894",
+              stroke: "#ffffff",
+              strokeWidth: 2,
+            }}
+          />
+
+          {/* Expenses line */}
+          <Line
+            type="monotone"
+            dataKey="expenses"
+            stroke="#fdcb6e"
+            strokeWidth={3}
+            name="Expenses"
+            dot={false}
+            activeDot={{
+              r: 6,
+              fill: "#fdcb6e",
+              stroke: "#ffffff",
+              strokeWidth: 2,
+            }}
+          />
+
+          {/* Custom active dots that stick at Apr 17 when not hovering */}
+          {!isHovering && (
+            <g>
+              {/* Income dot at Apr 17 */}
+              <circle
+                cx={apr17X}
+                cy={incomeY}
+                r={6}
+                fill="#00b894"
+                stroke="#ffffff"
+                strokeWidth={2}
+              />
+              
+              {/* Expenses dot at Apr 17 */}
+              <circle
+                cx={apr17X}
+                cy={expensesY}
+                r={6}
+                fill="#fdcb6e"
+                stroke="#ffffff"
+                strokeWidth={2}
+              />
+            </g>
+          )}
+
+          {/* Sticky tooltip at Apr 17 when not hovering */}
+          {!isHovering && (
+            <g>
+              {/* Tooltip background */}
+              <rect
+                x={apr17X - 60}
+                y={Math.min(incomeY, expensesY) - 80}
+                width={120}
+                height={60}
+                fill="white"
+                stroke="#e5e7eb"
+                strokeWidth={1}
+                rx={8}
+                ry={8}
+              />
+              
+              {/* Tooltip text */}
+              <text
+                x={apr17X}
+                y={Math.min(incomeY, expensesY) - 65}
+                textAnchor="middle"
+                fill="#6b7280"
+                fontSize="12"
+                fontFamily="Kumbh Sans"
+                fontWeight="bold"
+              >
+                Apr 17
+              </text>
+              
+              <text
+                x={apr17X}
+                y={Math.min(incomeY, expensesY) - 50}
+                textAnchor="middle"
+                fill="#00b894"
+                fontSize="11"
+                fontFamily="Kumbh Sans"
+              >
+                Income: ${apr17Income.toLocaleString()}
+              </text>
+              
+              <text
+                x={apr17X}
+                y={Math.min(incomeY, expensesY) - 35}
+                textAnchor="middle"
+                fill="#fdcb6e"
+                fontSize="11"
+                fontFamily="Kumbh Sans"
+              >
+                Expenses: ${apr17Expenses.toLocaleString()}
+              </text>
+            </g>
+          )}
+        </LineChart>
+      </ResponsiveContainer>
+    </Card>
+  );
+};
 
 // Import card icons
 import mastercardIcon from '../assets/icons/mastercard.svg'
@@ -432,65 +676,62 @@ const Dashboard = () => {
           {/* Left Column - Chart and Recent Transactions */}
           <div className="basis-2/3 space-y-[30px] min-w-0">
               {/* Working Capital Chart */}
-              <div data-theme="Off" className="w-[716px] h-72 relative">
-                <div className="w-[716px] h-72 left-0 top-0 absolute bg-white rounded-[10px] border border-neutral-100" />
-                <div className="w-12 h-40 left-[355px] top-[77px] absolute bg-gradient-to-b from-slate-50/0 to-slate-100 rounded-xl" />
-                <div className="left-[71px] top-[77px] absolute inline-flex flex-col justify-center items-center gap-3.5">
-                    <div className="w-[588px] inline-flex justify-between items-start">
-                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
-                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
-                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
-                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
-                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
-                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
-                        <div className="w-40 h-0 origin-top-left -rotate-90 outline outline-1 outline-offset-[-0.50px] outline-fuchsia-50"></div>
-                    </div>
-                    <div className="w-[621px] inline-flex justify-between items-start">
-                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 14</div>
-                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 15</div>
-                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 16</div>
-                        <div className="justify-start text-gray-800 text-xs font-semibold font-['Kumbh_Sans']">Apr 17</div>
-                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 18</div>
-                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 19</div>
-                        <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apr 20</div>
-                    </div>
-                </div>
-                <div className="w-[617.24px] h-28 left-[71px] top-[103.89px] absolute outline outline-2 outline-offset-[-1px] outline-lime-300" />
-                <div className="w-[617.83px] h-28 left-[72.17px] top-[119.38px] absolute outline outline-2 outline-offset-[-1px] outline-teal-600" />
-                <div className="left-[351px] top-[77px] absolute inline-flex flex-col justify-center items-center gap-5">
-                    <div className="w-14 h-9 bg-slate-100" />
-                    <div className="justify-start text-gray-800 text-xs font-medium font-['Kumbh_Sans']">$5,500</div>
-                    <div className="w-3 h-3 bg-white rounded-full shadow-[0px_4px_8px_0px_rgba(104,104,104,0.25)]" />
-                    <div className="w-2 h-2 bg-indigo-800 rounded-full" />
-                </div>
-                <div className="left-[25px] top-[70px] absolute inline-flex flex-col justify-start items-start gap-6">
-                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">10K</div>
-                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">7K</div>
-                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">5K</div>
-                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">3K</div>
-                    <div className="justify-start text-gray-400 text-xs font-normal font-['Kumbh_Sans']">0K</div>
-                </div>
-                <div className="left-[25px] top-[15px] absolute inline-flex justify-start items-center gap-48">
-                    <div className="justify-start text-gray-800 text-lg font-semibold font-['Kumbh_Sans']">Working Capital</div>
-                    <div className="w-80 flex justify-between items-center">
-                        <div className="w-40 flex justify-between items-center">
-                            <div className="w-2 h-2 bg-teal-600 rounded-full" />
-                            <div className="justify-start text-gray-800 text-xs font-normal font-['Kumbh_Sans']">Income</div>
-                            <div className="w-2 h-2 bg-lime-300 rounded-full" />
-                            <div className="justify-start text-gray-800 text-xs font-normal font-['Kumbh_Sans']">Expenses</div>
+              <div className="w-full">
+                                                                    {/* Header Section with Legend and Time Range Selector */}
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className={`font-['Kumbh_Sans'] font-semibold text-lg transition-colors duration-300 ${
+                      isDarkMode ? 'text-white' : 'text-gray-800'
+                    }`}>
+                      Working Capital
+                    </h3>
+                    
+                    {/* Right side with Legend Items and Time Range Selector */}
+                    <div className="flex items-center gap-4">
+                      {/* Legend Items */}
+                      <div className="flex items-center gap-4">
+                        {/* Income Legend */}
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full bg-[#00b894]"></div>
+                          <span className={`text-sm font-medium transition-colors duration-300 ${
+                            isDarkMode ? 'text-[#929eae]' : 'text-gray-600'
+                          }`}>
+                            Income
+                          </span>
                         </div>
-                                                 <div className="w-28 pl-2.5 pr-2 py-1.5 bg-stone-50 rounded-[5px] flex justify-between items-center">
-                             <div className="justify-start text-gray-800 text-xs font-normal font-['Kumbh_Sans']">Last 7 days</div>
-                             <img src={dropdownIcon} alt="Dropdown" className="w-4 h-4" />
-                         </div>
+                        
+                        {/* Expenses Legend */}
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full bg-[#fdcb6e]"></div>
+                          <span className={`text-sm font-medium transition-colors duration-300 ${
+                            isDarkMode ? 'text-[#929eae]' : 'text-gray-600'
+                          }`}>
+                            Expenses
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {/* Time Range Selector */}
+                      <div className={`px-3 py-1.5 rounded-[5px] text-xs font-medium transition-colors duration-300 cursor-pointer flex items-center gap-2 ${
+                        isDarkMode ? 'bg-[#201e34] text-white hover:bg-[#282541]' : 'bg-stone-50 text-gray-800 hover:bg-gray-100'
+                      }`}>
+                        <span>Last 7 days</span>
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
                     </div>
-                </div>
+                  </div>
+
+                {/* Chart Container */}
+                <WorkingCapitalChart isDarkMode={isDarkMode} />
               </div>
 
               {/* Recent Transactions */}
               <div className={`w-full ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-white'} rounded-[10px] outline outline-1 outline-offset-[-1px] ${isDarkMode ? 'outline-[#201e34]' : 'outline-neutral-100'} p-6`}>
                 <div className="flex justify-between items-center mb-6">
-                  <div className="text-gray-800 text-lg font-semibold font-['Kumbh_Sans']">Recent Transaction</div>
+                   <div className={`text-lg font-semibold font-['Kumbh_Sans'] transition-colors duration-300 ${
+                     isDarkMode ? 'text-white' : 'text-gray-800'
+                   }`}>Recent Transaction</div>
                                      <div className="flex items-center gap-1.5">
                      <div className="text-teal-600 text-sm font-semibold font-['Kumbh_Sans']">View All</div>
                      <img src={viewAllIcon} alt="View All" className="w-4 h-4" />
@@ -499,60 +740,108 @@ const Dashboard = () => {
                 
                                  {/* Table Headers */}
                  <div className="flex items-center mb-4 px-4">
-                   <div className="w-[45%] text-gray-400 text-xs font-semibold font-['Kumbh_Sans']">NAME/BUSINESS</div>
-                   <div className="w-[18%] text-gray-400 text-xs font-semibold font-['Kumbh_Sans'] text-center">TYPE</div>
-                   <div className="w-[18%] text-gray-400 text-xs font-semibold font-['Kumbh_Sans'] text-center">AMOUNT</div>
-                   <div className="w-[19%] text-gray-400 text-xs font-semibold font-['Kumbh_Sans'] text-center">DATE</div>
+                   <div className={`w-[45%] text-xs font-semibold font-['Kumbh_Sans'] transition-colors duration-300 ${
+                     isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                   }`}>NAME/BUSINESS</div>
+                   <div className={`w-[18%] text-xs font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                     isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                   }`}>TYPE</div>
+                   <div className={`w-[18%] text-xs font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                     isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                   }`}>AMOUNT</div>
+                   <div className={`w-[19%] text-xs font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                     isDarkMode ? 'text-[#929eae]' : 'text-gray-800'
+                   }`}>DATE</div>
                  </div>
                  
                  {/* Table Rows */}
                  <div className="space-y-0">
                    {/* Transaction 1 */}
-                   <div className="flex items-center py-4 px-4 border-b border-gray-100">
+                   <div className={`flex items-center py-4 px-4 border-b transition-colors duration-300 ${
+                     isDarkMode ? 'border-[#201e34]' : 'border-gray-100'
+                   }`}>
                      <div className="w-[45%] flex items-center gap-3">
-                       <div className="w-10 h-10 bg-sky-100 rounded-[5px] flex items-center justify-center">
+                       <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 ${
+                         isDarkMode ? 'bg-[#201e34]' : 'bg-sky-100'
+                       }`}>
                          <img className="w-10 h-10" src={iphoneIcon} alt="iPhone" />
                        </div>
                        <div>
-                         <div className="text-gray-800 text-sm font-medium font-['Kumbh_Sans']">Iphone 13 Pro MAX</div>
-                         <div className="text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Apple. Inc</div>
+                         <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                           isDarkMode ? 'text-white' : 'text-gray-800'
+                         }`}>Iphone 13 Pro MAX</div>
+                         <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
+                           isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                         }`}>Apple. Inc</div>
                        </div>
                      </div>
-                     <div className="w-[18%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">Mobile</div>
-                     <div className="w-[18%] text-gray-800 text-sm font-semibold font-['Kumbh_Sans'] text-center">$420.84</div>
-                     <div className="w-[19%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">14 Apr 2022</div>
+                     <div className={`w-[18%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                     }`}>Mobile</div>
+                     <div className={`w-[18%] text-sm font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                       isDarkMode ? 'text-white' : 'text-gray-800'
+                     }`}>$420.84</div>
+                     <div className={`w-[19%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                     }`}>14 Apr 2022</div>
                    </div>
                    
                    {/* Transaction 2 */}
-                   <div className="flex items-center py-4 px-4 border-b border-gray-100">
+                   <div className={`flex items-center py-4 px-4 border-b transition-colors duration-300 ${
+                     isDarkMode ? 'border-[#201e34]' : 'border-gray-100'
+                   }`}>
                      <div className="w-[45%] flex items-center gap-3">
-                       <div className="w-10 h-10 rounded-[5px] flex items-center justify-center">
+                       <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 ${
+                         isDarkMode ? 'bg-[#201e34]' : 'bg-gray-100'
+                       }`}>
                          <img className="w-10 h-10" src={netflixIcon} alt="Netflix" />
                        </div>
                        <div>
-                         <div className="text-gray-800 text-sm font-medium font-['Kumbh_Sans']">Netflix Subscription</div>
-                         <div className="text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Netflix</div>
+                         <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                           isDarkMode ? 'text-white' : 'text-gray-800'
+                         }`}>Netflix Subscription</div>
+                         <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
+                           isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                         }`}>Netflix</div>
                        </div>
                      </div>
-                     <div className="w-[18%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">Entertainment</div>
-                     <div className="w-[18%] text-gray-800 text-sm font-semibold font-['Kumbh_Sans'] text-center">$100.00</div>
-                     <div className="w-[19%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">05 Apr 2022</div>
+                     <div className={`w-[18%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                     }`}>Entertainment</div>
+                     <div className={`w-[18%] text-sm font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                       isDarkMode ? 'text-white' : 'text-gray-800'
+                     }`}>$100.00</div>
+                     <div className={`w-[19%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                     }`}>05 Apr 2022</div>
                    </div>
                    
                    {/* Transaction 3 */}
                    <div className="flex items-center py-4 px-4">
                      <div className="w-[45%] flex items-center gap-3">
-                       <div className="w-10 h-10 rounded-[5px] flex items-center justify-center">
+                       <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 ${
+                         isDarkMode ? 'bg-[#201e34]' : 'bg-gray-100'
+                       }`}>
                          <img className="w-10 h-10" src={figmaIcon} alt="Figma" />
                        </div>
                        <div>
-                         <div className="text-gray-800 text-sm font-medium font-['Kumbh_Sans']">Figma Subscription</div>
-                         <div className="text-gray-400 text-xs font-normal font-['Kumbh_Sans']">Figma. Inc</div>
+                         <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                           isDarkMode ? 'text-white' : 'text-gray-800'
+                         }`}>Figma Subscription</div>
+                         <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
+                           isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                         }`}>Figma. Inc</div>
                        </div>
                      </div>
-                     <div className="w-[18%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">Software</div>
-                     <div className="w-[18%] text-gray-800 text-sm font-semibold font-['Kumbh_Sans'] text-center">$244.20</div>
-                     <div className="w-[19%] text-gray-400 text-sm font-medium font-['Kumbh_Sans'] text-center">02 Apr 2022</div>
+                     <div className={`w-[18%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                     }`}>Software</div>
+                     <div className={`w-[18%] text-sm font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                       isDarkMode ? 'text-white' : 'text-gray-800'
+                     }`}>$244.20</div>
+                     <div className={`w-[19%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                     }`}>02 Apr 2022</div>
                    </div>
                  </div>
               </div>
@@ -619,5 +908,3 @@ const Dashboard = () => {
 }
 
 export default Dashboard
-
-
