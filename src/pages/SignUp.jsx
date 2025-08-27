@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updateProfile } from 'firebase/auth'
+import { auth } from '../../firebase'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
 import figmaSideImage from '../assets/figma-side-image.png'
@@ -20,17 +22,30 @@ const SignUp = () => {
     setIsLoading(true)
     
     try {
-      console.log('Sign up attempt:', { fullName, email, password })
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      await updateProfile(userCredential.user, {
+        displayName: fullName
+      })
+      console.log('Sign up successful:', userCredential.user)
+      navigate('/dashboard')
     } catch (error) {
       console.error('Sign up error:', error)
+      alert(error.message)
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleGoogleSignUp = () => {
-    console.log('Google sign up clicked')
+  const handleGoogleSignUp = async () => {
+    const provider = new GoogleAuthProvider()
+    try {
+      const result = await signInWithPopup(auth, provider)
+      console.log('Google sign up successful:', result.user)
+      navigate('/dashboard')
+    } catch (error) {
+      console.error('Google sign up error:', error)
+      alert(error.message)
+    }
   }
 
   return (

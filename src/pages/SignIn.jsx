@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { auth } from '../../firebase'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
 import figmaSideImage from '../assets/figma-side-image.png'
@@ -20,17 +22,27 @@ const SignIn = () => {
     setIsLoading(true)
     
     try {
-      console.log('Sign in attempt:', { email, password, rememberMe })
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      console.log('Sign in successful:', userCredential.user)
+      navigate('/dashboard')
     } catch (error) {
       console.error('Sign in error:', error)
+      alert(error.message)
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleGoogleSignIn = () => {
-    console.log('Google sign in clicked')
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider()
+    try {
+      const result = await signInWithPopup(auth, provider)
+      console.log('Google sign in successful:', result.user)
+      navigate('/dashboard')
+    } catch (error) {
+      console.error('Google sign in error:', error)
+      alert(error.message)
+    }
   }
 
   return (

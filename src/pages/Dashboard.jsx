@@ -463,8 +463,14 @@ const Dashboard = () => {
   // Ensure the page background covers the entire viewport in both themes
   useEffect(() => {
     document.body.style.backgroundColor = isDarkMode ? '#1c1a2e' : '#ffffff'
+    document.body.style.minHeight = '100vh'
+    document.documentElement.style.backgroundColor = isDarkMode ? '#1c1a2e' : '#ffffff'
+    document.documentElement.style.minHeight = '100vh'
     return () => {
       document.body.style.backgroundColor = ''
+      document.body.style.minHeight = ''
+      document.documentElement.style.backgroundColor = ''
+      document.documentElement.style.minHeight = ''
     }
   }, [isDarkMode])
 
@@ -501,18 +507,24 @@ const Dashboard = () => {
 
   return (
     <div 
-      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-[#ffffff]'} relative min-h-screen w-full ${
+      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} relative w-full ${
         isNavigating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
       }`}
       style={{ 
         backgroundColor: isDarkMode ? '#1c1a2e' : '#ffffff',
+        minHeight: '100vh',
+        height: 'auto',
         transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out'
       }}
     >
-      {/* Immediate background coverage */}
+      {/* Immediate background coverage - covers entire viewport and beyond */}
       <div 
         className="fixed inset-0 pointer-events-none -z-10"
-        style={{ backgroundColor: isDarkMode ? '#1c1a2e' : '#ffffff' }}
+        style={{ 
+          backgroundColor: isDarkMode ? '#1c1a2e' : '#ffffff',
+          minHeight: '100vh',
+          height: '100%'
+        }}
       ></div>
       
       {/* Navigation Loading Overlay */}
@@ -667,7 +679,7 @@ const Dashboard = () => {
             </div>
 
             {/* Main Content */}
-      <div className={`absolute left-[290px] top-[108px] right-4 ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg animate-fade-in-up`}>
+      <div className={`absolute left-[290px] top-[108px] right-4 pb-10 ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg animate-fade-in-up`} style={{ minHeight: 'calc(100vh - 108px)' }}>
         {/* KPI Cards */}
         <div className="flex flex-col sm:flex-row gap-[25px] mb-[30px] w-full max-w-[716px]">
           <div className="flex-1 min-w-0">
