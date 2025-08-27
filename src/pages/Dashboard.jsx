@@ -568,9 +568,9 @@ const Dashboard = () => {
       )}
 
         {/* Sidebar */}
-      <div className={`fixed z-40 w-[250px] h-screen transform transition-transform duration-300 ease-in-out ${
+      <div className={`fixed z-40 w-[250px] inset-y-0 left-0 transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-      } ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-neutral-50'} flex flex-col transition-colors duration-300`}>
+      } ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-neutral-50'} flex flex-col transition-colors duration-300 overflow-y-auto`}>
                      {/* Logo */}
            <div className="flex items-center gap-3 px-[25px] pt-[30px] pb-10">
              <div className="w-[30px] h-[30px]">

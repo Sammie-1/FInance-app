@@ -5,6 +5,8 @@ import { auth } from '../../firebase'
 import { useDarkMode } from '../hooks/useDarkMode'
 import { useNotification } from '../contexts/NotificationContext'
 import DarkModeToggle from '../components/DarkModeToggle'
+import LoadingButton from '../components/ui/LoadingButton'
+import AuthLoadingOverlay from '../components/ui/AuthLoadingOverlay'
 import figmaSideImage from '../assets/figma-side-image.png'
 import figmaGoogleIcon from '../assets/icons/figma-google.svg'
 import figmaUnderlineIcon from '../assets/icons/figma-underline.svg'
@@ -18,17 +20,35 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false)
+  const [loadingProgress, setLoadingProgress] = useState(0)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsLoading(true)
+    setLoadingProgress(0)
     
     try {
+      // Simulate progress for better UX
+      setLoadingProgress(15)
+      
+      // Add small delay to show loading state
+      await new Promise(resolve => setTimeout(resolve, 300))
+      setLoadingProgress(40)
+      
       const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      setLoadingProgress(70)
+      
       await updateProfile(userCredential.user, {
         displayName: fullName
       })
+      setLoadingProgress(90)
+      
       showSuccess(`Welcome ${fullName}! Your account has been created successfully.`, 'Account Created')
+      setLoadingProgress(100)
+      
+      // Small delay before navigation for smooth transition
+      await new Promise(resolve => setTimeout(resolve, 200))
       navigate('/dashboard')
     } catch (error) {
       console.error('Sign up error:', error)
@@ -36,19 +56,30 @@ const SignUp = () => {
       showError(errorMessage, 'Sign Up Failed')
     } finally {
       setIsLoading(false)
+      setLoadingProgress(0)
     }
   }
 
   const handleGoogleSignUp = async () => {
     const provider = new GoogleAuthProvider()
+    setIsGoogleLoading(true)
+    
     try {
+      // Small delay to show loading state
+      await new Promise(resolve => setTimeout(resolve, 200))
+      
       const result = await signInWithPopup(auth, provider)
       showSuccess(`Welcome ${result.user.displayName}! Your account has been created successfully with Google.`, 'Account Created')
+      
+      // Small delay before navigation
+      await new Promise(resolve => setTimeout(resolve, 300))
       navigate('/dashboard')
     } catch (error) {
       console.error('Google sign up error:', error)
       const errorMessage = getFirebaseErrorMessage(error.code)
       showError(errorMessage, 'Google Sign Up Failed')
+    } finally {
+      setIsGoogleLoading(false)
     }
   }
 
@@ -80,8 +111,16 @@ const SignUp = () => {
 
   return (
     <div className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} relative w-full min-h-screen overflow-hidden transition-colors duration-300`} data-name="Sign Up" data-node-id="134:2419">
+      {/* Loading Overlay */}
+      <AuthLoadingOverlay 
+        isVisible={isLoading && loadingProgress > 0}
+        title="Creating your account..."
+        subtitle="Please wait while we set up your profile"
+        progress={loadingProgress}
+      />
+      
       {/* Dark Mode Toggle - Positioned at top-right corner */}
-      <div className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50">
+      <div className="fixed top-4 right-4 sm:top-6 sm:right-6 z-40">
         <DarkModeToggle />
       </div>
       {/* Main Content Container */}
@@ -249,40 +288,37 @@ const SignUp = () => {
                   data-node-id="134:2449"
                 >
                   {/* Create Account Button */}
-                  <button
+                  <LoadingButton
                     type="submit"
                     onClick={handleSubmit}
-                    disabled={isLoading}
-                    className="bg-[#c8ee44] flex flex-row gap-2.5 items-center justify-center px-5 py-3.5 rounded-[10px] w-full border-0 cursor-pointer hover:bg-[#b8de34] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    loading={isLoading}
+                    loadingText="Creating Account..."
+                    variant="primary"
+                    size="md"
+                    className="w-full"
                     data-name="Button"
                     data-node-id="134:2450"
                   >
-                    <div
-                      className="font-['Kumbh_Sans'] font-semibold text-[#1b212d] text-[16px] text-center whitespace-nowrap"
-                      data-node-id="134:2451"
-                    >
-                      {isLoading ? 'Creating Account...' : 'Create Account'}
-                    </div>
-                  </button>
+                    Create Account
+                  </LoadingButton>
 
                   {/* Google Sign Up Button */}
-                  <button
+                  <LoadingButton
                     type="button"
                     onClick={handleGoogleSignUp}
-                    className={`flex flex-row gap-2.5 items-center justify-center p-[13px] rounded-[10px] w-full cursor-pointer transition-colors border ${isDarkMode ? 'bg-transparent border-[#282541] hover:bg-gray-800' : 'bg-white border-neutral-100 hover:bg-gray-50'}`}
+                    loading={isGoogleLoading}
+                    loadingText="Connecting with Google..."
+                    variant="secondary"
+                    size="md"
+                    className="w-full"
                     data-name="Button"
                     data-node-id="134:2452"
                   >
                     <div className="relative w-6 h-6" data-name="Icon/Google" data-node-id="134:2453">
                       <img alt="" className="block max-w-none size-full" src={figmaGoogleIcon} />
                     </div>
-                    <div
-                      className="font-['Kumbh_Sans'] font-semibold text-[#78778b] text-[16px] text-left whitespace-nowrap"
-                      data-node-id="134:2458"
-                    >
-                      Sign up with google
-                    </div>
-                  </button>
+                    Sign up with Google
+                  </LoadingButton>
                 </div>
 
                 {/* Sign In Link */}
