@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { auth } from '../../firebase'
 import { useDarkMode } from '../hooks/useDarkMode'
+import { useNotification } from '../contexts/NotificationContext'
 import DarkModeToggle from '../components/DarkModeToggle'
 import figmaSideImage from '../assets/figma-side-image.png'
 import figmaGoogleIcon from '../assets/icons/figma-google.svg'
@@ -12,6 +13,7 @@ import figmaLogoIcon from '../assets/icons/figma-logo.svg'
 const SignIn = () => {
   const navigate = useNavigate()
   const { isDarkMode } = useDarkMode()
+  const { showSuccess, showError } = useNotification()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
@@ -23,11 +25,12 @@ const SignIn = () => {
     
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
-      console.log('Sign in successful:', userCredential.user)
+      showSuccess('Welcome back! You have been successfully signed in.', 'Sign In Successful')
       navigate('/dashboard')
     } catch (error) {
       console.error('Sign in error:', error)
-      alert(error.message)
+      const errorMessage = getFirebaseErrorMessage(error.code)
+      showError(errorMessage, 'Sign In Failed')
     } finally {
       setIsLoading(false)
     }
@@ -37,11 +40,38 @@ const SignIn = () => {
     const provider = new GoogleAuthProvider()
     try {
       const result = await signInWithPopup(auth, provider)
-      console.log('Google sign in successful:', result.user)
+      showSuccess(`Welcome ${result.user.displayName}! You have been successfully signed in with Google.`, 'Google Sign In Successful')
       navigate('/dashboard')
     } catch (error) {
       console.error('Google sign in error:', error)
-      alert(error.message)
+      const errorMessage = getFirebaseErrorMessage(error.code)
+      showError(errorMessage, 'Google Sign In Failed')
+    }
+  }
+
+  // Helper function to provide user-friendly error messages
+  const getFirebaseErrorMessage = (errorCode) => {
+    switch (errorCode) {
+      case 'auth/user-not-found':
+        return 'No account found with this email address. Please check your email or sign up for a new account.'
+      case 'auth/wrong-password':
+        return 'Incorrect password. Please check your password and try again.'
+      case 'auth/invalid-email':
+        return 'Please enter a valid email address.'
+      case 'auth/user-disabled':
+        return 'This account has been disabled. Please contact support for assistance.'
+      case 'auth/too-many-requests':
+        return 'Too many failed attempts. Please wait a moment before trying again.'
+      case 'auth/network-request-failed':
+        return 'Network error. Please check your internet connection and try again.'
+      case 'auth/popup-closed-by-user':
+        return 'Sign in was cancelled. Please try again.'
+      case 'auth/popup-blocked':
+        return 'Pop-up was blocked by your browser. Please allow pop-ups for this site and try again.'
+      case 'auth/invalid-credential':
+        return 'Invalid email or password. Please check your credentials and try again.'
+      default:
+        return 'An unexpected error occurred. Please try again.'
     }
   }
 

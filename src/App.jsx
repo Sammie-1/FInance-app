@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { DarkModeProvider } from './contexts/DarkModeContext'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { NotificationProvider } from './contexts/NotificationContext'
+import NotificationContainer from './components/ui/NotificationContainer'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Settings from './pages/Settings'
@@ -26,22 +28,25 @@ const PublicRoute = ({ children }) => {
 function App() {
   return (
     <DarkModeProvider>
-      <Router>
-        <AuthProvider>
-          <Routes>
-            <Route path="/signin" element={<PublicRoute><SignIn /></PublicRoute>} />
-            <Route path="/signup" element={<PublicRoute><SignUp /></PublicRoute>} />
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-            <Route path="/invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} />
-            <Route path="/create-invoice" element={<ProtectedRoute><CreateInvoice /></ProtectedRoute>} />
-            <Route path="/new-invoice" element={<ProtectedRoute><NewInvoice /></ProtectedRoute>} />
-            <Route path="/transactions" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
-            <Route path="/my-wallets" element={<ProtectedRoute><MyWallets /></ProtectedRoute>} />
-          </Routes>
-        </AuthProvider>
-      </Router>
+      <NotificationProvider>
+        <Router>
+          <AuthProvider>
+            <Routes>
+              <Route path="/signin" element={<PublicRoute><SignIn /></PublicRoute>} />
+              <Route path="/signup" element={<PublicRoute><SignUp /></PublicRoute>} />
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+              <Route path="/invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} />
+              <Route path="/create-invoice" element={<ProtectedRoute><CreateInvoice /></ProtectedRoute>} />
+              <Route path="/new-invoice" element={<ProtectedRoute><NewInvoice /></ProtectedRoute>} />
+              <Route path="/transactions" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
+              <Route path="/my-wallets" element={<ProtectedRoute><MyWallets /></ProtectedRoute>} />
+            </Routes>
+            <NotificationContainer />
+          </AuthProvider>
+        </Router>
+      </NotificationProvider>
     </DarkModeProvider>
   )
 }

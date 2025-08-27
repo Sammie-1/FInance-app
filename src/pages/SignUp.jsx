@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updateProfile } from 'firebase/auth'
 import { auth } from '../../firebase'
 import { useDarkMode } from '../hooks/useDarkMode'
+import { useNotification } from '../contexts/NotificationContext'
 import DarkModeToggle from '../components/DarkModeToggle'
 import figmaSideImage from '../assets/figma-side-image.png'
 import figmaGoogleIcon from '../assets/icons/figma-google.svg'
@@ -12,6 +13,7 @@ import figmaLogoIcon from '../assets/icons/figma-logo.svg'
 const SignUp = () => {
   const navigate = useNavigate()
   const { isDarkMode } = useDarkMode()
+  const { showSuccess, showError } = useNotification()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -26,11 +28,12 @@ const SignUp = () => {
       await updateProfile(userCredential.user, {
         displayName: fullName
       })
-      console.log('Sign up successful:', userCredential.user)
+      showSuccess(`Welcome ${fullName}! Your account has been created successfully.`, 'Account Created')
       navigate('/dashboard')
     } catch (error) {
       console.error('Sign up error:', error)
-      alert(error.message)
+      const errorMessage = getFirebaseErrorMessage(error.code)
+      showError(errorMessage, 'Sign Up Failed')
     } finally {
       setIsLoading(false)
     }
@@ -40,11 +43,38 @@ const SignUp = () => {
     const provider = new GoogleAuthProvider()
     try {
       const result = await signInWithPopup(auth, provider)
-      console.log('Google sign up successful:', result.user)
+      showSuccess(`Welcome ${result.user.displayName}! Your account has been created successfully with Google.`, 'Account Created')
       navigate('/dashboard')
     } catch (error) {
       console.error('Google sign up error:', error)
-      alert(error.message)
+      const errorMessage = getFirebaseErrorMessage(error.code)
+      showError(errorMessage, 'Google Sign Up Failed')
+    }
+  }
+
+  // Helper function to provide user-friendly error messages
+  const getFirebaseErrorMessage = (errorCode) => {
+    switch (errorCode) {
+      case 'auth/email-already-in-use':
+        return 'An account with this email already exists. Please sign in instead or use a different email address.'
+      case 'auth/weak-password':
+        return 'Password is too weak. Please choose a stronger password with at least 6 characters.'
+      case 'auth/invalid-email':
+        return 'Please enter a valid email address.'
+      case 'auth/operation-not-allowed':
+        return 'Account creation is currently disabled. Please contact support for assistance.'
+      case 'auth/too-many-requests':
+        return 'Too many failed attempts. Please wait a moment before trying again.'
+      case 'auth/network-request-failed':
+        return 'Network error. Please check your internet connection and try again.'
+      case 'auth/popup-closed-by-user':
+        return 'Sign up was cancelled. Please try again.'
+      case 'auth/popup-blocked':
+        return 'Pop-up was blocked by your browser. Please allow pop-ups for this site and try again.'
+      case 'auth/account-exists-with-different-credential':
+        return 'An account with this email already exists using a different sign-in method. Please sign in with your original method.'
+      default:
+        return 'An unexpected error occurred during account creation. Please try again.'
     }
   }
 
