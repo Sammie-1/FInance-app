@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
 import { getNavigationWithActiveState } from '../config/navigation'
@@ -454,6 +455,7 @@ const TotalSavedCard = ({ isDarkMode }) => {
 
 const Dashboard = () => {
   const { isDarkMode } = useDarkMode()
+  const { currentUser, logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -502,6 +504,15 @@ const Dashboard = () => {
         setIsSidebarOpen(false)
         setIsNavigating(false)
       }, 300)
+    }
+  }
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+      navigate('/signin')
+    } catch (error) {
+      console.error('Logout error:', error)
     }
   }
 
@@ -626,7 +637,7 @@ const Dashboard = () => {
               {bottomSidebarItems.map((item, index) => (
                 <div
                   key={index}
-                  onClick={() => handleNavigation(item.path)}
+                  onClick={() => item.label === 'Logout' ? handleLogout() : handleNavigation(item.path)}
                 className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[220px] ${
                     isDarkMode ? 'hover:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]' : 'hover:bg-gray-100 hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]'
                   }`}
@@ -663,18 +674,18 @@ const Dashboard = () => {
                 </div>
           <DarkModeToggle />
           <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-[215px] transition-colors duration-300`}>
-                                     <div className="flex items-center gap-3">
-                     <div className="w-9 h-9">
-                 <img alt="Profile" className="block max-w-none size-full" src={profileIcon} />
-                     </div>
-               <span className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                       Mahfuzul Nabil
-                     </span>
-                   </div>
-                   <div className="w-[17px] h-[17px]">
-                 <img alt="Dropdown" className="block max-w-none size-full" src={dropdownIcon} />
-                   </div>
-                </div>
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9">
+                <img alt="Profile" className="block max-w-none size-full rounded-full" src={profileIcon} />
+              </div>
+              <span className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                {currentUser?.displayName || 'Mahfuzul Nabil'}
+              </span>
+            </div>
+            <div className="w-[17px] h-[17px]">
+              <img alt="Dropdown" className="block max-w-none size-full" src={dropdownIcon} />
+            </div>
+          </div>
               </div>
             </div>
 
