@@ -1,7 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useDarkMode } from '../hooks/useDarkMode'
+import { useNotification } from '../contexts/NotificationContext'
 import DarkModeToggle from '../components/DarkModeToggle'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
 
 // Import icons
 import logoMain from '../assets/icons/logo-main.svg'
@@ -13,7 +16,9 @@ const InvoicePreview = () => {
   const { isDarkMode } = useDarkMode()
   const navigate = useNavigate()
   const location = useLocation()
+  const { showSuccess, showError, showInfo } = useNotification()
   const [isNavigating, setIsNavigating] = useState(false)
+  const [isDownloading, setIsDownloading] = useState(false)
 
   // Get invoice data from location state
   const invoiceData = location?.state || {}
@@ -43,13 +48,96 @@ const InvoicePreview = () => {
     window.print()
   }
 
-  const handleDownload = () => {
-    // Create a blob with the invoice HTML
-    const invoiceElement = document.getElementById('invoice-preview')
-    if (invoiceElement) {
-      // This would ideally use a PDF generation library like jsPDF or Puppeteer
-      // For now, we'll trigger the browser's print dialog
-      window.print()
+  const handleDownload = async () => {
+    if (isDownloading) return // Prevent multiple downloads
+    
+    setIsDownloading(true)
+    showInfo('Generating PDF...', 'Download')
+    
+    try {
+      const invoiceElement = document.getElementById('invoice-preview')
+      if (!invoiceElement) {
+        throw new Error('Invoice element not found')
+      }
+
+      // Create a temporary container with white background for PDF
+      const tempContainer = document.createElement('div')
+      tempContainer.style.position = 'absolute'
+      tempContainer.style.top = '-9999px'
+      tempContainer.style.left = '-9999px'
+      tempContainer.style.width = '794px' // A4 width in pixels at 96 DPI
+      tempContainer.style.backgroundColor = 'white'
+      tempContainer.style.padding = '40px'
+      tempContainer.innerHTML = invoiceElement.innerHTML
+      document.body.appendChild(tempContainer)
+
+      // Override dark mode styles for PDF
+      const allElements = tempContainer.querySelectorAll('*')
+      allElements.forEach(el => {
+        // Force white background and dark text for PDF
+        if (el.style) {
+          el.style.backgroundColor = 'white'
+          el.style.color = 'black'
+          el.style.borderColor = '#e5e7eb'
+        }
+      })
+
+      // Keep the header gradient
+      const headerElement = tempContainer.querySelector('.print-header')
+      if (headerElement) {
+        headerElement.style.background = 'linear-gradient(to right, #1b212d, #2a3441)'
+        headerElement.style.color = 'white'
+        const headerChildren = headerElement.querySelectorAll('*')
+        headerChildren.forEach(child => {
+          if (child.style) {
+            child.style.color = 'white'
+          }
+        })
+      }
+
+      // Generate canvas from HTML
+      const canvas = await html2canvas(tempContainer, {
+        scale: 2, // Higher resolution
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: 'white',
+        width: 794,
+        height: tempContainer.offsetHeight,
+        scrollX: 0,
+        scrollY: 0
+      })
+
+      // Remove temporary container
+      document.body.removeChild(tempContainer)
+
+      // Create PDF
+      const imgData = canvas.toDataURL('image/png')
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'px',
+        format: [794, canvas.height] // A4 proportions
+      })
+
+      // Calculate dimensions to fit the page
+      const pdfWidth = pdf.internal.pageSize.getWidth()
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width
+
+      // Add image to PDF
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+
+      // Generate filename
+      const filename = `Invoice_${invoiceId}_${new Date().toISOString().split('T')[0]}.pdf`
+      
+      // Save the PDF
+      pdf.save(filename)
+      
+      showSuccess(`Invoice downloaded successfully as ${filename}`, 'Download Complete')
+      
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+      showError('Failed to generate PDF. Please try again or use the print option.', 'Download Error')
+    } finally {
+      setIsDownloading(false)
     }
   }
 
@@ -150,10 +238,27 @@ const InvoicePreview = () => {
               </button>
               <button
                 onClick={handleDownload}
-                className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 bg-[#c8ee44] text-[#1b212d] rounded-lg hover:bg-[#b8de34] transition-colors duration-200 font-semibold text-sm"
+                disabled={isDownloading}
+                className={`flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg font-semibold text-sm transition-colors duration-200 ${
+                  isDownloading 
+                    ? 'bg-gray-300 text-gray-600 cursor-not-allowed' 
+                    : 'bg-[#c8ee44] text-[#1b212d] hover:bg-[#b8de34]'
+                }`}
               >
-                <img src={downloadIcon} alt="Download" className="w-4 h-4" />
-                Download PDF
+                {isDownloading ? (
+                  <>
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <img src={downloadIcon} alt="Download" className="w-4 h-4" />
+                    Download PDF
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -198,10 +303,27 @@ const InvoicePreview = () => {
               </button>
               <button
                 onClick={handleDownload}
-                className="flex items-center gap-2 px-4 py-2 bg-[#c8ee44] text-[#1b212d] rounded-lg hover:bg-[#b8de34] transition-colors duration-200 font-semibold"
+                disabled={isDownloading}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-colors duration-200 ${
+                  isDownloading 
+                    ? 'bg-gray-300 text-gray-600 cursor-not-allowed' 
+                    : 'bg-[#c8ee44] text-[#1b212d] hover:bg-[#b8de34]'
+                }`}
               >
-                <img src={downloadIcon} alt="Download" className="w-4 h-4" />
-                Download PDF
+                {isDownloading ? (
+                  <>
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating...
+                  </>
+                ) : (
+                  <>
+                    <img src={downloadIcon} alt="Download" className="w-4 h-4" />
+                    Download PDF
+                  </>
+                )}
               </button>
               <DarkModeToggle />
             </div>
