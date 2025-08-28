@@ -9,6 +9,7 @@ import Settings from './pages/Settings'
 import Invoices from './pages/Invoices'
 import CreateInvoice from './pages/CreateInvoice'
 import NewInvoice from './pages/NewInvoice'
+import InvoicePreview from './pages/InvoicePreview'
 import Transactions from './pages/Transactions'
 import MyWallets from './pages/MyWallets'
 import Dashboard from './pages/Dashboard'
@@ -40,6 +41,7 @@ function App() {
               <Route path="/invoices" element={<ProtectedRoute><Invoices /></ProtectedRoute>} />
               <Route path="/create-invoice" element={<ProtectedRoute><CreateInvoice /></ProtectedRoute>} />
               <Route path="/new-invoice" element={<ProtectedRoute><NewInvoice /></ProtectedRoute>} />
+              <Route path="/invoice-preview" element={<ProtectedRoute><InvoicePreview /></ProtectedRoute>} />
               <Route path="/transactions" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
               <Route path="/my-wallets" element={<ProtectedRoute><MyWallets /></ProtectedRoute>} />
             </Routes>

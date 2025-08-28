@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from '../../firebase'
+import AuthLoadingOverlay from '../components/ui/AuthLoadingOverlay'
 
 const AuthContext = createContext()
 
@@ -39,9 +40,21 @@ export const AuthProvider = ({ children }) => {
     loading
   }
 
+  if (loading) {
+    return (
+      <AuthContext.Provider value={value}>
+        <AuthLoadingOverlay 
+          isVisible={true}
+          title="Initializing App..."
+          subtitle="Setting up your secure connection"
+        />
+      </AuthContext.Provider>
+    )
+  }
+
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   )
 }
