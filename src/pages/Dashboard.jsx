@@ -114,12 +114,13 @@ const WorkingCapitalChart = ({ isDarkMode }) => {
         backgroundColor: isDarkMode ? '#1e1c30' : '#ffffff',
         border: `1px solid ${isDarkMode ? '#201e34' : '#e5e7eb'}`,
         borderRadius: '10px',
-        padding: '24px',
+        padding: { xs: '16px', sm: '20px', lg: '24px' },
         width: '100%',
-        height: '348px' // 300px chart + 48px padding
+        height: { xs: '280px', sm: '320px', lg: '348px' },
+        minHeight: { xs: '280px', sm: '320px', lg: '348px' }
       }}
     >
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height="100%">
         <LineChart 
           data={chartData} 
           margin={{ top: 20, right: 30, left: 20, bottom: 40 }}
@@ -326,22 +327,22 @@ import arJakirAlpAvatar from '../assets/4dddccf21648a45dfa4b70cc53a5f5269e5f0b9e
 // WalletCards Component
 const WalletCards = () => {
   return (
-    <div className="relative mx-auto" style={{ maxWidth: 354 }}>
+    <div className="relative mx-auto w-full max-w-[354px]">
       {/* Top (dark) card */}
       <div 
-        className="relative z-[1] rounded-2xl border border-white/10 shadow-xl text-white overflow-hidden"
+        className="relative z-[1] rounded-2xl border border-white/10 shadow-xl text-white overflow-hidden w-full"
         style={{
           background: 'linear-gradient(135deg, #4A4A49 0%, #20201F 100%)',
           borderRadius: '15px',
-          width: '354px',
-          height: '210px'
+          height: '180px',
+          minHeight: '180px'
         }}
       >
         {/* Bank label (top-left) */}
-        <div className="absolute" style={{ top: '16px', left: '16px' }}>
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-lg leading-none">Maglo.</span>
-            <span className="text-xs opacity-60 leading-none"> | Universal Bank</span>
+        <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <span className="font-bold text-sm sm:text-base lg:text-lg leading-none">Maglo.</span>
+            <span className="text-xs opacity-60 leading-none hidden sm:inline"> | Universal Bank</span>
           </div>
         </div>
 
@@ -349,51 +350,46 @@ const WalletCards = () => {
         <img
           src={groupIcon}
           alt="Card chip"
-          className="absolute"
-          style={{ top: '68px', left: '24px', width: '40px', height: '32px' }}
+          className="absolute top-12 sm:top-14 left-4 sm:left-6 w-8 h-6 sm:w-10 sm:h-8"
         />
 
         {/* Visa Icon */}
         <img
           src={visaIcon}
           alt="Visa Icon"
-          className="absolute"
-          style={{ top: '68px', right: '20px', width: '60px', height: '32px' }}
+          className="absolute top-12 sm:top-14 right-3 sm:right-5 w-12 h-6 sm:w-15 sm:h-8"
         />
 
         {/* Card number */}
-        <div>
-          <div className="absolute font-semibold tracking-widest whitespace-nowrap overflow-hidden" style={{ left: '24px', top: '124px' }}>
-          <span className="text-lg">5495 7381 3759 2321</span>
+        <div className="absolute left-4 sm:left-6 bottom-8 sm:bottom-10">
+          <span className="text-sm sm:text-base lg:text-lg font-semibold tracking-widest">5495 7381 3759 2321</span>
         </div>
-         {/* Network logo */}
-         <div className="absolute" style={{ right: '24px', bottom: '16px' }}>
-           <img src={mastercardIcon} alt="Mastercard" className="w-12 h-9" />
+        
+        {/* Network logo */}
+        <div className="absolute right-4 sm:right-6 bottom-3 sm:bottom-4">
+          <img src={mastercardIcon} alt="Mastercard" className="w-8 h-6 sm:w-10 sm:h-7 lg:w-12 lg:h-9" />
+        </div>
       </div>
+      
+      {/* Transparent overlay card (second card) */}
+      <div className="absolute z-[2] overflow-hidden top-[130px] sm:top-[140px] left-4 sm:left-5 right-4 sm:right-auto">
+        <div className="w-full sm:w-80 h-36 sm:h-44 relative max-w-[320px] sm:max-w-none">
+          <div className="w-full h-full left-0 top-0 absolute opacity-10 bg-gradient-to-b from-neutral-400 to-lime-900 rounded-2xl" />
+          <div className="w-full h-full left-0 top-0 absolute bg-gradient-to-b from-white/40 to-white/10 rounded-2xl border-[0.50px] border-white/40 backdrop-blur-[5px]" />
+          <img src={historyIcon} alt="Badge" className="absolute right-4 bottom-2 w-6 h-6 sm:w-8 sm:h-8" />
+          <div className="left-4 sm:left-[20px] top-3 sm:top-[15px] absolute text-white text-sm sm:text-base font-bold font-['Gordita']">Maglo.</div>
+          <div className="left-16 sm:left-[95px] top-3 sm:top-[18px] absolute text-neutral-100 text-xs font-medium font-['Gordita'] hidden sm:block">Commercial Bank</div>
+          <div className="w-px h-4 sm:h-5 left-14 sm:left-[86px] top-3 sm:top-[17px] absolute bg-neutral-100 hidden sm:block" />
+          <img src={groupIcon} alt="Chip" className="absolute left-4 sm:left-[20px] top-10 sm:top-[51px] w-8 h-6 sm:w-10 sm:h-8" />
+          <img
+            src={visaIcon}
+            alt="Visa Icon"
+            className="absolute top-10 sm:top-[55px] right-4 sm:right-[20px] w-12 h-6 sm:w-15 sm:h-8"
+          />
+          <div className="left-4 sm:left-[20px] bottom-8 sm:bottom-[63px] absolute text-gray-800 text-sm sm:text-base font-bold font-['Gordita'] tracking-wider">85952548****</div>
+          <div className="left-4 sm:left-[20px] bottom-4 sm:bottom-[35px] absolute text-gray-400 text-xs font-medium font-['Gordita'] tracking-tight">09/25</div>
         </div>
       </div>
-       {/* Transparent overlay card (second card) */}
-       <div className="absolute z-[2] overflow-hidden" style={{ top: '158px', left: '20px' }}>
-          <div className="w-80 h-44 relative">
-            <div className="w-80 h-44 left-0 top-0 absolute opacity-10 bg-gradient-to-b from-neutral-400 to-lime-900 rounded-2xl" />
-            <div className="w-80 h-44 left-0 top-0 absolute bg-gradient-to-b from-white/40 to-white/10 rounded-2xl border-[0.50px] border-white/40 backdrop-blur-[5px]" />
-            <img src={historyIcon} alt="Badge" className="absolute" style={{ left: '272px', top: '126px', width: '32px', height: '32px' }} />
-            <div className="left-[20px] top-[15px] absolute justify-start text-white text-base font-bold font-['Gordita']">Maglo.</div>
-            <div className="left-[95px] top-[18px] absolute justify-start text-neutral-100 text-xs font-medium font-['Gordita']">Commercial Bank</div>
-            <div className="w-px h-5 left-[86px] top-[17px] absolute bg-neutral-100" />
-            <img src={groupIcon} alt="Chip" className="absolute" style={{ left: '20px', top: '51px', width: '40px', height: '32px' }} />
-            <div>
-              <img
-                src={visaIcon}
-                alt="Visa Icon"
-                className="absolute"
-                style={{ top: '55px', right: '20px', width: '60px', height: '32px' }}
-              />
-            </div>
-            <div className="left-[20px] top-[107px] absolute justify-start text-gray-800 text-base font-bold font-['Gordita'] tracking-wider">85952548****</div>
-            <div className="left-[20px] top-[135px] absolute justify-start text-gray-400 text-xs font-medium font-['Gordita'] tracking-tight">09/25</div>
-        </div>
-        </div>
     </div>
   );
 };
@@ -518,13 +514,11 @@ const Dashboard = () => {
 
   return (
     <div 
-      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} relative w-full ${
+      className={`${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-white'} relative w-full min-h-screen ${
         isNavigating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
       }`}
       style={{ 
         backgroundColor: isDarkMode ? '#1c1a2e' : '#ffffff',
-        minHeight: '100vh',
-        height: 'auto',
         transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out'
       }}
     >
@@ -541,36 +535,40 @@ const Dashboard = () => {
       {/* Navigation Loading Overlay */}
       {isNavigating && (
         <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center">
-          <div className="bg-white dark:bg-[#1e1c30] rounded-2xl p-8 shadow-2xl flex flex-col items-center gap-4">
+          <div className="bg-white dark:bg-[#1e1c30] rounded-2xl p-4 sm:p-8 shadow-2xl flex flex-col items-center gap-4 mx-4">
             <div className="relative">
-              <div className="w-12 h-12 border-4 border-[#29a073]/20 border-t-[#29a073] rounded-full animate-spin"></div>
-              <div className="absolute inset-0 w-12 h-12 border-4 border-transparent border-r-[#c8ee44] rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+              <div className="w-8 h-8 sm:w-12 sm:h-12 border-4 border-[#29a073]/20 border-t-[#29a073] rounded-full animate-spin"></div>
+              <div className="absolute inset-0 w-8 h-8 sm:w-12 sm:h-12 border-4 border-transparent border-r-[#c8ee44] rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
             </div>
-            <span className="font-['Kumbh_Sans'] font-medium text-[#1b212d] dark:text-white">Navigating...</span>
+            <span className="font-['Kumbh_Sans'] font-medium text-[#1b212d] dark:text-white text-sm sm:text-base">Navigating...</span>
           </div>
         </div>
       )}
-        {/* Mobile Menu Button */}
-        <button
-          onClick={toggleSidebar}
-          className={`md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg ${isDarkMode ? 'bg-[#29a073] hover:bg-[#24a06a]' : 'bg-[#29a073] hover:bg-[#24a06a]'} text-white transition-colors duration-200`}
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
 
-      {/* Dark Mode Toggle moved into top bar for alignment with other pages */}
+      {/* Mobile Menu Button */}
+      <button
+        onClick={toggleSidebar}
+        className={`lg:hidden fixed top-4 left-4 z-50 p-3 rounded-lg ${isDarkMode ? 'bg-[#29a073] hover:bg-[#24a06a]' : 'bg-[#29a073] hover:bg-[#24a06a]'} text-white transition-colors duration-200 shadow-lg`}
+        aria-label="Toggle menu"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          {isSidebarOpen ? (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          ) : (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          )}
+        </svg>
+      </button>
 
       {/* Overlay for mobile */}
       {isSidebarOpen && (
-        <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30" onClick={() => setIsSidebarOpen(false)} />
+        <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30" onClick={() => setIsSidebarOpen(false)} />
       )}
 
-        {/* Sidebar */}
-      <div className={`fixed z-40 w-[250px] inset-y-0 left-0 transform transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-      } ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-neutral-50'} flex flex-col transition-colors duration-300 overflow-y-auto`}>
+      {/* Sidebar */}
+      <div className={`fixed z-40 w-[280px] sm:w-[300px] lg:w-[250px] inset-y-0 left-0 transform transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      } ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-neutral-50'} flex flex-col transition-colors duration-300 overflow-y-auto shadow-xl lg:shadow-none`}>
                      {/* Logo */}
            <div className="flex items-center gap-3 px-[25px] pt-[30px] pb-10">
              <div className="w-[30px] h-[30px]">
@@ -587,71 +585,71 @@ const Dashboard = () => {
            </div>
 
         {/* Navigation */}
-          <div className="flex flex-col h-full px-[25px]">
-            <div className="flex flex-col gap-0.5 pt-0">
-                                                           {topSidebarItems.map((item, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleNavigation(item.path)}
-                    className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[220px] ${
-                      item.active
-                        ? 'bg-[#c8ee44] transform scale-[1.02] shadow-lg'
-                        : isDarkMode
-                          ? 'hover:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md'
-                          : 'hover:bg-gray-100 hover:transform hover:scale-[1.02] hover:shadow-md'
-                    }`}
-                  >
-                    {/* Active indicator line */}
-                    {item.active && (
-                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-[#1b212d] rounded-r-full animate-pulse" />
-                    )}
-                    
-                    {/* Icon with enhanced animations */}
-                    <div className={`relative w-5 h-5 transition-all duration-500 ${
-                      item.active ? 'transform rotate-12 scale-110' : 'group-hover:rotate-6 group-hover:scale-110'
-                    }`}>
-                      <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
-                    </div>
-                    
-                    {/* Text with enhanced animations */}
-                    <span className={`font-['Kumbh_Sans'] text-[14px] whitespace-nowrap transition-all duration-500 ${
-                      item.active 
-                        ? 'font-semibold text-[#1b212d] transform translate-x-1' 
-                        : 'font-medium text-[#929eae] group-hover:translate-x-1'
-                    }`}>
-                      {item.label}
-                    </span>
-                    
-                    {/* Hover glow effect */}
-                    <div className={`absolute inset-0 rounded-lg transition-all duration-500 ${
-                      item.active 
-                        ? 'bg-gradient-to-r from-[#c8ee44]/20 to-transparent' 
-                        : 'group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent'
-                    }`} />
-                  </div>
-                ))}
-            </div>
-
-            {/* Bottom Navigation */}
-            <div className="flex flex-col gap-0.5 mt-auto pb-8">
-              {bottomSidebarItems.map((item, index) => (
+          <div className="flex flex-col h-full px-4 sm:px-[25px]">
+            <div className="flex flex-col gap-1 pt-0">
+              {topSidebarItems.map((item, index) => (
                 <div
                   key={index}
-                  onClick={() => item.label === 'Logout' ? handleLogout() : handleNavigation(item.path)}
-                className={`group relative flex items-center gap-3 pl-[15px] pr-[81px] py-3.5 rounded-lg cursor-pointer transition-all duration-500 ease-out w-[220px] ${
-                    isDarkMode ? 'hover:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]' : 'hover:bg-gray-100 hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]'
+                  onClick={() => handleNavigation(item.path)}
+                  className={`group relative flex items-center gap-3 pl-3 sm:pl-[15px] pr-4 sm:pr-[81px] py-4 sm:py-3.5 rounded-lg cursor-pointer transition-all duration-300 ease-out w-full sm:w-[220px] touch-manipulation ${
+                    item.active
+                      ? 'bg-[#c8ee44] transform scale-[1.02] shadow-lg'
+                      : isDarkMode
+                        ? 'hover:bg-[#282541] active:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md'
+                        : 'hover:bg-gray-100 active:bg-gray-200 hover:transform hover:scale-[1.02] hover:shadow-md'
                   }`}
                 >
+                  {/* Active indicator line */}
+                  {item.active && (
+                    <div className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-[#1b212d] rounded-r-full animate-pulse" />
+                  )}
+                  
                   {/* Icon with enhanced animations */}
-                  <div className={`w-5 h-5 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110`}>
+                  <div className={`relative w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 transition-all duration-300 ${
+                    item.active ? 'transform rotate-12 scale-110' : 'group-hover:rotate-6 group-hover:scale-110'
+                  }`}>
                     <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
                   </div>
                   
                   {/* Text with enhanced animations */}
-                  <span className="font-['Kumbh_Sans'] font-medium text-[14px] whitespace-nowrap transition-all duration-500 group-hover:translate-x-1">{item.label}</span>
+                  <span className={`font-['Kumbh_Sans'] text-sm sm:text-[14px] whitespace-nowrap transition-all duration-300 flex-1 ${
+                    item.active 
+                      ? 'font-semibold text-[#1b212d] transform translate-x-1' 
+                      : 'font-medium text-[#929eae] group-hover:translate-x-1'
+                  }`}>
+                    {item.label}
+                  </span>
                   
                   {/* Hover glow effect */}
-                  <div className={`absolute inset-0 rounded-lg transition-all duration-500 group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent`} />
+                  <div className={`absolute inset-0 rounded-lg transition-all duration-300 ${
+                    item.active 
+                      ? 'bg-gradient-to-r from-[#c8ee44]/20 to-transparent' 
+                      : 'group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent'
+                  }`} />
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Navigation */}
+            <div className="flex flex-col gap-1 mt-auto pb-6 sm:pb-8">
+              {bottomSidebarItems.map((item, index) => (
+                <div
+                  key={index}
+                  onClick={() => item.label === 'Logout' ? handleLogout() : handleNavigation(item.path)}
+                  className={`group relative flex items-center gap-3 pl-3 sm:pl-[15px] pr-4 sm:pr-[81px] py-4 sm:py-3.5 rounded-lg cursor-pointer transition-all duration-300 ease-out w-full sm:w-[220px] touch-manipulation ${
+                    isDarkMode ? 'hover:bg-[#282541] active:bg-[#282541] hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]' : 'hover:bg-gray-100 active:bg-gray-200 hover:transform hover:scale-[1.02] hover:shadow-md text-[#929eae]'
+                  }`}
+                >
+                  {/* Icon with enhanced animations */}
+                  <div className={`w-5 h-5 flex-shrink-0 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110`}>
+                    <img alt={item.label} className="block max-w-none size-full" src={item.icon} />
+                  </div>
+                  
+                  {/* Text with enhanced animations */}
+                  <span className="font-['Kumbh_Sans'] font-medium text-sm sm:text-[14px] whitespace-nowrap transition-all duration-300 group-hover:translate-x-1 flex-1">{item.label}</span>
+                  
+                  {/* Hover glow effect */}
+                  <div className={`absolute inset-0 rounded-lg transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-white/5 group-hover:to-transparent`} />
                 </div>
               ))}
             </div>
@@ -659,40 +657,50 @@ const Dashboard = () => {
         </div>
 
       {/* Top Bar */}
-      <div className="absolute flex items-center justify-between left-[290px] top-[30px] w-[1110px]">
-        <div className={`font-['Kumbh_Sans'] font-semibold text-[25px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                Dashboard
+      <div className="flex items-center justify-between px-4 sm:px-6 lg:pl-[290px] lg:pr-8 xl:pr-12 pt-4 sm:pt-6 lg:pt-[30px] pb-4">
+        <div className="flex items-center">
+          {/* Page Title */}
+          <div className={`font-['Kumbh_Sans'] font-semibold text-lg sm:text-xl lg:text-[25px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'} ml-16 lg:ml-0`}>
+            Dashboard
+          </div>
         </div>
-                <div className="flex items-center gap-[45px]">
-          <div className="flex items-center gap-[45px]">
-                                 <div className="w-6 h-6">
-               <img alt="Search" className="block max-w-none size-full" src={searchIcon} />
-                 </div>
-                 <div className="w-6 h-6">
-               <img alt="Notifications" className="block max-w-none size-full" src={notificationIcon} />
-             </div>
-                </div>
+        
+        {/* Right side controls */}
+        <div className="flex items-center gap-3 sm:gap-4 lg:gap-[45px]">
+          {/* Search and Notifications - Hidden on mobile, visible on tablet+ */}
+          <div className="hidden sm:flex items-center gap-4 lg:gap-[45px]">
+            <button className="w-5 h-5 sm:w-6 sm:h-6 opacity-70 hover:opacity-100 transition-opacity" aria-label="Search">
+              <img alt="Search" className="block max-w-none size-full" src={searchIcon} />
+            </button>
+            <button className="w-5 h-5 sm:w-6 sm:h-6 opacity-70 hover:opacity-100 transition-opacity" aria-label="Notifications">
+              <img alt="Notifications" className="block max-w-none size-full" src={notificationIcon} />
+            </button>
+          </div>
+          
+          {/* Dark Mode Toggle */}
           <DarkModeToggle />
-          <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-[7px] pr-[15px] py-1.5 rounded-[100px] w-[215px] transition-colors duration-300`}>
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9">
+          
+          {/* Profile Section */}
+          <div className={`${isDarkMode ? 'bg-[#201e34]' : 'bg-neutral-50'} flex items-center justify-between pl-2 sm:pl-[7px] pr-3 sm:pr-[15px] py-1.5 rounded-full transition-colors duration-300 min-w-0`}>
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 lg:w-9 lg:h-9 flex-shrink-0">
                 <img alt="Profile" className="block max-w-none size-full rounded-full" src={profileIcon} />
               </div>
-              <span className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+              <span className={`font-['Kumbh_Sans'] font-semibold text-xs sm:text-sm lg:text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'} truncate hidden sm:block`}>
                 {currentUser?.displayName || 'Mahfuzul Nabil'}
               </span>
             </div>
-            <div className="w-[17px] h-[17px]">
+            <div className="w-3 h-3 sm:w-4 sm:h-4 lg:w-[17px] lg:h-[17px] flex-shrink-0 hidden sm:block">
               <img alt="Dropdown" className="block max-w-none size-full" src={dropdownIcon} />
             </div>
           </div>
-              </div>
-            </div>
+        </div>
+      </div>
 
-            {/* Main Content */}
-      <div className={`absolute left-[290px] top-[108px] right-4 pb-10 ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg animate-fade-in-up`} style={{ minHeight: 'calc(100vh - 108px)' }}>
+      {/* Main Content */}
+      <div className={`px-4 sm:px-6 lg:pl-[290px] lg:pr-8 xl:pr-12 pb-6 sm:pb-10 ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} animate-fade-in-up`}>
         {/* KPI Cards */}
-        <div className="flex flex-col sm:flex-row gap-[25px] mb-[30px] w-full max-w-[716px]">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-[25px] mb-6 sm:mb-8 lg:mb-[30px] w-full max-w-[716px]">
           <div className="flex-1 min-w-0">
             <TotalBalanceCard isDarkMode={isDarkMode} />
           </div>
@@ -705,208 +713,323 @@ const Dashboard = () => {
         </div>
 
         {/* Chart and Transaction Section */}
-        <div className="flex gap-[30px]">
+        <div className="flex flex-col xl:flex-row gap-6 lg:gap-[30px]">
           {/* Left Column - Chart and Recent Transactions */}
-          <div className="basis-2/3 space-y-[30px] min-w-0">
-              {/* Working Capital Chart */}
-              <div className="w-full">
-                                                                    {/* Header Section with Legend and Time Range Selector */}
-                  <div className="flex justify-between items-center mb-6">
-                    <h3 className={`font-['Kumbh_Sans'] font-semibold text-lg transition-colors duration-300 ${
-                      isDarkMode ? 'text-white' : 'text-gray-800'
-                    }`}>
-                      Working Capital
-                    </h3>
+          <div className="flex-1 xl:basis-2/3 space-y-6 lg:space-y-[30px] min-w-0">
+            {/* Working Capital Chart */}
+            <div className="w-full">
+              {/* Header Section with Legend and Time Range Selector */}
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6 gap-3 sm:gap-4">
+                <h3 className={`font-['Kumbh_Sans'] font-semibold text-base sm:text-lg transition-colors duration-300 ${
+                  isDarkMode ? 'text-white' : 'text-gray-800'
+                }`}>
+                  Working Capital
+                </h3>
+                
+                {/* Right side with Legend Items and Time Range Selector */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                  {/* Legend Items */}
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    {/* Income Legend */}
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-[#00b894]"></div>
+                      <span className={`text-xs sm:text-sm font-medium transition-colors duration-300 ${
+                        isDarkMode ? 'text-[#929eae]' : 'text-gray-600'
+                      }`}>
+                        Income
+                      </span>
+                    </div>
                     
-                    {/* Right side with Legend Items and Time Range Selector */}
-                    <div className="flex items-center gap-4">
-                      {/* Legend Items */}
-                      <div className="flex items-center gap-4">
-                        {/* Income Legend */}
-                        <div className="flex items-center gap-2">
-                          <div className="w-3 h-3 rounded-full bg-[#00b894]"></div>
-                          <span className={`text-sm font-medium transition-colors duration-300 ${
-                            isDarkMode ? 'text-[#929eae]' : 'text-gray-600'
-                          }`}>
-                            Income
-                          </span>
+                    {/* Expenses Legend */}
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-[#fdcb6e]"></div>
+                      <span className={`text-xs sm:text-sm font-medium transition-colors duration-300 ${
+                        isDarkMode ? 'text-[#929eae]' : 'text-gray-600'
+                      }`}>
+                        Expenses
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Time Range Selector */}
+                  <div className={`px-3 py-1.5 rounded-[5px] text-xs font-medium transition-colors duration-300 cursor-pointer flex items-center gap-2 ${
+                    isDarkMode ? 'bg-[#201e34] text-white hover:bg-[#282541]' : 'bg-stone-50 text-gray-800 hover:bg-gray-100'
+                  }`}>
+                    <span>Last 7 days</span>
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* Chart Container */}
+              <WorkingCapitalChart isDarkMode={isDarkMode} />
+            </div>
+
+              {/* Recent Transactions */}
+              <div className={`w-full ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-white'} rounded-[10px] outline outline-1 outline-offset-[-1px] ${isDarkMode ? 'outline-[#201e34]' : 'outline-neutral-100'} p-4 sm:p-6`}>
+                <div className="flex justify-between items-center mb-4 sm:mb-6">
+                  <div className={`text-base sm:text-lg font-semibold font-['Kumbh_Sans'] transition-colors duration-300 ${
+                    isDarkMode ? 'text-white' : 'text-gray-800'
+                  }`}>Recent Transaction</div>
+                  <button className="flex items-center gap-1.5 text-teal-600 hover:text-teal-700 transition-colors">
+                    <span className="text-xs sm:text-sm font-semibold font-['Kumbh_Sans']">View All</span>
+                    <img src={viewAllIcon} alt="View All" className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </button>
+                </div>
+                
+                {/* Desktop Table Headers - Hidden on mobile */}
+                <div className="hidden lg:flex items-center mb-4 px-4">
+                  <div className={`w-[45%] text-xs font-semibold font-['Kumbh_Sans'] transition-colors duration-300 ${
+                    isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                  }`}>NAME/BUSINESS</div>
+                  <div className={`w-[18%] text-xs font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                    isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                  }`}>TYPE</div>
+                  <div className={`w-[18%] text-xs font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                    isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                  }`}>AMOUNT</div>
+                  <div className={`w-[19%] text-xs font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                    isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                  }`}>DATE</div>
+                </div>
+                
+                {/* Transaction List */}
+                <div className="space-y-0">
+                  {/* Transaction 1 */}
+                  <div className={`border-b transition-colors duration-300 ${
+                    isDarkMode ? 'border-[#201e34]' : 'border-gray-100'
+                  }`}>
+                    {/* Desktop Layout */}
+                    <div className="hidden lg:flex items-center py-4 px-4">
+                      <div className="w-[45%] flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 ${
+                          isDarkMode ? 'bg-[#201e34]' : 'bg-sky-100'
+                        }`}>
+                          <img className="w-10 h-10" src={iphoneIcon} alt="iPhone" />
                         </div>
-                        
-                        {/* Expenses Legend */}
-                        <div className="flex items-center gap-2">
-                          <div className="w-3 h-3 rounded-full bg-[#fdcb6e]"></div>
-                          <span className={`text-sm font-medium transition-colors duration-300 ${
-                            isDarkMode ? 'text-[#929eae]' : 'text-gray-600'
-                          }`}>
-                            Expenses
-                          </span>
+                        <div>
+                          <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                            isDarkMode ? 'text-white' : 'text-gray-800'
+                          }`}>Iphone 13 Pro MAX</div>
+                          <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
+                            isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                          }`}>Apple. Inc</div>
                         </div>
                       </div>
-                      
-                      {/* Time Range Selector */}
-                      <div className={`px-3 py-1.5 rounded-[5px] text-xs font-medium transition-colors duration-300 cursor-pointer flex items-center gap-2 ${
-                        isDarkMode ? 'bg-[#201e34] text-white hover:bg-[#282541]' : 'bg-stone-50 text-gray-800 hover:bg-gray-100'
-                      }`}>
-                        <span>Last 7 days</span>
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
+                      <div className={`w-[18%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                        isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                      }`}>Mobile</div>
+                      <div className={`w-[18%] text-sm font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                        isDarkMode ? 'text-white' : 'text-gray-800'
+                      }`}>$420.84</div>
+                      <div className={`w-[19%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                        isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                      }`}>14 Apr 2022</div>
+                    </div>
+                    
+                    {/* Mobile Card Layout */}
+                    <div className="lg:hidden p-4">
+                      <div className="flex items-start gap-3">
+                        <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 flex-shrink-0 ${
+                          isDarkMode ? 'bg-[#201e34]' : 'bg-sky-100'
+                        }`}>
+                          <img className="w-10 h-10" src={iphoneIcon} alt="iPhone" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                                isDarkMode ? 'text-white' : 'text-gray-800'
+                              }`}>Iphone 13 Pro MAX</div>
+                              <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
+                                isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                              }`}>Apple. Inc</div>
+                            </div>
+                            <div className={`text-sm font-semibold font-['Kumbh_Sans'] transition-colors duration-300 ${
+                              isDarkMode ? 'text-white' : 'text-gray-800'
+                            }`}>$420.84</div>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className={`text-xs font-medium font-['Kumbh_Sans'] px-2 py-1 rounded transition-colors duration-300 ${
+                              isDarkMode ? 'bg-[#201e34] text-[#929eae]' : 'bg-gray-100 text-gray-600'
+                            }`}>Mobile</span>
+                            <span className={`text-xs font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                              isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                            }`}>14 Apr 2022</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-
-                {/* Chart Container */}
-                <WorkingCapitalChart isDarkMode={isDarkMode} />
-              </div>
-
-              {/* Recent Transactions */}
-              <div className={`w-full ${isDarkMode ? 'bg-[#1e1c30]' : 'bg-white'} rounded-[10px] outline outline-1 outline-offset-[-1px] ${isDarkMode ? 'outline-[#201e34]' : 'outline-neutral-100'} p-6`}>
-                <div className="flex justify-between items-center mb-6">
-                   <div className={`text-lg font-semibold font-['Kumbh_Sans'] transition-colors duration-300 ${
-                     isDarkMode ? 'text-white' : 'text-gray-800'
-                   }`}>Recent Transaction</div>
-                                     <div className="flex items-center gap-1.5">
-                     <div className="text-teal-600 text-sm font-semibold font-['Kumbh_Sans']">View All</div>
-                     <img src={viewAllIcon} alt="View All" className="w-4 h-4" />
-                   </div>
+                  
+                  {/* Transaction 2 */}
+                  <div className={`border-b transition-colors duration-300 ${
+                    isDarkMode ? 'border-[#201e34]' : 'border-gray-100'
+                  }`}>
+                    {/* Desktop Layout */}
+                    <div className="hidden lg:flex items-center py-4 px-4">
+                      <div className="w-[45%] flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 ${
+                          isDarkMode ? 'bg-[#201e34]' : 'bg-gray-100'
+                        }`}>
+                          <img className="w-10 h-10" src={netflixIcon} alt="Netflix" />
+                        </div>
+                        <div>
+                          <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                            isDarkMode ? 'text-white' : 'text-gray-800'
+                          }`}>Netflix Subscription</div>
+                          <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
+                            isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                          }`}>Netflix</div>
+                        </div>
+                      </div>
+                      <div className={`w-[18%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                        isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                      }`}>Entertainment</div>
+                      <div className={`w-[18%] text-sm font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                        isDarkMode ? 'text-white' : 'text-gray-800'
+                      }`}>$100.00</div>
+                      <div className={`w-[19%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                        isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                      }`}>05 Apr 2022</div>
+                    </div>
+                    
+                    {/* Mobile Card Layout */}
+                    <div className="lg:hidden p-4">
+                      <div className="flex items-start gap-3">
+                        <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 flex-shrink-0 ${
+                          isDarkMode ? 'bg-[#201e34]' : 'bg-gray-100'
+                        }`}>
+                          <img className="w-10 h-10" src={netflixIcon} alt="Netflix" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                                isDarkMode ? 'text-white' : 'text-gray-800'
+                              }`}>Netflix Subscription</div>
+                              <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
+                                isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                              }`}>Netflix</div>
+                            </div>
+                            <div className={`text-sm font-semibold font-['Kumbh_Sans'] transition-colors duration-300 ${
+                              isDarkMode ? 'text-white' : 'text-gray-800'
+                            }`}>$100.00</div>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className={`text-xs font-medium font-['Kumbh_Sans'] px-2 py-1 rounded transition-colors duration-300 ${
+                              isDarkMode ? 'bg-[#201e34] text-[#929eae]' : 'bg-gray-100 text-gray-600'
+                            }`}>Entertainment</span>
+                            <span className={`text-xs font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                              isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                            }`}>05 Apr 2022</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Transaction 3 */}
+                  <div>
+                    {/* Desktop Layout */}
+                    <div className="hidden lg:flex items-center py-4 px-4">
+                      <div className="w-[45%] flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 ${
+                          isDarkMode ? 'bg-[#201e34]' : 'bg-gray-100'
+                        }`}>
+                          <img className="w-10 h-10" src={figmaIcon} alt="Figma" />
+                        </div>
+                        <div>
+                          <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                            isDarkMode ? 'text-white' : 'text-gray-800'
+                          }`}>Figma Subscription</div>
+                          <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
+                            isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                          }`}>Figma. Inc</div>
+                        </div>
+                      </div>
+                      <div className={`w-[18%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                        isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                      }`}>Software</div>
+                      <div className={`w-[18%] text-sm font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                        isDarkMode ? 'text-white' : 'text-gray-800'
+                      }`}>$244.20</div>
+                      <div className={`w-[19%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
+                        isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                      }`}>02 Apr 2022</div>
+                    </div>
+                    
+                    {/* Mobile Card Layout */}
+                    <div className="lg:hidden p-4">
+                      <div className="flex items-start gap-3">
+                        <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 flex-shrink-0 ${
+                          isDarkMode ? 'bg-[#201e34]' : 'bg-gray-100'
+                        }`}>
+                          <img className="w-10 h-10" src={figmaIcon} alt="Figma" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-start mb-2">
+                            <div>
+                              <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                                isDarkMode ? 'text-white' : 'text-gray-800'
+                              }`}>Figma Subscription</div>
+                              <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
+                                isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                              }`}>Figma. Inc</div>
+                            </div>
+                            <div className={`text-sm font-semibold font-['Kumbh_Sans'] transition-colors duration-300 ${
+                              isDarkMode ? 'text-white' : 'text-gray-800'
+                            }`}>$244.20</div>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className={`text-xs font-medium font-['Kumbh_Sans'] px-2 py-1 rounded transition-colors duration-300 ${
+                              isDarkMode ? 'bg-[#201e34] text-[#929eae]' : 'bg-gray-100 text-gray-600'
+                            }`}>Software</span>
+                            <span className={`text-xs font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
+                              isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
+                            }`}>02 Apr 2022</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                
-                                 {/* Table Headers */}
-                 <div className="flex items-center mb-4 px-4">
-                   <div className={`w-[45%] text-xs font-semibold font-['Kumbh_Sans'] transition-colors duration-300 ${
-                     isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                   }`}>NAME/BUSINESS</div>
-                   <div className={`w-[18%] text-xs font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                     isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                   }`}>TYPE</div>
-                   <div className={`w-[18%] text-xs font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                     isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                   }`}>AMOUNT</div>
-                   <div className={`w-[19%] text-xs font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                     isDarkMode ? 'text-[#929eae]' : 'text-gray-800'
-                   }`}>DATE</div>
-                 </div>
-                 
-                 {/* Table Rows */}
-                 <div className="space-y-0">
-                   {/* Transaction 1 */}
-                   <div className={`flex items-center py-4 px-4 border-b transition-colors duration-300 ${
-                     isDarkMode ? 'border-[#201e34]' : 'border-gray-100'
-                   }`}>
-                     <div className="w-[45%] flex items-center gap-3">
-                       <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 ${
-                         isDarkMode ? 'bg-[#201e34]' : 'bg-sky-100'
-                       }`}>
-                         <img className="w-10 h-10" src={iphoneIcon} alt="iPhone" />
-                       </div>
-                       <div>
-                         <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
-                           isDarkMode ? 'text-white' : 'text-gray-800'
-                         }`}>Iphone 13 Pro MAX</div>
-                         <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
-                           isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                         }`}>Apple. Inc</div>
-                       </div>
-                     </div>
-                     <div className={`w-[18%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                     }`}>Mobile</div>
-                     <div className={`w-[18%] text-sm font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                       isDarkMode ? 'text-white' : 'text-gray-800'
-                     }`}>$420.84</div>
-                     <div className={`w-[19%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                     }`}>14 Apr 2022</div>
-                   </div>
-                   
-                   {/* Transaction 2 */}
-                   <div className={`flex items-center py-4 px-4 border-b transition-colors duration-300 ${
-                     isDarkMode ? 'border-[#201e34]' : 'border-gray-100'
-                   }`}>
-                     <div className="w-[45%] flex items-center gap-3">
-                       <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 ${
-                         isDarkMode ? 'bg-[#201e34]' : 'bg-gray-100'
-                       }`}>
-                         <img className="w-10 h-10" src={netflixIcon} alt="Netflix" />
-                       </div>
-                       <div>
-                         <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
-                           isDarkMode ? 'text-white' : 'text-gray-800'
-                         }`}>Netflix Subscription</div>
-                         <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
-                           isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                         }`}>Netflix</div>
-                       </div>
-                     </div>
-                     <div className={`w-[18%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                     }`}>Entertainment</div>
-                     <div className={`w-[18%] text-sm font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                       isDarkMode ? 'text-white' : 'text-gray-800'
-                     }`}>$100.00</div>
-                     <div className={`w-[19%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                     }`}>05 Apr 2022</div>
-                   </div>
-                   
-                   {/* Transaction 3 */}
-                   <div className="flex items-center py-4 px-4">
-                     <div className="w-[45%] flex items-center gap-3">
-                       <div className={`w-10 h-10 rounded-[5px] flex items-center justify-center transition-colors duration-300 ${
-                         isDarkMode ? 'bg-[#201e34]' : 'bg-gray-100'
-                       }`}>
-                         <img className="w-10 h-10" src={figmaIcon} alt="Figma" />
-                       </div>
-                       <div>
-                         <div className={`text-sm font-medium font-['Kumbh_Sans'] transition-colors duration-300 ${
-                           isDarkMode ? 'text-white' : 'text-gray-800'
-                         }`}>Figma Subscription</div>
-                         <div className={`text-xs font-normal font-['Kumbh_Sans'] transition-colors duration-300 ${
-                           isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                         }`}>Figma. Inc</div>
-                       </div>
-                     </div>
-                     <div className={`w-[18%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                     }`}>Software</div>
-                     <div className={`w-[18%] text-sm font-semibold font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                       isDarkMode ? 'text-white' : 'text-gray-800'
-                     }`}>$244.20</div>
-                     <div className={`w-[19%] text-sm font-medium font-['Kumbh_Sans'] text-center transition-colors duration-300 ${
-                       isDarkMode ? 'text-[#929eae]' : 'text-gray-400'
-                     }`}>02 Apr 2022</div>
-                   </div>
-                 </div>
               </div>
           </div>
           
           {/* Right Column - Wallet and Scheduled Transfers */}
-          <div className={`w-[354px] space-y-[30px] -mt-[120px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-6' : ''} rounded-lg`}>
-                         {/* Wallet Cards */}
-             <div className="space-y-4">
-                               <div className="flex items-center justify-between">
-                  <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
-                    Wallet
-                  </h3>
-                                     <img src={historyIcon} alt="history Icon" className="w-6 h-6 -ml-[20px] mr-4" />
-                </div>
+          <div className={`w-full xl:w-[354px] space-y-6 lg:space-y-[30px] xl:-mt-[120px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-4 sm:p-6' : ''} rounded-lg`}>
+            {/* Wallet Cards */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className={`font-['Kumbh_Sans'] font-semibold text-base sm:text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                  Wallet
+                </h3>
+                <button className="p-1 hover:bg-gray-100 dark:hover:bg-[#282541] rounded transition-colors" aria-label="History">
+                  <img src={historyIcon} alt="history Icon" className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </div>
                
-               {/* WalletCards Component */}
-               <WalletCards />
-             </div>                      
+              {/* WalletCards Component */}
+              <div className="flex justify-center xl:justify-start">
+                <WalletCards />
+              </div>
+            </div>
 
             {/* Scheduled Transfers */}
-            <div className="mt-24">
-              <div className="flex items-center justify-between mb-6 mt-[150px]">
-                <h3 className={`font-['Kumbh_Sans'] font-semibold text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+            <div className="mt-12 xl:mt-24">
+              <div className="flex items-center justify-between mb-4 sm:mb-6 xl:mt-[150px]">
+                <h3 className={`font-['Kumbh_Sans'] font-semibold text-base sm:text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                   Scheduled Transfers
                 </h3>
-                <button className="flex items-center gap-1.5 text-[#29a073]">
-                  <span className="font-['Kumbh_Sans'] font-semibold text-[14px]">View All</span>
+                <button className="flex items-center gap-1.5 text-[#29a073] hover:text-[#24a06a] transition-colors">
+                  <span className="font-['Kumbh_Sans'] font-semibold text-xs sm:text-[14px]">View All</span>
                 </button>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {[
                   { name: 'Saleh Ahmed', date: 'April 28, 2022 at 11:00', amount: '- $435,00', avatar: salehAhmedAvatar },
                   { name: 'Delowar Hossain', date: 'April 25, 2022 at 11:00', amount: '- $132,00', avatar: delowarHossainAvatar },
@@ -915,22 +1038,22 @@ const Dashboard = () => {
                   { name: 'AR. Jakir Alp', date: 'April 14, 2022 at 11:00', amount: '- $228,00', avatar: arJakirAlpAvatar }
                 ].map((transfer, index) => (
                   <div key={index} className={`flex items-center justify-between py-3 border-b ${isDarkMode ? 'border-[#282541]' : 'border-neutral-100'} last:border-b-0`}>
-                    <div className="flex items-center gap-3">
-                      <img alt={transfer.name} className="w-8 h-8 rounded-full" src={transfer.avatar} />
-                      <div>
-                        <div className={`font-['Kumbh_Sans'] font-semibold text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                    <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                      <img alt={transfer.name} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex-shrink-0" src={transfer.avatar} />
+                      <div className="min-w-0 flex-1">
+                        <div className={`font-['Kumbh_Sans'] font-semibold text-xs sm:text-[14px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'} truncate`}>
                           {transfer.name}
                         </div>
-                        <div className="font-['Kumbh_Sans'] font-medium text-[12px] text-[#929eae]">
+                        <div className="font-['Kumbh_Sans'] font-medium text-[10px] sm:text-[12px] text-[#929eae] truncate">
                           {transfer.date}
                         </div>
                       </div>
                     </div>
-                    <div className={`font-['Kumbh_Sans'] font-semibold text-[16px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
+                    <div className={`font-['Kumbh_Sans'] font-semibold text-sm sm:text-[16px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'} flex-shrink-0 ml-2`}>
                       {transfer.amount}
-                      </div>
                     </div>
-                  ))}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
