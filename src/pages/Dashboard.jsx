@@ -372,7 +372,7 @@ const WalletCards = () => {
       </div>
       
       {/* Transparent overlay card (second card) */}
-      <div className="absolute z-[2] overflow-hidden top-[130px] sm:top-[140px] left-4 sm:left-5 right-4 sm:right-auto">
+      <div className="absolute z-[2] overflow-hidden top-[150px] sm:top-[100px] left-4 sm:left-5 right-4 sm:right-auto">
         <div className="w-full sm:w-80 h-36 sm:h-44 relative max-w-[320px] sm:max-w-none">
           <div className="w-full h-full left-0 top-0 absolute opacity-10 bg-gradient-to-b from-neutral-400 to-lime-900 rounded-2xl" />
           <div className="w-full h-full left-0 top-0 absolute bg-gradient-to-b from-white/40 to-white/10 rounded-2xl border-[0.50px] border-white/40 backdrop-blur-[5px]" />
@@ -1000,7 +1000,7 @@ const Dashboard = () => {
           </div>
           
           {/* Right Column - Wallet and Scheduled Transfers */}
-          <div className={`w-full xl:w-[354px] space-y-6 lg:space-y-[30px] xl:-mt-[120px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-4 sm:p-6' : ''} rounded-lg`}>
+          <div><div className={`w-full xl:w-[354px] space-y-6 lg:space-y-[30px] xl:-mt-[120px] ${isDarkMode ? 'bg-[#1c1a2e]' : 'bg-transparent'} ${isDarkMode ? 'p-4 sm:p-6' : ''} rounded-lg`}>
             {/* Wallet Cards */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -1011,15 +1011,17 @@ const Dashboard = () => {
                   <img src={historyIcon} alt="history Icon" className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </div>
-               
+              </div>
               {/* WalletCards Component */}
               <div className="flex justify-center xl:justify-start">
                 <WalletCards />
               </div>
             </div>
 
+            
+           
             {/* Scheduled Transfers */}
-            <div className="mt-12 xl:mt-24">
+            <div className="mt-20 xl:mt-24">
               <div className="flex items-center justify-between mb-4 sm:mb-6 xl:mt-[150px]">
                 <h3 className={`font-['Kumbh_Sans'] font-semibold text-base sm:text-[18px] ${isDarkMode ? 'text-white' : 'text-[#1b212d]'}`}>
                   Scheduled Transfers
@@ -1028,7 +1030,7 @@ const Dashboard = () => {
                   <span className="font-['Kumbh_Sans'] font-semibold text-xs sm:text-[14px]">View All</span>
                 </button>
               </div>
-
+              
               <div className="space-y-3 sm:space-y-4">
                 {[
                   { name: 'Saleh Ahmed', date: 'April 28, 2022 at 11:00', amount: '- $435,00', avatar: salehAhmedAvatar },
