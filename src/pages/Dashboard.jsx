@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useDarkMode } from '../hooks/useDarkMode'
 import DarkModeToggle from '../components/DarkModeToggle'
+import SessionStatusIndicator from '../components/ui/SessionStatusIndicator'
+import SessionWarningModal from '../components/ui/SessionWarningModal'
 import { getNavigationWithActiveState } from '../config/navigation'
 import { Card } from '@mui/material'
 import {
@@ -522,6 +524,10 @@ const Dashboard = () => {
         transition: 'opacity 0.3s ease-in-out, transform 0.3s ease-in-out'
       }}
     >
+      {/* Session Management Components */}
+      <SessionStatusIndicator />
+      <SessionWarningModal />
+      
       {/* Immediate background coverage - covers entire viewport and beyond */}
       <div 
         className="fixed inset-0 pointer-events-none -z-10"

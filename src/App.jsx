@@ -14,16 +14,44 @@ import Transactions from './pages/Transactions'
 import MyWallets from './pages/MyWallets'
 import Dashboard from './pages/Dashboard'
 
-// Protected Route Component
 const ProtectedRoute = ({ children }) => {
-  const { currentUser } = useAuth()
-  return currentUser ? children : <Navigate to="/signin" />
+  const { currentUser, sessionExpired, loading } = useAuth()
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    )
+  }
+  
+  if (!currentUser || sessionExpired) {
+    return <Navigate to="/signin" replace />
+  }
+  
+  return children
 }
 
-// Public Route Component (redirect to dashboard if already logged in)
 const PublicRoute = ({ children }) => {
-  const { currentUser } = useAuth()
-  return !currentUser ? children : <Navigate to="/dashboard" />
+  const { currentUser, sessionExpired, loading } = useAuth()
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    )
+  }
+  
+  if (currentUser && !sessionExpired) {
+    return <Navigate to="/dashboard" replace />
+  }
+  
+  if (sessionExpired) {
+    return children
+  }
+  
+  return children
 }
 
 function App() {
